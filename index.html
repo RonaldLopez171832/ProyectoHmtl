@@ -13,12 +13,12 @@
 
   <meta
     name="description"
-    content="Conoce FuXion con Ronald Lopez FX: nutrición funcional, alimentos nutracéuticos, bienestar diario, liderazgo y oportunidad de emprendimiento en Bolivia y Latinoamérica."
+    content="Conoce FuXion con Ronald Lopez FX: nutrición funcional, alimentos nutracéuticos, bienestar diario, liderazgo y oportunidad de emprendimiento, venta de productos, comisiones y formación de equipo en Bolivia y Latinoamérica."
   />
 
   <meta
     name="keywords"
-    content="Ronald Lopez FX, FuXion, FuXion Bolivia, nutrición funcional, alimentos nutracéuticos, productos FuXion, emprendimiento FuXion, bienestar diario, ingresos adicionales, liderazgo, negocio FuXion"
+    content="Ronald Lopez FX, FuXion, FuXion Bolivia, nutrición funcional, alimentos nutracéuticos, productos FuXion, emprendimiento FuXion, bienestar diario, ingresos adicionales, comisiones FuXion, armar equipo FuXion, liderazgo, negocio FuXion"
   />
 
   <meta name="author" content="Ronald Lopez FX" />
@@ -671,6 +671,61 @@
     transform: translateY(-2px);
   }
 
+  .two-way-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .compact-list {
+    margin-top: 8px;
+  }
+
+  .btn-money-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: auto;
+    padding: 14px 22px;
+    border-radius: 50px;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.22s;
+  }
+
+  .btn-money-action:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-register-fx {
+    background: var(--blue);
+    color: var(--white);
+    box-shadow: 0 8px 28px rgba(18,154,232,0.35);
+    margin-top: 24px;
+  }
+
+  .btn-register-fx:hover {
+    background: var(--light-blue);
+    box-shadow: 0 12px 36px rgba(18,154,232,0.45);
+  }
+
+  .btn-team-wa {
+    background: #25D366;
+    color: var(--white);
+    box-shadow: 0 8px 28px rgba(37,211,102,0.35);
+    margin-top: 24px;
+  }
+
+  .btn-team-wa:hover {
+    background: #1fba58;
+    box-shadow: 0 12px 36px rgba(37,211,102,0.45);
+  }
+
   /* ── PAÍSES ── */
   .countries-bg { background: var(--sky); }
 
@@ -1187,6 +1242,62 @@
     margin-top: 3px;
   }
 
+  .hero-main-profile {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 18px;
+    padding: 24px 22px;
+    border-radius: 24px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .hero-main-profile img {
+    width: 190px;
+    height: 190px;
+    border-radius: 24px;
+    object-fit: cover;
+    box-shadow: 0 18px 40px rgba(18,154,232,0.25);
+  }
+
+  .hero-main-profile strong {
+    font-size: 1.25rem;
+  }
+
+  .hero-main-profile span {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .hero-copy p,
+  .section-sub,
+  .what-text p,
+  .highlight-box p,
+  .image-card .caption,
+  .process-card p,
+  .why-card p,
+  .product-card-body p,
+  .money-card p,
+  .personal-cta-card span,
+  .pro-header-text p,
+  .pro-box p,
+  .req-option span,
+  .benefit-item span,
+  .plus-section p,
+  .plus-section li,
+  .mindset-box p,
+  .note-box,
+  .disclaimer-small,
+  .disclaimer-footer p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
   .hero-floating-card {
     position: absolute;
     right: -14px;
@@ -1359,6 +1470,7 @@
     .summary-card { padding: 24px 20px; }
     .hero-product-img { min-height: 260px; max-height: 310px; }
     .profile-card { position: static; margin-bottom: 14px; max-width: 100%; }
+    .hero-main-profile img { width: 160px; height: 160px; }
     .hero-floating-card { position: static; margin-top: 14px; max-width: 100%; }
     .personal-cta-card { grid-template-columns: 1fr; text-align: center; }
     .personal-cta-card img { margin: 0 auto; }
@@ -1414,7 +1526,7 @@
       </div>
 
       <div class="hero-visual fade-up fade-up-3">
-        <div class="profile-card">
+        <div class="profile-card hero-main-profile">
           <img src="https://ronald-lopez.com/_assets/media/0601ab683d4d17883a9d0d429a89d83c.png" alt="Foto de Ronald López FX" loading="eager" fetchpriority="high">
           <div>
             <strong>Ronald López FX</strong>
@@ -1448,6 +1560,80 @@
       </div>
     </div>
   </section>
+
+  <!-- LOS 2 CAMINOS -->
+  <div class="section-full money-bg">
+    <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
+      <span class="section-tag" style="background:rgba(18,154,232,0.2);color:var(--light-blue);">Oportunidad de negocio</span>
+      <h2 class="section-title money-title">2 caminos para aprender a ganar<br>dinero con FuXion</h2>
+      <p class="section-sub money-sub">Puedes empezar vendiendo productos y comisionando, o ir por el camino de formar equipo. Lo potente es que ambos caminos pueden crecer juntos: primero aprendes, luego duplicas.</p>
+    </div>
+
+    <div class="money-paths two-ways-paths">
+      <!-- CAMINO 1 -->
+      <div class="money-card two-way-card">
+        <div class="money-card-num">Camino 01</div>
+        <h3>💰 Vender productos y comisionar</h3>
+        <p>Este camino es ideal para empezar rápido: te registras, aprendes a presentar los productos FuXion, recomiendas según la necesidad del cliente y ganas comisión por tus ventas.</p>
+
+        <ul class="team-list compact-list">
+          <li>Te registras como emprendedor FuXion</li>
+          <li>Aprendes a recomendar productos de forma simple</li>
+          <li>Vendes a clientes reales y das seguimiento</li>
+          <li>Comisionas según tu volumen de ventas</li>
+        </ul>
+
+        <p style="color:rgba(255,255,255,0.62);font-size:0.8rem;margin:18px 0 12px;">Comisiones referenciales por volumen personal en 4 semanas (PV4):</p>
+        <table class="commission-table">
+          <thead>
+            <tr>
+              <th>Volumen (PV4)</th>
+              <th>Comisión</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>60 PV4</td><td class="pct">20%</td></tr>
+            <tr><td>100 PV4</td><td class="pct">25%</td></tr>
+            <tr><td>300 PV4</td><td class="pct">30%</td></tr>
+            <tr><td>500 PV4</td><td class="pct">40%</td></tr>
+            <tr><td>800 PV4</td><td class="pct">50%</td></tr>
+          </tbody>
+        </table>
+
+        <a class="btn-money-action btn-register-fx" href="https://ifuxion.com/ronaldlopez/enrollment/enrollmentconfiguration?CustomerTypeID=1" target="_blank" rel="noopener">
+          Registrarme para vender →
+        </a>
+      </div>
+
+      <!-- CAMINO 2 -->
+      <div class="money-card two-way-card">
+        <div class="money-card-num">Camino 02</div>
+        <h3>👥 Armar equipo y duplicar</h3>
+        <p>Este camino es para quien quiere crecer más allá de sus ventas personales. Aquí no solo vendes: aprendes a invitar, enseñar, acompañar y formar personas que también puedan vender y desarrollar su negocio.</p>
+
+        <ul class="team-list compact-list">
+          <li>Invitas personas con mentalidad emprendedora</li>
+          <li>Les enseñas cómo conseguir clientes y vender</li>
+          <li>Duplicas un sistema simple, paso a paso</li>
+          <li>Formas líderes que también formen líderes</li>
+          <li>Creces con acompañamiento y seguimiento constante</li>
+        </ul>
+
+        <div class="personal-cta-card">
+          <img src="https://ronald-lopez.com/_assets/media/0601ab683d4d17883a9d0d429a89d83c.png" alt="Ronald López FX" loading="lazy">
+          <div>
+            <strong>Acompañamiento con Ronald</strong>
+            <span>Si quieres armar equipo, lo importante no es correr como loco: es aprender el sistema, hacerlo simple y duplicarlo con gente comprometida.</span>
+          </div>
+        </div>
+
+        <a class="btn-money-action btn-team-wa" href="https://wa.me/59177302270?text=Hola%20Ronald%2C%20quiero%20aprender%20a%20armar%20equipo%20con%20FuXion" target="_blank" rel="noopener">
+          Quiero armar equipo por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
 
   <!-- QUÉ ES FuXion -->
   <div class="section">
@@ -1619,63 +1805,6 @@
       </div>
       <div class="disclaimer-small">
         ⚠️ <strong>Importante:</strong> Siempre revisa la etiqueta oficial del producto, especialmente si tienes alergias, celiaquía, estás embarazada, en período de lactancia o tienes alguna condición médica. Los productos FuXion son alimentos nutracéuticos y no reemplazan una dieta equilibrada ni tratamiento médico.
-      </div>
-    </div>
-  </div>
-
-  <!-- LOS 2 CAMINOS -->
-  <div class="section-full money-bg">
-    <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
-      <span class="section-tag" style="background:rgba(18,154,232,0.2);color:var(--light-blue);">Oportunidad de negocio</span>
-      <h2 class="section-title money-title">Los 2 caminos para ganar<br>dinero con FuXion</h2>
-      <p class="section-sub money-sub">Dos formas complementarias de construir ingresos reales. Tú decides cómo empezar y hasta dónde llegar.</p>
-    </div>
-    <div class="money-paths">
-      <!-- CAMINO 1 -->
-      <div class="money-card">
-        <div class="money-card-num">Camino 01</div>
-        <h3>💰 Comisión por productos</h3>
-        <p>Genera ingresos vendiendo productos FuXion directamente a clientes. Creas relaciones, das seguimiento y construyes una base de clientes fidelizada que recompra.</p>
-        <p style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin-bottom:12px;">Comisiones referenciales por volumen personal en 4 semanas (PV4):</p>
-        <table class="commission-table">
-          <thead>
-            <tr>
-              <th>Volumen (PV4)</th>
-              <th>Comisión</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>60 PV4</td><td class="pct">20%</td></tr>
-            <tr><td>100 PV4</td><td class="pct">25%</td></tr>
-            <tr><td>300 PV4</td><td class="pct">30%</td></tr>
-            <tr><td>500 PV4</td><td class="pct">40%</td></tr>
-            <tr><td>800 PV4</td><td class="pct">50%</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- CAMINO 2 -->
-      <div class="money-card">
-        <div class="money-card-num">Camino 02</div>
-        <h3>👥 Arma tu equipo</h3>
-        <p>El segundo camino es formar una red de emprendedores. No solo vendes tú: enseñas a otros a vender y construyen juntos.</p>
-        <ul class="team-list">
-          <li>Patrocinar nuevos socios en el negocio</li>
-          <li>Enseñarles a vender productos y conseguir clientes</li>
-          <li>Duplicar el sistema en cada integrante</li>
-          <li>Formar líderes que también formen líderes</li>
-          <li>Crecer con acompañamiento y seguimiento constante</li>
-          <li>Escalar a través de los niveles PRO 1, PRO 2 y PRO 3</li>
-        </ul>
-        <div class="personal-cta-card">
-          <img src="https://ronald-lopez.com/_assets/media/0601ab683d4d17883a9d0d429a89d83c.png" alt="Ronald López FX" loading="lazy">
-          <div>
-            <strong>Acompañamiento con Ronald</strong>
-            <span>La idea no es dejarte solo con un producto. Es ayudarte a entender cómo vender, recontactar, duplicar y construir equipo con método.</span>
-          </div>
-        </div>
-        <button class="btn-see-pro" onclick="showScreen('pro')">
-          Ver PRO 1, PRO 2 y PRO 3 →
-        </button>
       </div>
     </div>
   </div>
