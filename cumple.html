@@ -286,79 +286,79 @@
   <footer>Invitación móvil · Lucas & Abril · Mis 5 años</footer>
 
   <script>
-    const WHATSAPP_NUMBER = "59177302270";
+  const WHATSAPP_NUMBER = "59177302270";
+  const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzEfvwJp1OAH4dQ8hiWukDC3DllmCjSm-dFyUAijLN64GKW_ae3qrZpBQ-q4vHUm3eeNQ/exec";
 
-    // PEGA AQUÍ la URL de tu Google Apps Script Web App
-    // Ejemplo: https://script.google.com/macros/s/AKfycbxxxx/exec
-    const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzEfvwJp1OAH4dQ8hiWukDC3DllmCjSm-dFyUAijLN64GKW_ae3qrZpBQ-q4vHUm3eeNQ/exec";
-    const EVENTO = {
-      nombres: "Lucas y Abril",
-      fecha: "Domingo 2 de agosto",
-      hora: "03:00 PM",
-      lugar: "Club House 1 del condominio Santa Cruz de la Colina"
+  const EVENTO = {
+    nombres: "Lucas y Abril",
+    fecha: "Domingo 2 de agosto",
+    hora: "03:00 PM",
+    lugar: "Club House 1 del condominio Santa Cruz de la Colina"
+  };
+
+  const form = document.getElementById("rsvpForm");
+  const confirmBox = document.getElementById("confirmBox");
+  const btnWhatsapp = document.getElementById("btnWhatsapp");
+
+  function markError(id, state) {
+    document.getElementById(id).classList.toggle("bad", state);
+  }
+
+  function validNumber(value) {
+    return value !== "" && !Number.isNaN(Number(value)) && Number(value) >= 0;
+  }
+
+  async function guardarEnGoogleSheets(data) {
+    await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(data)
+    });
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const asistenciaInput = form.querySelector('input[name="asistencia"]:checked');
+    const asistencia = asistenciaInput ? asistenciaInput.value : "";
+    const mayores = document.getElementById("mayores").value.trim();
+    const ninos = document.getElementById("ninos").value.trim();
+    const mensaje = document.getElementById("mensaje").value.trim();
+
+    let ok = true;
+
+    if (nombre === "") { markError("fieldNombre", true); ok = false; } 
+    else { markError("fieldNombre", false); }
+
+    if (asistencia === "") { markError("fieldAsistencia", true); ok = false; } 
+    else { markError("fieldAsistencia", false); }
+
+    if (!validNumber(mayores)) { markError("fieldMayores", true); ok = false; } 
+    else { markError("fieldMayores", false); }
+
+    if (!validNumber(ninos)) { markError("fieldNinos", true); ok = false; } 
+    else { markError("fieldNinos", false); }
+
+    if (!ok) return;
+
+    const registro = {
+      fechaRegistro: new Date().toISOString(),
+      nombre: nombre,
+      asistencia: asistencia,
+      personasMayores: mayores,
+      ninos: ninos,
+      mensaje: mensaje || "—",
+      evento: EVENTO.nombres,
+      fechaEvento: EVENTO.fecha,
+      horaEvento: EVENTO.hora,
+      lugar: EVENTO.lugar,
+      dispositivo: navigator.userAgent
     };
 
-    const form = document.getElementById('rsvpForm');
-    const confirmBox = document.getElementById('confirmBox');
-    const btnWhatsapp = document.getElementById('btnWhatsapp');
+    await guardarEnGoogleSheets(registro);
 
-    function markError(id, state){
-      document.getElementById(id).classList.toggle('bad', state);
-    }
-    function validNumber(value){
-      return value !== '' && !Number.isNaN(Number(value)) && Number(value) >= 0;
-    }
-    function confetti(){
-      const colors = ['#3dc8ff','#0a67ff','#ffd54f','#ff2aa6','#7a35ff','#ffffff'];
-      for(let i=0; i<55; i++){
-        const piece = document.createElement('span');
-        piece.className = 'confetti';
-        piece.style.left = Math.random()*100 + 'vw';
-        piece.style.background = colors[Math.floor(Math.random()*colors.length)];
-        piece.style.animationDuration = (2.2 + Math.random()*2.4) + 's';
-        document.body.appendChild(piece);
-        setTimeout(() => piece.remove(), 5000);
-      }
-    }
-
-
-    async function guardarEnGoogleSheets(data){
-      // Si aún no pegaste la URL del Apps Script, no rompe la página.
-      if(!GOOGLE_SHEETS_WEB_APP_URL || GOOGLE_SHEETS_WEB_APP_URL.includes("PEGA_AQUI")){
-        console.warn("Falta configurar GOOGLE_SHEETS_WEB_APP_URL");
-        return;
-      }
-
-      try{
-        // mode:no-cors evita problemas de CORS con Google Apps Script.
-        // El registro se guarda y la página continúa normal hacia WhatsApp.
-        await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(data)
-        });
-      }catch(error){
-        console.error("No se pudo guardar en Google Sheets:", error);
-      }
-    }
-
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      const nombre = document.getElementById('nombre').value.trim();
-      const asistenciaInput = form.querySelector('input[name="asistencia"]:checked');
-      const asistencia = asistenciaInput ? asistenciaInput.value : '';
-      const mayores = document.getElementById('mayores').value.trim();
-      const ninos = document.getElementById('ninos').value.trim();
-      const mensaje = document.getElementById('mensaje').value.trim();
-      let ok = true;
-
-      if(nombre === ''){ markError('fieldNombre', true); ok = false; } else { markError('fieldNombre', false); }
-      if(asistencia === ''){ markError('fieldAsistencia', true); ok = false; } else { markError('fieldAsistencia', false); }
-      if(!validNumber(mayores)){ markError('fieldMayores', true); ok = false; } else { markError('fieldMayores', false); }
-      if(!validNumber(ninos)){ markError('fieldNinos', true); ok = false; } else { markError('fieldNinos', false); }
-      if(!ok) return;
-
-      const texto = `Hola, confirmo asistencia al cumpleaños de ${EVENTO.nombres}.
+    const texto = `Hola, confirmo asistencia al cumpleaños de ${EVENTO.nombres}.
 
 Fecha: ${EVENTO.fecha}
 Hora: ${EVENTO.hora}
@@ -368,31 +368,21 @@ Nombre: ${nombre}
 Asistencia: ${asistencia}
 Personas mayores: ${mayores}
 Niños: ${ninos}
-Mensaje: ${mensaje || '—'}`;
-      const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
+Mensaje: ${mensaje || "—"}`;
 
-      const registro = {
-        fechaRegistro: new Date().toISOString(),
-        nombre: nombre,
-        asistencia: asistencia,
-        personasMayores: mayores,
-        ninos: ninos,
-        mensaje: mensaje || "—",
-        evento: EVENTO.nombres,
-        fechaEvento: EVENTO.fecha,
-        horaEvento: EVENTO.hora,
-        lugar: EVENTO.lugar,
-        dispositivo: navigator.userAgent
-      };
+    const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
 
-      guardarEnGoogleSheets(registro);
+    btnWhatsapp.onclick = function () {
+      window.open(link, "_blank");
+    };
 
-      btnWhatsapp.onclick = function(){ window.open(link, '_blank'); };
-      form.style.display = 'none';
-      confirmBox.classList.add('show');
-      confirmBox.scrollIntoView({behavior:'smooth', block:'center'});
-      confetti();
-    });
-  </script>
+    form.style.display = "none";
+    confirmBox.classList.add("show");
+    confirmBox.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+</script>
+
+
+
 </body>
 </html>
