@@ -10,35 +10,41 @@
 
   <meta
     name="description"
-    content="Calculadora de inversión, cajas, puntos y ganancias."
+    content="Calculadora de inversión, productos, puntos y ganancias."
   >
 
-  <title>Calculadora de Inversión y Ganancias</title>
+  <title>Calculadora de inversión y ganancias</title>
 
   <style>
     :root {
-      --azul-principal: #0B275D;
-      --azul-secundario: #164A94;
+      --principal: #0B275D;
+      --principal-oscuro: #061A42;
+      --secundario: #174A91;
       --azul-claro: #2EA8FF;
       --azul-suave: #EAF3FF;
 
-      --verde: #18A66A;
-      --verde-oscuro: #087A4B;
-      --verde-suave: #E8F8F1;
+      --verde: #139B68;
+      --verde-oscuro: #08734C;
+      --verde-suave: #E7F8F0;
 
-      --amarillo: #F6C453;
+      --amarillo: #F4C451;
+      --amarillo-suave: #FFF8E5;
+
+      --rojo: #C0392B;
+      --rojo-suave: #FDEDEC;
+
       --fondo: #F4F7FB;
       --blanco: #FFFFFF;
 
-      --texto: #13233A;
-      --texto-suave: #66758A;
+      --texto: #14233B;
+      --gris: #68788D;
       --borde: #DCE5F0;
 
       --sombra:
-        0 18px 45px rgba(11, 39, 93, 0.12);
+        0 16px 42px rgba(11, 39, 93, 0.11);
 
       --sombra-suave:
-        0 10px 28px rgba(11, 39, 93, 0.08);
+        0 8px 24px rgba(11, 39, 93, 0.07);
     }
 
     * {
@@ -55,56 +61,54 @@
       min-height: 100vh;
       color: var(--texto);
       background: var(--fondo);
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    button,
     input,
-    select {
+    select,
+    button {
       font: inherit;
     }
 
-    /*
-      PORTADA
-    */
+    /* =========================
+       PORTADA
+    ========================= */
 
     .hero {
       position: relative;
       overflow: hidden;
       color: var(--blanco);
+
       background:
         radial-gradient(
-          circle at 15% 20%,
+          circle at 14% 18%,
           rgba(46, 168, 255, 0.28),
           transparent 34%
         ),
         linear-gradient(
           135deg,
-          #071C46 0%,
-          var(--azul-principal) 45%,
-          #123B7E 100%
+          var(--principal-oscuro),
+          var(--principal),
+          #123E81
         );
     }
 
     .hero::before {
       content: "";
       position: absolute;
-      top: -180px;
-      right: -180px;
-      width: 470px;
-      height: 470px;
-      border-radius: 50%;
+      top: -190px;
+      right: -170px;
+      width: 480px;
+      height: 480px;
       border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
     }
 
     .hero::after {
       content: "";
       position: absolute;
       bottom: -260px;
-      left: -160px;
+      left: -170px;
       width: 520px;
       height: 520px;
       border-radius: 50%;
@@ -114,28 +118,34 @@
     .hero-contenido {
       position: relative;
       z-index: 2;
+
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
       align-items: center;
       gap: 45px;
+
       width: min(1180px, 92%);
-      min-height: 560px;
+      min-height: 540px;
       margin: auto;
-      padding: 55px 0;
+      padding: 48px 0 95px;
     }
 
     .marca {
       display: inline-flex;
       align-items: center;
       gap: 9px;
-      margin-bottom: 22px;
+
+      margin-bottom: 21px;
       padding: 9px 15px;
+
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 999px;
+
       background: rgba(255, 255, 255, 0.08);
+
       font-size: 13px;
       font-weight: 800;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
     }
 
@@ -143,155 +153,178 @@
       width: 9px;
       height: 9px;
       border-radius: 50%;
+
       background: var(--azul-claro);
+
       box-shadow:
-        0 0 0 6px rgba(46, 168, 255, 0.16);
+        0 0 0 6px rgba(46, 168, 255, 0.15);
     }
 
     .hero h1 {
-      max-width: 720px;
-      margin-bottom: 20px;
-      font-size: clamp(38px, 6vw, 68px);
-      line-height: 1.02;
+      max-width: 700px;
+      margin-bottom: 19px;
+
+      font-size: clamp(39px, 6vw, 67px);
+      line-height: 1.03;
       letter-spacing: -2px;
     }
 
     .hero h1 span {
-      color: #62C4FF;
+      color: #64C7FF;
     }
 
     .hero-texto {
-      max-width: 650px;
-      margin-bottom: 28px;
+      max-width: 660px;
+      margin-bottom: 25px;
+
       color: rgba(255, 255, 255, 0.84);
+
       font-size: clamp(16px, 2vw, 19px);
       line-height: 1.65;
     }
 
-    .hero-beneficios {
+    .beneficios {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 11px;
     }
 
-    .hero-beneficio {
+    .beneficio {
       padding: 10px 14px;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.10);
       font-size: 14px;
-      font-weight: 700;
+      font-weight: bold;
     }
 
-    /*
-      FOTO
-    */
+    /* =========================
+       FOTO
+    ========================= */
 
     .foto-contenedor {
       position: relative;
-      width: min(100%, 430px);
+      width: min(100%, 420px);
       margin-left: auto;
     }
 
     .foto-fondo {
       position: absolute;
-      inset: 30px -20px -20px 25px;
-      border-radius: 30px;
+      inset: 28px -19px -18px 25px;
+
+      border-radius: 29px;
+
       background:
         linear-gradient(
           145deg,
           var(--azul-claro),
-          var(--azul-secundario)
+          var(--secundario)
         );
+
       transform: rotate(4deg);
     }
 
     .foto-tarjeta {
       position: relative;
       overflow: hidden;
+
       aspect-ratio: 4 / 5;
+
       border: 5px solid rgba(255, 255, 255, 0.12);
-      border-radius: 30px;
-      background: var(--azul-principal);
+      border-radius: 29px;
+
+      background: var(--principal);
+
       box-shadow:
-        0 30px 70px rgba(0, 0, 0, 0.35);
+        0 30px 70px rgba(0, 0, 0, 0.34);
     }
 
     .foto-tarjeta img {
       display: block;
       width: 100%;
       height: 100%;
+
       object-fit: cover;
-      object-position: center center;
+      object-position: center;
     }
 
-    .foto-etiqueta {
+    .foto-mensaje {
       position: absolute;
       right: 18px;
       bottom: 18px;
       left: 18px;
-      padding: 16px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 17px;
-      background: rgba(7, 28, 70, 0.78);
-      backdrop-filter: blur(12px);
+
+      padding: 15px 17px;
+
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+
+      background: rgba(6, 26, 66, 0.78);
+      backdrop-filter: blur(11px);
     }
 
-    .foto-etiqueta strong {
+    .foto-mensaje strong {
       display: block;
       margin-bottom: 4px;
-      font-size: 17px;
+      font-size: 16px;
     }
 
-    .foto-etiqueta span {
+    .foto-mensaje span {
       color: rgba(255, 255, 255, 0.75);
       font-size: 13px;
     }
 
-    /*
-      CONTENIDO
-    */
+    /* =========================
+       CONTENEDOR PRINCIPAL
+    ========================= */
 
     .contenedor {
-      width: min(1180px, 92%);
-      margin: -55px auto 50px;
       position: relative;
       z-index: 5;
+
+      width: min(1180px, 93%);
+      margin: -58px auto 50px;
     }
 
     .panel {
-      padding: 30px;
-      border: 1px solid rgba(220, 229, 240, 0.7);
-      border-radius: 25px;
-      background: rgba(255, 255, 255, 0.97);
+      padding: 29px;
+
+      border: 1px solid rgba(220, 229, 240, 0.8);
+      border-radius: 24px;
+
+      background: rgba(255, 255, 255, 0.98);
+
       box-shadow: var(--sombra);
     }
 
-    .panel-cabecera {
-      margin-bottom: 24px;
-    }
-
-    .panel-cabecera h2 {
+    .panel h2 {
       margin-bottom: 7px;
-      color: var(--azul-principal);
-      font-size: clamp(24px, 4vw, 32px);
+      color: var(--principal);
+      font-size: clamp(25px, 4vw, 32px);
     }
 
-    .panel-cabecera p {
-      color: var(--texto-suave);
+    .panel-descripcion {
+      margin-bottom: 24px;
+      color: var(--gris);
       line-height: 1.55;
     }
+
+    /* =========================
+       CAMPOS
+    ========================= */
 
     .entradas {
       display: grid;
       grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-      gap: 20px;
+        repeat(4, minmax(0, 1fr));
+      gap: 18px;
     }
 
     .campo label {
       display: block;
       margin-bottom: 9px;
-      color: var(--azul-principal);
+
+      color: var(--principal);
+
       font-size: 14px;
       font-weight: 800;
     }
@@ -300,12 +333,18 @@
     input {
       width: 100%;
       min-height: 56px;
-      padding: 15px 17px;
+      padding: 14px 16px;
+
       border: 2px solid var(--borde);
-      border-radius: 14px;
+      border-radius: 13px;
+
       outline: none;
+
       color: var(--texto);
       background: var(--blanco);
+
+      font-weight: bold;
+
       transition:
         border-color 0.2s,
         box-shadow 0.2s;
@@ -314,8 +353,9 @@
     select:focus,
     input:focus {
       border-color: var(--azul-claro);
+
       box-shadow:
-        0 0 0 4px rgba(46, 168, 255, 0.14);
+        0 0 0 4px rgba(46, 168, 255, 0.13);
     }
 
     .campo-dinero {
@@ -325,68 +365,101 @@
     .campo-dinero span {
       position: absolute;
       top: 50%;
-      left: 17px;
-      color: var(--azul-principal);
+      left: 16px;
+
+      color: var(--principal);
+
       font-weight: 900;
+
       transform: translateY(-50%);
     }
 
     .campo-dinero input {
-      padding-left: 54px;
-      font-size: 19px;
-      font-weight: 800;
+      padding-left: 53px;
+      font-size: 18px;
     }
 
     .regla {
-      margin-top: 22px;
+      margin-top: 21px;
       padding: 17px 19px;
+
       border-left: 5px solid var(--azul-claro);
       border-radius: 12px;
+
       color: #34455D;
       background: var(--azul-suave);
-      line-height: 1.6;
+
+      line-height: 1.65;
     }
 
-    /*
-      RESULTADOS GRANDES
-    */
+    .mensaje-resultado {
+      display: none;
 
-    .principales {
+      margin-top: 15px;
+      padding: 15px 18px;
+
+      border-left: 5px solid var(--amarillo);
+      border-radius: 11px;
+
+      background: var(--amarillo-suave);
+
+      line-height: 1.55;
+    }
+
+    .mensaje-resultado.visible {
+      display: block;
+    }
+
+    /* =========================
+       RESULTADOS PRINCIPALES
+    ========================= */
+
+    .resultados {
       display: grid;
       grid-template-columns:
         repeat(3, minmax(0, 1fr));
       gap: 18px;
-      margin-top: 25px;
+
+      margin-top: 24px;
     }
 
-    .principal {
+    .resultado {
       position: relative;
       overflow: hidden;
-      min-height: 185px;
-      padding: 25px;
-      border-radius: 22px;
+
+      min-height: 180px;
+      padding: 24px;
+
+      border-radius: 21px;
+
       color: var(--blanco);
+
       background:
         linear-gradient(
           145deg,
-          var(--azul-principal),
-          var(--azul-secundario)
+          var(--principal),
+          var(--secundario)
         );
+
       box-shadow: var(--sombra-suave);
     }
 
-    .principal::after {
+    .resultado::after {
       content: "";
+
       position: absolute;
-      right: -55px;
-      bottom: -65px;
-      width: 170px;
-      height: 170px;
+      right: -60px;
+      bottom: -70px;
+
+      width: 180px;
+      height: 180px;
+
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
+
+      background: rgba(255, 255, 255, 0.07);
     }
 
-    .principal.verde {
+    .resultado.verde {
       background:
         linear-gradient(
           145deg,
@@ -395,111 +468,77 @@
         );
     }
 
-    .principal.claro {
-      color: var(--azul-principal);
-      border: 1px solid #CFE5FF;
+    .resultado.claro {
+      color: var(--principal);
+
+      border: 1px solid #CFE2F8;
+
       background:
         linear-gradient(
           145deg,
-          #FFFFFF,
-          #EAF3FF
+          var(--blanco),
+          var(--azul-suave)
         );
     }
 
-    .principal span,
-    .principal strong,
-    .principal small {
+    .resultado span,
+    .resultado strong,
+    .resultado small {
       position: relative;
       z-index: 2;
     }
 
-    .principal span {
+    .resultado span {
       display: block;
-      margin-bottom: 14px;
+      margin-bottom: 13px;
+
       font-size: 14px;
-      font-weight: 700;
+      font-weight: bold;
+
       opacity: 0.9;
     }
 
-    .principal strong {
+    .resultado strong {
       display: block;
-      font-size: clamp(31px, 4vw, 46px);
+
+      font-size: clamp(30px, 4vw, 44px);
       line-height: 1.1;
     }
 
-    .principal small {
+    .resultado small {
       display: block;
-      margin-top: 12px;
+      margin-top: 11px;
+
       line-height: 1.45;
+
       opacity: 0.82;
     }
 
-    /*
-      DETALLES
-    */
+    /* =========================
+       SECCIONES Y TABLAS
+    ========================= */
 
-    .detalles {
-      display: grid;
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
+    .seccion {
+      margin-top: 24px;
+      padding: 24px;
 
-    .detalle {
-      min-height: 120px;
-      padding: 19px;
       border: 1px solid var(--borde);
-      border-radius: 17px;
+      border-radius: 21px;
+
       background: var(--blanco);
+
       box-shadow: var(--sombra-suave);
     }
 
-    .detalle span {
-      display: block;
-      min-height: 34px;
-      margin-bottom: 8px;
-      color: var(--texto-suave);
-      font-size: 13px;
-      line-height: 1.35;
+    .seccion h2 {
+      margin-bottom: 7px;
+      color: var(--principal);
     }
 
-    .detalle strong {
-      color: var(--azul-principal);
-      font-size: 22px;
-    }
-
-    .detalle.premio {
-      border-color: #BCEAD7;
-      background: var(--verde-suave);
-    }
-
-    .detalle.premio strong {
-      color: var(--verde-oscuro);
-    }
-
-    /*
-      TABLA
-    */
-
-    .tabla-seccion {
-      margin-top: 25px;
-      padding: 25px;
-      border: 1px solid var(--borde);
-      border-radius: 22px;
-      background: var(--blanco);
-      box-shadow: var(--sombra-suave);
-    }
-
-    .tabla-seccion h2 {
-      margin-bottom: 8px;
-      color: var(--azul-principal);
-    }
-
-    .tabla-seccion > p {
+    .seccion > p {
       margin-bottom: 18px;
-      color: var(--texto-suave);
-      line-height: 1.5;
+      color: var(--gris);
+      line-height: 1.55;
     }
 
     .tabla-contenedor {
@@ -509,21 +548,26 @@
 
     table {
       width: 100%;
-      min-width: 720px;
+      min-width: 760px;
       border-collapse: collapse;
     }
 
     th {
-      padding: 14px 10px;
+      padding: 13px 10px;
+
       color: var(--blanco);
-      background: var(--azul-principal);
+      background: var(--principal);
+
       font-size: 13px;
       text-align: center;
+      white-space: nowrap;
     }
 
     td {
       padding: 13px 10px;
+
       border-bottom: 1px solid var(--borde);
+
       text-align: center;
       font-size: 14px;
     }
@@ -532,67 +576,112 @@
       background: #F6FAFF;
     }
 
-    /*
-      NOTA
-    */
+    .fila-premio td {
+      background: var(--verde-suave);
+    }
+
+    .valor-positivo {
+      color: var(--verde-oscuro);
+      font-weight: bold;
+    }
+
+    .valor-negativo {
+      color: var(--rojo);
+      font-weight: bold;
+    }
+
+    /* =========================
+       TABLA DE RESUMEN
+    ========================= */
+
+    .resumen-tabla {
+      min-width: 650px;
+    }
+
+    .resumen-tabla td:first-child {
+      color: var(--gris);
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .resumen-tabla td:last-child {
+      color: var(--principal);
+      text-align: right;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .resumen-tabla tr.total td {
+      padding-top: 17px;
+      padding-bottom: 17px;
+
+      color: var(--verde-oscuro);
+      background: var(--verde-suave);
+
+      font-size: 18px;
+    }
+
+    /* =========================
+       NOTA
+    ========================= */
 
     .nota {
-      margin-top: 25px;
-      padding: 19px;
+      margin-top: 24px;
+      padding: 18px;
+
       border-left: 5px solid var(--amarillo);
-      border-radius: 13px;
-      background: #FFF9E9;
-      color: #4E4A3D;
+      border-radius: 12px;
+
+      color: #4D493D;
+      background: var(--amarillo-suave);
+
       line-height: 1.65;
     }
 
     .oculto {
-      display: none;
+      display: none !important;
     }
 
     footer {
-      padding: 35px 20px;
-      color: var(--texto-suave);
+      padding: 32px 20px;
+      color: var(--gris);
       text-align: center;
     }
 
-    /*
-      TABLET
-    */
+    /* =========================
+       TABLET
+    ========================= */
 
-    @media (max-width: 960px) {
+    @media (max-width: 980px) {
       .hero-contenido {
-        grid-template-columns: 1fr 0.7fr;
+        grid-template-columns: 1fr 0.72fr;
         gap: 30px;
       }
 
-      .entradas,
-      .principales {
+      .entradas {
         grid-template-columns: 1fr 1fr;
       }
 
-      .campo:last-child {
-        grid-column: 1 / -1;
+      .resultados {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .principal:last-child {
+      .resultado:last-child {
         grid-column: 1 / -1;
-      }
-
-      .detalles {
-        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    /*
-      MÓVIL
-    */
+    /* =========================
+       MÓVIL
+    ========================= */
 
     @media (max-width: 680px) {
       .hero-contenido {
         grid-template-columns: 1fr;
+
         min-height: auto;
-        padding: 42px 0 100px;
+        padding: 40px 0 105px;
+
         text-align: center;
       }
 
@@ -605,67 +694,53 @@
         margin-left: auto;
       }
 
-      .hero-beneficios {
+      .beneficios {
         justify-content: center;
       }
 
       .foto-contenedor {
         width: min(86%, 350px);
-        margin: 10px auto 0;
+        margin: 13px auto 0;
       }
 
       .foto-tarjeta {
-        aspect-ratio: 4 / 4.7;
+        aspect-ratio: 4 / 4.8;
       }
 
       .contenedor {
-        width: min(94%, 1180px);
-        margin-top: -62px;
+        width: 94%;
+        margin-top: -60px;
       }
 
       .panel {
-        padding: 21px;
+        padding: 20px;
         border-radius: 20px;
       }
 
       .entradas,
-      .principales,
-      .detalles {
+      .resultados {
         grid-template-columns: 1fr;
       }
 
-      .campo:last-child,
-      .principal:last-child {
+      .resultado:last-child {
         grid-column: auto;
       }
 
-      .principal {
+      .resultado {
         min-height: 150px;
       }
 
-      .detalle {
-        min-height: auto;
-      }
-
-      .detalle span {
-        min-height: auto;
-      }
-
-      .tabla-seccion {
+      .seccion {
         padding: 18px;
       }
 
-      select,
-      input {
+      input,
+      select {
         font-size: 16px;
       }
     }
 
     @media (max-width: 390px) {
-      .hero-contenido {
-        width: 90%;
-      }
-
       .hero h1 {
         font-size: 36px;
       }
@@ -674,11 +749,11 @@
         padding: 17px;
       }
 
-      .principal {
+      .resultado {
         padding: 21px;
       }
 
-      .principal strong {
+      .resultado strong {
         font-size: 31px;
       }
     }
@@ -687,13 +762,15 @@
 
 <body>
 
-  <!-- PORTADA -->
+  <!-- =========================
+       PORTADA
+  ========================== -->
 
   <header class="hero">
 
     <div class="hero-contenido">
 
-      <div class="hero-informacion">
+      <div>
 
         <div class="marca">
           <span class="marca-punto"></span>
@@ -706,23 +783,25 @@
         </h1>
 
         <p class="hero-texto">
-          Define cuánto quieres ganar o cuánto tienes disponible
-          para invertir. La calculadora te mostrará las cajas,
-          puntos, porcentajes y ganancias estimadas.
+          Calcula cuántos productos necesitas, cuánto debes invertir
+          y cuánto podrías ganar mediante afiliación directa o
+          trabajando con clientes.
         </p>
 
-        <div class="hero-beneficios">
-          <span class="hero-beneficio">
+        <div class="beneficios">
+
+          <span class="beneficio">
             Cálculo automático
           </span>
 
-          <span class="hero-beneficio">
-            Adaptado a Bolivia
+          <span class="beneficio">
+            Valores en bolivianos
           </span>
 
-          <span class="hero-beneficio">
+          <span class="beneficio">
             Compatible con celular
           </span>
+
         </div>
 
       </div>
@@ -734,16 +813,20 @@
         <div class="foto-tarjeta">
 
           <img
-            src="https://ronald-lopez.com/_assets/media/0601ab683d4d17883a9d0d429a89d83c.png"
+            src="ronald full calidad.jpeg"
             alt="Foto del emprendedor"
           >
 
-          <div class="foto-etiqueta">
-            <strong>Planifica. Acciona. Crece.</strong>
+          <div class="foto-mensaje">
+
+            <strong>
+              Planifica. Acciona. Crece.
+            </strong>
 
             <span>
               Una meta clara se convierte en una estrategia.
             </span>
+
           </div>
 
         </div>
@@ -754,22 +837,26 @@
 
   </header>
 
-  <!-- CALCULADORA -->
+  <!-- =========================
+       CALCULADORA
+  ========================== -->
 
   <main class="contenedor">
 
     <section class="panel">
 
-      <div class="panel-cabecera">
-        <h2>Calcula tu próxima meta</h2>
+      <h2>
+        Calcula tu próxima meta
+      </h2>
 
-        <p>
-          Selecciona la modalidad y el tipo de cálculo que deseas
-          realizar.
-        </p>
-      </div>
+      <p class="panel-descripcion">
+        Selecciona la modalidad, indica cuánto quieres ganar o cuánto
+        tienes disponible y revisa el detalle completo de las compras.
+      </p>
 
       <div class="entradas">
+
+        <!-- MODALIDAD -->
 
         <div class="campo">
 
@@ -779,18 +866,25 @@
 
           <select
             id="modalidad"
-            onchange="calcular()"
+            onchange="actualizarInterfaz()"
           >
+
+            <option
+              value="clientes"
+              selected
+            >
+              Con clientes
+            </option>
+
             <option value="directa">
               Afiliación directa
             </option>
 
-            <option value="clientes">
-              Con clientes
-            </option>
           </select>
 
         </div>
+
+        <!-- TIPO DE CÁLCULO -->
 
         <div class="campo">
 
@@ -800,8 +894,9 @@
 
           <select
             id="tipoCalculo"
-            onchange="actualizarTipoCalculo()"
+            onchange="actualizarInterfaz()"
           >
+
             <option value="ganancia">
               Cuánto quiero ganar
             </option>
@@ -809,9 +904,12 @@
             <option value="inversion">
               Cuánto tengo para invertir
             </option>
+
           </select>
 
         </div>
+
+        <!-- MONTO -->
 
         <div class="campo">
 
@@ -824,7 +922,9 @@
 
           <div class="campo-dinero">
 
-            <span>Bs</span>
+            <span>
+              Bs
+            </span>
 
             <input
               type="number"
@@ -840,6 +940,30 @@
 
         </div>
 
+        <!-- PRODUCTOS POR COMPRA -->
+
+        <div
+          class="campo"
+          id="campoProductosCompra"
+        >
+
+          <label for="productosCompra">
+            Productos por compra habitual
+          </label>
+
+          <input
+            type="number"
+            id="productosCompra"
+            value="4"
+            min="1"
+            max="100"
+            step="1"
+            inputmode="numeric"
+            oninput="calcular()"
+          >
+
+        </div>
+
       </div>
 
       <div
@@ -847,33 +971,40 @@
         id="reglaModalidad"
       ></div>
 
+      <div
+        class="mensaje-resultado"
+        id="mensajeResultado"
+      ></div>
+
     </section>
 
-    <!-- RESULTADOS PRINCIPALES -->
+    <!-- =========================
+         RESULTADOS GRANDES
+    ========================== -->
 
-    <section class="principales">
+    <section class="resultados">
 
-      <article class="principal">
+      <article class="resultado">
 
-        <span id="tituloCantidad">
-          Cajas necesarias
+        <span id="tituloProductos">
+          Productos pagados
         </span>
 
-        <strong id="cantidadPrincipal">
+        <strong id="productosResultado">
           0
         </strong>
 
-        <small id="detalleCantidad"></small>
+        <small id="detalleProductos"></small>
 
       </article>
 
-      <article class="principal verde">
+      <article class="resultado verde">
 
         <span id="tituloInversion">
           Inversión necesaria
         </span>
 
-        <strong id="inversionPrincipal">
+        <strong id="inversionResultado">
           Bs 0,00
         </strong>
 
@@ -881,13 +1012,13 @@
 
       </article>
 
-      <article class="principal claro">
+      <article class="resultado claro">
 
         <span>
-          Ganancia estimada
+          Ganancia neta estimada
         </span>
 
-        <strong id="gananciaPrincipal">
+        <strong id="gananciaResultado">
           Bs 0,00
         </strong>
 
@@ -897,64 +1028,220 @@
 
     </section>
 
-    <!-- DETALLES -->
+    <!-- =========================
+         RESUMEN GENERAL
+    ========================== -->
 
-    <section class="detalles">
+    <section class="seccion">
 
-      <article class="detalle">
-        <span>Puntos alcanzados</span>
-        <strong id="puntosResultado">0</strong>
-      </article>
+      <h2>
+        Resumen general
+      </h2>
 
-      <article class="detalle">
-        <span>Porcentaje final</span>
-        <strong id="porcentajeResultado">0%</strong>
-      </article>
+      <p>
+        Resultado completo de acuerdo con la modalidad y el monto
+        seleccionado.
+      </p>
 
-      <article class="detalle">
-        <span>Total a precio de cliente</span>
-        <strong id="totalCompraResultado">Bs 0,00</strong>
-      </article>
+      <div class="tabla-contenedor">
 
-      <article class="detalle">
-        <span>Saldo disponible</span>
-        <strong id="saldoResultado">Bs 0,00</strong>
-      </article>
+        <table class="resumen-tabla">
 
-      <article class="detalle premio">
-        <span>Cajas de regalo por clientes</span>
-        <strong id="regalosClientes">0</strong>
-      </article>
+          <tbody>
 
-      <article class="detalle premio">
-        <span>Cajas premio por puntos</span>
-        <strong id="regalosPremio">0</strong>
-      </article>
+            <tr>
+              <td>
+                Modalidad seleccionada
+              </td>
 
-      <article class="detalle premio">
-        <span>Bono adicional en efectivo</span>
-        <strong id="bonoResultado">Bs 0,00</strong>
-      </article>
+              <td id="resumenModalidad">
+                Con clientes
+              </td>
+            </tr>
 
-      <article class="detalle">
-        <span>Total de cajas movilizadas</span>
-        <strong id="totalCajasResultado">0</strong>
-      </article>
+            <tr>
+              <td id="etiquetaResumenCompras">
+                Compras o clientes
+              </td>
+
+              <td id="resumenCompras">
+                0
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Productos pagados
+              </td>
+
+              <td id="resumenProductos">
+                0
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Puntos acumulados
+              </td>
+
+              <td id="resumenPuntos">
+                0 puntos
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Porcentaje final alcanzado
+              </td>
+
+              <td id="resumenPorcentaje">
+                0%
+              </td>
+            </tr>
+
+            <tr>
+              <td id="etiquetaCostoProductos">
+                Monto movilizado en compras
+              </td>
+
+              <td id="resumenCostoProductos">
+                Bs 0,00
+              </td>
+            </tr>
+
+            <tr id="filaKitAfiliacion">
+
+              <td>
+                Kit de afiliación a la empresa
+              </td>
+
+              <td id="resumenKitAfiliacion">
+                Bs 0,00
+              </td>
+
+            </tr>
+
+            <tr>
+              <td>
+                Inversión total utilizada
+              </td>
+
+              <td id="resumenInversionTotal">
+                Bs 0,00
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Valor total a precio de cliente
+              </td>
+
+              <td id="resumenPrecioCliente">
+                Bs 0,00
+              </td>
+            </tr>
+
+            <tr>
+              <td id="etiquetaComisiones">
+                Comisiones acumuladas
+              </td>
+
+              <td id="resumenComisiones">
+                Bs 0,00
+              </td>
+            </tr>
+
+            <tr id="filaRegalosNormales">
+
+              <td>
+                Productos de regalo por promoción 4 + 1
+              </td>
+
+              <td id="resumenRegalosNormales">
+                0
+              </td>
+
+            </tr>
+
+            <tr id="filaRegalosPremio">
+
+              <td>
+                Productos adicionales por 500 y 750 puntos
+              </td>
+
+              <td id="resumenRegalosPremio">
+                0
+              </td>
+
+            </tr>
+
+            <tr id="filaBono">
+
+              <td>
+                Bono adicional en efectivo
+              </td>
+
+              <td id="resumenBono">
+                Bs 0,00
+              </td>
+
+            </tr>
+
+            <tr id="filaValorRegalos">
+
+              <td>
+                Valor total de productos de regalo
+              </td>
+
+              <td id="resumenValorRegalos">
+                Bs 0,00
+              </td>
+
+            </tr>
+
+            <tr>
+              <td>
+                Saldo disponible sin utilizar
+              </td>
+
+              <td id="resumenSaldo">
+                Bs 0,00
+              </td>
+            </tr>
+
+            <tr class="total">
+
+              <td>
+                Ganancia neta estimada
+              </td>
+
+              <td id="resumenGanancia">
+                Bs 0,00
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
 
     </section>
 
-    <!-- TABLA DIRECTA -->
+    <!-- =========================
+         DETALLE DE COMPRAS
+    ========================== -->
 
-    <section
-      class="tabla-seccion"
-      id="tablaDirecta"
-    >
+    <section class="seccion">
 
-      <h2>Escala de afiliación directa</h2>
+      <h2>
+        Detalle de las compras
+      </h2>
 
-      <p>
-        El descuento se calcula según los puntos alcanzados
-        en la compra directa.
+      <p id="descripcionDetalle">
+        Cada fila muestra cómo avanzan los puntos, porcentajes,
+        premios y ganancias.
       </p>
 
       <div class="tabla-contenedor">
@@ -962,47 +1249,218 @@
         <table>
 
           <thead>
+
             <tr>
-              <th>Puntos</th>
-              <th>Cajas mínimas</th>
-              <th>Descuento</th>
-              <th>Costo por caja</th>
-              <th>Ganancia por caja</th>
+              <th>
+                Compra
+              </th>
+
+              <th>
+                Productos pagados
+              </th>
+
+              <th>
+                Monto pagado
+              </th>
+
+              <th>
+                Puntos obtenidos
+              </th>
+
+              <th>
+                Puntos acumulados
+              </th>
+
+              <th>
+                Porcentaje aplicado
+              </th>
+
+              <th>
+                Comisión o margen
+              </th>
+
+              <th>
+                Regalo 4 + 1
+              </th>
+
+              <th>
+                Premio especial
+              </th>
+
+              <th>
+                Ganancia acumulada
+              </th>
             </tr>
+
+          </thead>
+
+          <tbody id="detalleCompras"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+    <!-- =========================
+         ESCALA DIRECTA
+    ========================== -->
+
+    <section
+      class="seccion oculto"
+      id="escalaDirecta"
+    >
+
+      <h2>
+        Escala de afiliación directa
+      </h2>
+
+      <p>
+        El kit de afiliación cuesta Bs 180 y se paga una sola vez.
+        En esta modalidad no aplican los regalos ni premios por
+        500 o 750 puntos.
+      </p>
+
+      <div class="tabla-contenedor">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>
+                Puntos
+              </th>
+
+              <th>
+                Productos mínimos
+              </th>
+
+              <th>
+                Descuento
+              </th>
+
+              <th>
+                Costo por producto
+              </th>
+
+              <th>
+                Margen por producto
+              </th>
+            </tr>
+
           </thead>
 
           <tbody>
 
             <tr>
-              <td>40 puntos</td>
-              <td>2 cajas</td>
-              <td>5%</td>
-              <td>Bs 413,25</td>
-              <td>Bs 21,75</td>
+              <td>
+                Menos de 40
+              </td>
+
+              <td>
+                1 producto
+              </td>
+
+              <td>
+                0%
+              </td>
+
+              <td>
+                Bs 435,00
+              </td>
+
+              <td>
+                Bs 0,00
+              </td>
             </tr>
 
             <tr>
-              <td>60 puntos</td>
-              <td>3 cajas</td>
-              <td>20%</td>
-              <td>Bs 348,00</td>
-              <td>Bs 87,00</td>
+              <td>
+                40 puntos
+              </td>
+
+              <td>
+                2 productos
+              </td>
+
+              <td>
+                5%
+              </td>
+
+              <td>
+                Bs 413,25
+              </td>
+
+              <td>
+                Bs 21,75
+              </td>
             </tr>
 
             <tr>
-              <td>100 puntos</td>
-              <td>5 cajas</td>
-              <td>25%</td>
-              <td>Bs 326,25</td>
-              <td>Bs 108,75</td>
+              <td>
+                60 puntos
+              </td>
+
+              <td>
+                3 productos
+              </td>
+
+              <td>
+                20%
+              </td>
+
+              <td>
+                Bs 348,00
+              </td>
+
+              <td>
+                Bs 87,00
+              </td>
             </tr>
 
             <tr>
-              <td>300 puntos o más</td>
-              <td>15 cajas</td>
-              <td>30%</td>
-              <td>Bs 304,50</td>
-              <td>Bs 130,50</td>
+              <td>
+                100 puntos
+              </td>
+
+              <td>
+                5 productos
+              </td>
+
+              <td>
+                25%
+              </td>
+
+              <td>
+                Bs 326,25
+              </td>
+
+              <td>
+                Bs 108,75
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                300 puntos o más
+              </td>
+
+              <td>
+                15 productos
+              </td>
+
+              <td>
+                30%
+              </td>
+
+              <td>
+                Bs 304,50
+              </td>
+
+              <td>
+                Bs 130,50
+              </td>
             </tr>
 
           </tbody>
@@ -1015,15 +1473,20 @@
 
     <div class="nota">
 
-      <strong>Información utilizada:</strong>
+      <strong>
+        Reglas utilizadas:
+      </strong>
 
-      cada caja cuesta Bs 435 y genera 20 puntos. En afiliación
-      directa se aplica un 5% desde 40 puntos, 20% desde 60 puntos,
-      25% desde 100 puntos y 30% desde 300 puntos.
+      cada producto cuesta Bs 435 y genera 20 puntos.
 
-      En la modalidad con clientes, cada cliente compra 4 cajas,
-      genera 80 puntos y recibe una caja adicional que se considera
-      como ganancia líquida.
+      En la modalidad con clientes, cada grupo completo de 4 productos
+      dentro de una misma compra genera 1 producto de regalo.
+
+      Al superar 500 puntos se agregan 2 productos y Bs 525.
+      Al superar 750 puntos se agregan otros 2 productos.
+
+      En afiliación directa se agrega el kit de Bs 180 y no aplican
+      ninguno de esos premios.
 
     </div>
 
@@ -1034,38 +1497,29 @@
   </footer>
 
   <script>
-    /*
-      DATOS GENERALES
-    */
+    /* =========================
+       CONSTANTES GENERALES
+    ========================== */
 
-    const PRECIO_CAJA = 435;
-    const PUNTOS_CAJA = 20;
+    const PRECIO_PRODUCTO = 435;
+    const PUNTOS_PRODUCTO = 20;
 
-    /*
-      MODALIDAD CON CLIENTES
-    */
+    const KIT_AFILIACION = 180;
 
-    const CAJAS_POR_CLIENTE = 4;
-    const PUNTOS_POR_CLIENTE = 80;
-    const COMPRA_POR_CLIENTE = 1740;
+    /* =========================
+       PREMIOS CON CLIENTES
+    ========================== */
 
-    const CAJAS_REGALO_POR_CLIENTE = 1;
+    const PREMIO_500_PRODUCTOS = 2;
+    const PREMIO_500_EFECTIVO = 525;
 
-    const CAJAS_PREMIO_500 = 2;
-    const BONO_500 = 525;
+    const PREMIO_750_PRODUCTOS = 2;
 
-    const CAJAS_PREMIO_750 = 2;
+    /* =========================
+       PORCENTAJES
+    ========================== */
 
-    /*
-      PORCENTAJES DE AFILIACIÓN DIRECTA
-
-      40 puntos  = 5%
-      60 puntos  = 20%
-      100 puntos = 25%
-      300 puntos = 30%
-    */
-
-    function porcentajeAfiliacionDirecta(puntos) {
+    function porcentajeDirecto(puntos) {
       if (puntos >= 300) {
         return 30;
       }
@@ -1085,11 +1539,7 @@
       return 0;
     }
 
-    /*
-      PORCENTAJES CON CLIENTES
-    */
-
-    function porcentajeConClientes(puntos) {
+    function porcentajeClientes(puntos) {
       if (puntos >= 1000) {
         return 50;
       }
@@ -1113,7 +1563,16 @@
       return 0;
     }
 
-    function formatoBs(numero) {
+    /* =========================
+       FORMATOS
+    ========================== */
+
+    function formatoBs(valor) {
+      const numero =
+        Number.isFinite(valor)
+          ? valor
+          : 0;
+
       return "Bs " + numero.toLocaleString(
         "es-BO",
         {
@@ -1123,236 +1582,511 @@
       );
     }
 
-    function formatoNumero(numero) {
+    function formatoNumero(valor) {
+      const numero =
+        Number.isFinite(valor)
+          ? valor
+          : 0;
+
       return numero.toLocaleString("es-BO");
     }
 
-    /*
-      RESULTADO DE AFILIACIÓN DIRECTA
-      SEGÚN CANTIDAD DE CAJAS
-    */
+    /* =========================
+       ESTADO VACÍO
+    ========================== */
 
-    function resultadoDirectoPorCajas(cajas) {
-      const puntos =
-        cajas * PUNTOS_CAJA;
-
-      const porcentaje =
-        porcentajeAfiliacionDirecta(puntos);
-
-      const costoCaja =
-        PRECIO_CAJA *
-        (1 - porcentaje / 100);
-
-      const inversion =
-        cajas * costoCaja;
-
-      const ventaTotal =
-        cajas * PRECIO_CAJA;
-
-      const ganancia =
-        ventaTotal - inversion;
-
+    function crearEstadoVacio() {
       return {
-        cajas,
-        clientes: 0,
-        puntos,
-        porcentaje,
-        inversion,
-        compraTotal: ventaTotal,
-        ganancia,
-        saldo: 0,
-        regalosClientes: 0,
+        modalidad: "",
+        compras: [],
+        cantidadCompras: 0,
+        productosPagados: 0,
+        puntos: 0,
+        porcentaje: 0,
+
+        costoProductos: 0,
+        kitAfiliacion: 0,
+        inversionTotal: 0,
+        precioClienteTotal: 0,
+
+        comisiones: 0,
+
+        regalosNormales: 0,
         regalosPremio: 0,
         bono: 0,
-        totalCajas: cajas
+        valorRegalos: 0,
+
+        ganancia: 0,
+        saldo: 0,
+        mensaje: ""
       };
     }
 
-    /*
-      AFILIACIÓN DIRECTA POR META DE GANANCIA
-    */
-
-    function directaPorGanancia(metaGanancia) {
-      for (
-        let cajas = 1;
-        cajas <= 100000;
-        cajas++
-      ) {
-        const resultado =
-          resultadoDirectoPorCajas(cajas);
-
-        if (
-          resultado.ganancia >=
-          metaGanancia
-        ) {
-          return resultado;
-        }
-      }
-
-      return null;
+    function copiarEstado(estado) {
+      return {
+        ...estado,
+        compras: estado.compras.map(
+          compra => ({ ...compra })
+        )
+      };
     }
 
-    /*
-      AFILIACIÓN DIRECTA POR INVERSIÓN
-    */
+    /* =========================
+       AGREGAR COMPRA DE CLIENTE
+    ========================== */
 
-    function directaPorInversion(
-      inversionDisponible
+    function agregarCompraCliente(
+      estado,
+      cantidadProductos
     ) {
-      let mejorResultado = null;
+      if (cantidadProductos <= 0) {
+        return estado;
+      }
 
-      const maximoCajas =
-        Math.max(
-          100,
-          Math.ceil(
-            inversionDisponible /
-            (PRECIO_CAJA * 0.70)
-          ) + 25
+      const puntosAntes =
+        estado.puntos;
+
+      const puntosCompra =
+        cantidadProductos *
+        PUNTOS_PRODUCTO;
+
+      const puntosDespues =
+        puntosAntes +
+        puntosCompra;
+
+      const porcentaje =
+        porcentajeClientes(
+          puntosDespues
         );
 
-      for (
-        let cajas = 1;
-        cajas <= maximoCajas;
-        cajas++
-      ) {
-        const resultado =
-          resultadoDirectoPorCajas(cajas);
+      const valorCompra =
+        cantidadProductos *
+        PRECIO_PRODUCTO;
 
-        if (
-          resultado.inversion <=
-          inversionDisponible
-        ) {
-          mejorResultado = resultado;
-        }
-      }
+      /*
+        La comisión se calcula según
+        los puntos acumulados al momento
+        de realizar esta compra.
+      */
 
-      if (!mejorResultado) {
-        return {
-          cajas: 0,
-          clientes: 0,
-          puntos: 0,
-          porcentaje: 0,
-          inversion: 0,
-          compraTotal: 0,
-          ganancia: 0,
-          saldo: inversionDisponible,
-          regalosClientes: 0,
-          regalosPremio: 0,
-          bono: 0,
-          totalCajas: 0
-        };
-      }
+      const comision =
+        valorCompra *
+        porcentaje /
+        100;
 
-      mejorResultado.saldo =
-        inversionDisponible -
-        mejorResultado.inversion;
+      /*
+        Cada grupo completo de cuatro
+        genera un producto de regalo.
+      */
 
-      return mejorResultado;
-    }
-
-    /*
-      RESULTADO CON CLIENTES
-    */
-
-    function resultadoClientes(
-      cantidadClientes
-    ) {
-      let puntos = 0;
-      let comisiones = 0;
-
-      for (
-        let cliente = 1;
-        cliente <= cantidadClientes;
-        cliente++
-      ) {
-        puntos += PUNTOS_POR_CLIENTE;
-
-        const porcentajeCompra =
-          porcentajeConClientes(puntos);
-
-        const comisionPedido =
-          COMPRA_POR_CLIENTE *
-          porcentajeCompra /
-          100;
-
-        comisiones += comisionPedido;
-      }
-
-      const cajasPagadas =
-        cantidadClientes *
-        CAJAS_POR_CLIENTE;
-
-      const regalosClientes =
-        cantidadClientes *
-        CAJAS_REGALO_POR_CLIENTE;
+      const regalosNormales =
+        Math.floor(
+          cantidadProductos / 4
+        );
 
       let regalosPremio = 0;
       let bono = 0;
 
-      if (puntos >= 500) {
-        regalosPremio +=
-          CAJAS_PREMIO_500;
+      const premios = [];
 
-        bono += BONO_500;
+      /*
+        Premio al cruzar 500 puntos.
+      */
+
+      if (
+        puntosAntes < 500 &&
+        puntosDespues >= 500
+      ) {
+        regalosPremio +=
+          PREMIO_500_PRODUCTOS;
+
+        bono +=
+          PREMIO_500_EFECTIVO;
+
+        premios.push(
+          "2 productos + Bs 525"
+        );
       }
 
-      if (puntos >= 750) {
+      /*
+        Premio al cruzar 750 puntos.
+      */
+
+      if (
+        puntosAntes < 750 &&
+        puntosDespues >= 750
+      ) {
         regalosPremio +=
-          CAJAS_PREMIO_750;
+          PREMIO_750_PRODUCTOS;
+
+        premios.push(
+          "2 productos adicionales"
+        );
       }
 
-      const valorRegalosClientes =
-        regalosClientes *
-        PRECIO_CAJA;
+      const valorRegalosCompra =
+        (
+          regalosNormales +
+          regalosPremio
+        ) *
+        PRECIO_PRODUCTO;
 
-      const valorRegalosPremio =
-        regalosPremio *
-        PRECIO_CAJA;
-
-      const ganancia =
-        comisiones +
-        valorRegalosClientes +
-        valorRegalosPremio +
+      const gananciaCompra =
+        comision +
+        valorRegalosCompra +
         bono;
 
-      const compraTotal =
-        cantidadClientes *
-        COMPRA_POR_CLIENTE;
+      estado.modalidad =
+        "clientes";
 
-      return {
-        cajas: cajasPagadas,
-        clientes: cantidadClientes,
-        puntos,
-        porcentaje:
-          porcentajeConClientes(puntos),
-        inversion: compraTotal,
-        compraTotal,
-        ganancia,
-        saldo: 0,
-        regalosClientes,
-        regalosPremio,
-        bono,
-        totalCajas:
-          cajasPagadas +
-          regalosClientes +
-          regalosPremio
-      };
+      estado.cantidadCompras++;
+
+      estado.productosPagados +=
+        cantidadProductos;
+
+      estado.puntos =
+        puntosDespues;
+
+      estado.porcentaje =
+        porcentaje;
+
+      estado.costoProductos +=
+        valorCompra;
+
+      estado.inversionTotal +=
+        valorCompra;
+
+      estado.precioClienteTotal +=
+        valorCompra;
+
+      estado.comisiones +=
+        comision;
+
+      estado.regalosNormales +=
+        regalosNormales;
+
+      estado.regalosPremio +=
+        regalosPremio;
+
+      estado.bono +=
+        bono;
+
+      estado.valorRegalos +=
+        valorRegalosCompra;
+
+      estado.ganancia +=
+        gananciaCompra;
+
+      estado.compras.push({
+        numero:
+          estado.cantidadCompras,
+
+        productos:
+          cantidadProductos,
+
+        montoPagado:
+          valorCompra,
+
+        puntosCompra,
+        puntosAcumulados:
+          puntosDespues,
+
+        porcentaje,
+        comision,
+
+        regalosNormales,
+
+        premio:
+          premios.length > 0
+            ? premios.join(" + ")
+            : "—",
+
+        gananciaAcumulada:
+          estado.ganancia,
+
+        tienePremio:
+          premios.length > 0
+      });
+
+      return estado;
     }
 
-    /*
-      CLIENTES NECESARIOS PARA GANAR
-    */
+    /* =========================
+       CLIENTES POR INVERSIÓN
+    ========================== */
+
+    function clientesPorInversion(
+      inversionDisponible,
+      productosHabituales
+    ) {
+      const estado =
+        crearEstadoVacio();
+
+      estado.modalidad =
+        "clientes";
+
+      const productosPosibles =
+        Math.floor(
+          inversionDisponible /
+          PRECIO_PRODUCTO
+        );
+
+      let pendientes =
+        productosPosibles;
+
+      while (pendientes > 0) {
+        const cantidadCompra =
+          Math.min(
+            productosHabituales,
+            pendientes
+          );
+
+        agregarCompraCliente(
+          estado,
+          cantidadCompra
+        );
+
+        pendientes -=
+          cantidadCompra;
+      }
+
+      estado.saldo =
+        inversionDisponible -
+        estado.inversionTotal;
+
+      if (productosPosibles === 0) {
+        estado.mensaje =
+          "El monto disponible no alcanza para adquirir un producto de Bs 435.";
+      }
+
+      return estado;
+    }
+
+    /* =========================
+       CLIENTES POR GANANCIA
+    ========================== */
 
     function clientesPorGanancia(
+      metaGanancia,
+      productosHabituales
+    ) {
+      let estado =
+        crearEstadoVacio();
+
+      estado.modalidad =
+        "clientes";
+
+      if (metaGanancia <= 0) {
+        return estado;
+      }
+
+      for (
+        let compra = 1;
+        compra <= 10000;
+        compra++
+      ) {
+        /*
+          Primero se prueba si una compra
+          menor puede completar la meta.
+        */
+
+        for (
+          let cantidad = 1;
+          cantidad <= productosHabituales;
+          cantidad++
+        ) {
+          const prueba =
+            copiarEstado(estado);
+
+          agregarCompraCliente(
+            prueba,
+            cantidad
+          );
+
+          if (
+            prueba.ganancia >=
+            metaGanancia
+          ) {
+            return prueba;
+          }
+        }
+
+        /*
+          Si una compra menor no alcanza,
+          se agrega la compra habitual.
+        */
+
+        agregarCompraCliente(
+          estado,
+          productosHabituales
+        );
+      }
+
+      estado.mensaje =
+        "No fue posible calcular la meta solicitada.";
+
+      return estado;
+    }
+
+    /* =========================
+       AFILIACIÓN DIRECTA
+    ========================== */
+
+    function resultadoDirecto(
+      cantidadProductos
+    ) {
+      const estado =
+        crearEstadoVacio();
+
+      estado.modalidad =
+        "directa";
+
+      if (cantidadProductos <= 0) {
+        return estado;
+      }
+
+      const puntos =
+        cantidadProductos *
+        PUNTOS_PRODUCTO;
+
+      const porcentaje =
+        porcentajeDirecto(puntos);
+
+      const costoUnitario =
+        PRECIO_PRODUCTO *
+        (
+          1 -
+          porcentaje / 100
+        );
+
+      const costoProductos =
+        cantidadProductos *
+        costoUnitario;
+
+      /*
+        El kit se paga una sola vez.
+      */
+
+      const inversionTotal =
+        costoProductos +
+        KIT_AFILIACION;
+
+      const precioClienteTotal =
+        cantidadProductos *
+        PRECIO_PRODUCTO;
+
+      /*
+        Margen bruto generado por
+        vender los productos.
+      */
+
+      const margenProductos =
+        precioClienteTotal -
+        costoProductos;
+
+      /*
+        Ganancia neta después de
+        descontar el kit.
+      */
+
+      const gananciaNeta =
+        margenProductos -
+        KIT_AFILIACION;
+
+      estado.cantidadCompras = 1;
+      estado.productosPagados =
+        cantidadProductos;
+
+      estado.puntos =
+        puntos;
+
+      estado.porcentaje =
+        porcentaje;
+
+      estado.costoProductos =
+        costoProductos;
+
+      estado.kitAfiliacion =
+        KIT_AFILIACION;
+
+      estado.inversionTotal =
+        inversionTotal;
+
+      estado.precioClienteTotal =
+        precioClienteTotal;
+
+      estado.comisiones =
+        margenProductos;
+
+      /*
+        No se agregan regalos,
+        premios ni bonos.
+      */
+
+      estado.regalosNormales = 0;
+      estado.regalosPremio = 0;
+      estado.bono = 0;
+      estado.valorRegalos = 0;
+
+      estado.ganancia =
+        gananciaNeta;
+
+      estado.compras.push({
+        numero: 1,
+
+        productos:
+          cantidadProductos,
+
+        montoPagado:
+          inversionTotal,
+
+        puntosCompra:
+          puntos,
+
+        puntosAcumulados:
+          puntos,
+
+        porcentaje,
+
+        comision:
+          margenProductos,
+
+        regalosNormales:
+          0,
+
+        premio:
+          "Kit Bs 180 · Sin premios",
+
+        gananciaAcumulada:
+          gananciaNeta,
+
+        tienePremio:
+          false
+      });
+
+      return estado;
+    }
+
+    /* =========================
+       DIRECTA POR GANANCIA
+    ========================== */
+
+    function directaPorGanancia(
       metaGanancia
     ) {
+      if (metaGanancia <= 0) {
+        return resultadoDirecto(0);
+      }
+
       for (
-        let clientes = 1;
-        clientes <= 10000;
-        clientes++
+        let productos = 1;
+        productos <= 100000;
+        productos++
       ) {
         const resultado =
-          resultadoClientes(clientes);
+          resultadoDirecto(
+            productos
+          );
 
         if (
           resultado.ganancia >=
@@ -1362,89 +2096,148 @@
         }
       }
 
-      return null;
+      const estado =
+        resultadoDirecto(0);
+
+      estado.mensaje =
+        "No fue posible calcular la meta solicitada.";
+
+      return estado;
     }
 
-    /*
-      CLIENTES POSIBLES SEGÚN INVERSIÓN
-    */
+    /* =========================
+       DIRECTA POR INVERSIÓN
+    ========================== */
 
-    function clientesPorInversion(
+    function directaPorInversion(
       inversionDisponible
     ) {
-      const clientes =
-        Math.floor(
-          inversionDisponible /
-          COMPRA_POR_CLIENTE
-        );
+      let mejorResultado =
+        resultadoDirecto(0);
 
-      const resultado =
-        resultadoClientes(clientes);
+      mejorResultado.saldo =
+        inversionDisponible;
 
-      resultado.saldo =
+      /*
+        Para comprar al menos un producto,
+        debe alcanzar para el producto
+        y el kit.
+      */
+
+      const minimoNecesario =
+        PRECIO_PRODUCTO +
+        KIT_AFILIACION;
+
+      if (
+        inversionDisponible <
+        minimoNecesario
+      ) {
+        mejorResultado.mensaje =
+          "Para afiliación directa necesitas al menos Bs 615 para cubrir un producto y el kit de afiliación.";
+
+        return mejorResultado;
+      }
+
+      for (
+        let productos = 1;
+        productos <= 100000;
+        productos++
+      ) {
+        const resultado =
+          resultadoDirecto(
+            productos
+          );
+
+        if (
+          resultado.inversionTotal <=
+          inversionDisponible
+        ) {
+          mejorResultado =
+            resultado;
+        } else {
+          /*
+            La inversión crece conforme
+            aumentan los productos.
+          */
+
+          if (
+            productos >
+            mejorResultado.productosPagados + 20
+          ) {
+            break;
+          }
+        }
+      }
+
+      mejorResultado.saldo =
         inversionDisponible -
-        resultado.compraTotal;
+        mejorResultado.inversionTotal;
 
-      return resultado;
+      return mejorResultado;
     }
 
-    function actualizarTipoCalculo() {
+    /* =========================
+       ACTUALIZAR INTERFAZ
+    ========================== */
+
+    function actualizarInterfaz() {
+      const modalidad =
+        document.getElementById(
+          "modalidad"
+        ).value;
+
       const tipo =
         document.getElementById(
           "tipoCalculo"
         ).value;
 
-      const etiqueta =
+      const campoProductos =
+        document.getElementById(
+          "campoProductosCompra"
+        );
+
+      const escalaDirecta =
+        document.getElementById(
+          "escalaDirecta"
+        );
+
+      const etiquetaMonto =
         document.getElementById(
           "etiquetaMonto"
         );
 
       if (tipo === "ganancia") {
-        etiqueta.textContent =
+        etiquetaMonto.textContent =
           "Monto que quiero ganar";
       } else {
-        etiqueta.textContent =
+        etiquetaMonto.textContent =
           "Inversión disponible";
+      }
+
+      if (modalidad === "clientes") {
+        campoProductos.classList.remove(
+          "oculto"
+        );
+
+        escalaDirecta.classList.add(
+          "oculto"
+        );
+      } else {
+        campoProductos.classList.add(
+          "oculto"
+        );
+
+        escalaDirecta.classList.remove(
+          "oculto"
+        );
       }
 
       calcular();
     }
 
-    function mostrarRegla(modalidad) {
-      const regla =
-        document.getElementById(
-          "reglaModalidad"
-        );
-
-      const tablaDirecta =
-        document.getElementById(
-          "tablaDirecta"
-        );
-
-      if (modalidad === "directa") {
-        regla.innerHTML = `
-          <strong>Afiliación directa:</strong>
-          40 puntos otorgan 5%, 60 puntos 20%,
-          100 puntos 25% y 300 puntos o más 30%.
-        `;
-
-        tablaDirecta.classList.remove(
-          "oculto"
-        );
-      } else {
-        regla.innerHTML = `
-          <strong>Con clientes:</strong>
-          cada cliente compra 4 cajas por Bs 1.740,
-          genera 80 puntos y recibe una caja adicional.
-          Los porcentajes se calculan conforme avanzan
-          los puntos acumulados.
-        `;
-
-        tablaDirecta.classList.add(
-          "oculto"
-        );
-      }
-    }
+    /* =========================
+       CALCULAR
+    ========================== */
 
     function calcular() {
       const modalidad =
@@ -1464,7 +2257,22 @@
           ).value
         );
 
-      mostrarRegla(modalidad);
+      const productosHabituales =
+        Math.max(
+          1,
+          Math.floor(
+            Number(
+              document.getElementById(
+                "productosCompra"
+              ).value
+            ) || 1
+          )
+        );
+
+      const regla =
+        document.getElementById(
+          "reglaModalidad"
+        );
 
       if (
         !Number.isFinite(monto) ||
@@ -1475,21 +2283,48 @@
 
       let resultado;
 
-      if (modalidad === "directa") {
+      if (modalidad === "clientes") {
+        regla.innerHTML = `
+          <strong>Con clientes:</strong>
+          cada compra puede tener productos individuales.
+          Cada grupo completo de 4 productos dentro de una misma
+          compra genera 1 producto de regalo. El porcentaje se
+          calcula según los puntos acumulados al momento de cada compra.
+        `;
+
         if (tipo === "ganancia") {
           resultado =
-            directaPorGanancia(monto);
+            clientesPorGanancia(
+              monto,
+              productosHabituales
+            );
         } else {
           resultado =
-            directaPorInversion(monto);
+            clientesPorInversion(
+              monto,
+              productosHabituales
+            );
         }
       } else {
+        regla.innerHTML = `
+          <strong>Afiliación directa:</strong>
+          se agrega un kit de afiliación de Bs 180.
+          El descuento es 5% desde 40 puntos, 20% desde 60,
+          25% desde 100 y 30% desde 300 puntos.
+          No aplican productos de regalo, premios por 500 o
+          750 puntos ni el bono de Bs 525.
+        `;
+
         if (tipo === "ganancia") {
           resultado =
-            clientesPorGanancia(monto);
+            directaPorGanancia(
+              monto
+            );
         } else {
           resultado =
-            clientesPorInversion(monto);
+            directaPorInversion(
+              monto
+            );
         }
       }
 
@@ -1501,111 +2336,77 @@
       );
     }
 
+    /* =========================
+       MOSTRAR RESULTADO
+    ========================== */
+
     function mostrarResultado(
       resultado,
       modalidad,
       tipo,
       monto
     ) {
-      if (!resultado) {
-        return;
+      const mensajeResultado =
+        document.getElementById(
+          "mensajeResultado"
+        );
+
+      mensajeResultado.classList.remove(
+        "visible"
+      );
+
+      mensajeResultado.textContent = "";
+
+      if (resultado.mensaje) {
+        mensajeResultado.textContent =
+          resultado.mensaje;
+
+        mensajeResultado.classList.add(
+          "visible"
+        );
       }
 
-      const cantidadPrincipal =
-        document.getElementById(
-          "cantidadPrincipal"
+      /* RESULTADOS GRANDES */
+
+      document.getElementById(
+        "productosResultado"
+      ).textContent =
+        formatoNumero(
+          resultado.productosPagados
         );
 
-      const tituloCantidad =
-        document.getElementById(
-          "tituloCantidad"
+      document.getElementById(
+        "inversionResultado"
+      ).textContent =
+        formatoBs(
+          resultado.inversionTotal
         );
 
-      const detalleCantidad =
-        document.getElementById(
-          "detalleCantidad"
+      document.getElementById(
+        "gananciaResultado"
+      ).textContent =
+        formatoBs(
+          resultado.ganancia
         );
 
-      if (modalidad === "directa") {
-        tituloCantidad.textContent =
-          "Cajas que necesitas";
+      const detalleProductos =
+        document.getElementById(
+          "detalleProductos"
+        );
 
-        cantidadPrincipal.textContent =
-          formatoNumero(resultado.cajas);
-
-        detalleCantidad.textContent =
-          resultado.cajas +
-          " cajas × 20 puntos.";
-      } else {
-        tituloCantidad.textContent =
-          "Clientes necesarios";
-
-        cantidadPrincipal.textContent =
+      if (modalidad === "clientes") {
+        detalleProductos.textContent =
           formatoNumero(
-            resultado.clientes
-          );
-
-        detalleCantidad.textContent =
-          formatoNumero(resultado.cajas) +
-          " cajas pagadas en total.";
+            resultado.cantidadCompras
+          ) +
+          " compras o clientes.";
+      } else {
+        detalleProductos.textContent =
+          formatoNumero(
+            resultado.puntos
+          ) +
+          " puntos generados.";
       }
-
-      document.getElementById(
-        "inversionPrincipal"
-      ).textContent =
-        formatoBs(resultado.inversion);
-
-      document.getElementById(
-        "gananciaPrincipal"
-      ).textContent =
-        formatoBs(resultado.ganancia);
-
-      document.getElementById(
-        "puntosResultado"
-      ).textContent =
-        formatoNumero(resultado.puntos) +
-        " puntos";
-
-      document.getElementById(
-        "porcentajeResultado"
-      ).textContent =
-        resultado.porcentaje + "%";
-
-      document.getElementById(
-        "totalCompraResultado"
-      ).textContent =
-        formatoBs(resultado.compraTotal);
-
-      document.getElementById(
-        "saldoResultado"
-      ).textContent =
-        formatoBs(resultado.saldo);
-
-      document.getElementById(
-        "regalosClientes"
-      ).textContent =
-        formatoNumero(
-          resultado.regalosClientes
-        );
-
-      document.getElementById(
-        "regalosPremio"
-      ).textContent =
-        formatoNumero(
-          resultado.regalosPremio
-        );
-
-      document.getElementById(
-        "bonoResultado"
-      ).textContent =
-        formatoBs(resultado.bono);
-
-      document.getElementById(
-        "totalCajasResultado"
-      ).textContent =
-        formatoNumero(
-          resultado.totalCajas
-        );
 
       const tituloInversion =
         document.getElementById(
@@ -1624,32 +2425,364 @@
 
       if (tipo === "ganancia") {
         tituloInversion.textContent =
-          modalidad === "directa"
-            ? "Inversión necesaria"
-            : "Compras generadas";
+          modalidad === "clientes"
+            ? "Compras necesarias"
+            : "Inversión necesaria";
 
         detalleInversion.textContent =
           "Para alcanzar una ganancia mínima de " +
           formatoBs(monto) + ".";
 
         detalleGanancia.textContent =
-          "El resultado puede superar ligeramente la meta.";
+          modalidad === "directa"
+            ? "Ganancia después de descontar el kit."
+            : "Incluye comisiones, regalos y bonos.";
       } else {
         tituloInversion.textContent =
-          modalidad === "directa"
-            ? "Inversión utilizada"
-            : "Compras generadas";
+          modalidad === "clientes"
+            ? "Compras utilizadas"
+            : "Inversión utilizada";
 
         detalleInversion.textContent =
           "De un monto disponible de " +
           formatoBs(monto) + ".";
 
         detalleGanancia.textContent =
-          "Ganancia posible con el monto disponible.";
+          modalidad === "directa"
+            ? "Ganancia posible después del kit."
+            : "Ganancia posible con las compras realizadas.";
+      }
+
+      /* RESUMEN */
+
+      document.getElementById(
+        "resumenModalidad"
+      ).textContent =
+        modalidad === "clientes"
+          ? "Con clientes"
+          : "Afiliación directa";
+
+      document.getElementById(
+        "resumenCompras"
+      ).textContent =
+        formatoNumero(
+          resultado.cantidadCompras
+        );
+
+      document.getElementById(
+        "resumenProductos"
+      ).textContent =
+        formatoNumero(
+          resultado.productosPagados
+        );
+
+      document.getElementById(
+        "resumenPuntos"
+      ).textContent =
+        formatoNumero(
+          resultado.puntos
+        ) +
+        " puntos";
+
+      document.getElementById(
+        "resumenPorcentaje"
+      ).textContent =
+        resultado.porcentaje +
+        "%";
+
+      document.getElementById(
+        "resumenCostoProductos"
+      ).textContent =
+        formatoBs(
+          resultado.costoProductos
+        );
+
+      document.getElementById(
+        "resumenKitAfiliacion"
+      ).textContent =
+        formatoBs(
+          resultado.kitAfiliacion
+        );
+
+      document.getElementById(
+        "resumenInversionTotal"
+      ).textContent =
+        formatoBs(
+          resultado.inversionTotal
+        );
+
+      document.getElementById(
+        "resumenPrecioCliente"
+      ).textContent =
+        formatoBs(
+          resultado.precioClienteTotal
+        );
+
+      document.getElementById(
+        "resumenComisiones"
+      ).textContent =
+        formatoBs(
+          resultado.comisiones
+        );
+
+      document.getElementById(
+        "resumenSaldo"
+      ).textContent =
+        formatoBs(
+          resultado.saldo
+        );
+
+      document.getElementById(
+        "resumenGanancia"
+      ).textContent =
+        formatoBs(
+          resultado.ganancia
+        );
+
+      /* FILAS SEGÚN MODALIDAD */
+
+      const filaKit =
+        document.getElementById(
+          "filaKitAfiliacion"
+        );
+
+      const filaRegalosNormales =
+        document.getElementById(
+          "filaRegalosNormales"
+        );
+
+      const filaRegalosPremio =
+        document.getElementById(
+          "filaRegalosPremio"
+        );
+
+      const filaBono =
+        document.getElementById(
+          "filaBono"
+        );
+
+      const filaValorRegalos =
+        document.getElementById(
+          "filaValorRegalos"
+        );
+
+      const etiquetaCostoProductos =
+        document.getElementById(
+          "etiquetaCostoProductos"
+        );
+
+      const etiquetaComisiones =
+        document.getElementById(
+          "etiquetaComisiones"
+        );
+
+      const etiquetaResumenCompras =
+        document.getElementById(
+          "etiquetaResumenCompras"
+        );
+
+      if (modalidad === "directa") {
+        filaKit.classList.remove(
+          "oculto"
+        );
+
+        filaRegalosNormales.classList.add(
+          "oculto"
+        );
+
+        filaRegalosPremio.classList.add(
+          "oculto"
+        );
+
+        filaBono.classList.add(
+          "oculto"
+        );
+
+        filaValorRegalos.classList.add(
+          "oculto"
+        );
+
+        etiquetaCostoProductos.textContent =
+          "Costo de productos con descuento";
+
+        etiquetaComisiones.textContent =
+          "Margen bruto por venta de productos";
+
+        etiquetaResumenCompras.textContent =
+          "Compras directas";
+      } else {
+        filaKit.classList.add(
+          "oculto"
+        );
+
+        filaRegalosNormales.classList.remove(
+          "oculto"
+        );
+
+        filaRegalosPremio.classList.remove(
+          "oculto"
+        );
+
+        filaBono.classList.remove(
+          "oculto"
+        );
+
+        filaValorRegalos.classList.remove(
+          "oculto"
+        );
+
+        document.getElementById(
+          "resumenRegalosNormales"
+        ).textContent =
+          formatoNumero(
+            resultado.regalosNormales
+          );
+
+        document.getElementById(
+          "resumenRegalosPremio"
+        ).textContent =
+          formatoNumero(
+            resultado.regalosPremio
+          );
+
+        document.getElementById(
+          "resumenBono"
+        ).textContent =
+          formatoBs(
+            resultado.bono
+          );
+
+        document.getElementById(
+          "resumenValorRegalos"
+        ).textContent =
+          formatoBs(
+            resultado.valorRegalos
+          );
+
+        etiquetaCostoProductos.textContent =
+          "Monto movilizado en compras";
+
+        etiquetaComisiones.textContent =
+          "Comisiones acumuladas";
+
+        etiquetaResumenCompras.textContent =
+          "Compras o clientes";
+      }
+
+      crearTablaDetalle(
+        resultado.compras
+      );
+    }
+
+    /* =========================
+       TABLA DETALLADA
+    ========================== */
+
+    function crearTablaDetalle(
+      compras
+    ) {
+      const tabla =
+        document.getElementById(
+          "detalleCompras"
+        );
+
+      tabla.innerHTML = "";
+
+      compras.forEach(
+        compra => {
+          const fila =
+            document.createElement("tr");
+
+          if (compra.tienePremio) {
+            fila.classList.add(
+              "fila-premio"
+            );
+          }
+
+          const claseGanancia =
+            compra.gananciaAcumulada >= 0
+              ? "valor-positivo"
+              : "valor-negativo";
+
+          fila.innerHTML = `
+            <td>
+              ${compra.numero}
+            </td>
+
+            <td>
+              ${formatoNumero(
+                compra.productos
+              )}
+            </td>
+
+            <td>
+              ${formatoBs(
+                compra.montoPagado
+              )}
+            </td>
+
+            <td>
+              ${formatoNumero(
+                compra.puntosCompra
+              )}
+            </td>
+
+            <td>
+              ${formatoNumero(
+                compra.puntosAcumulados
+              )}
+            </td>
+
+            <td>
+              <strong>
+                ${compra.porcentaje}%
+              </strong>
+            </td>
+
+            <td class="valor-positivo">
+              ${formatoBs(
+                compra.comision
+              )}
+            </td>
+
+            <td>
+              ${formatoNumero(
+                compra.regalosNormales
+              )}
+            </td>
+
+            <td>
+              ${compra.premio}
+            </td>
+
+            <td class="${claseGanancia}">
+              ${formatoBs(
+                compra.gananciaAcumulada
+              )}
+            </td>
+          `;
+
+          tabla.appendChild(fila);
+        }
+      );
+
+      if (compras.length === 0) {
+        tabla.innerHTML = `
+          <tr>
+            <td colspan="10">
+              Introduce un monto mayor para generar
+              el detalle de compras.
+            </td>
+          </tr>
+        `;
       }
     }
 
-    actualizarTipoCalculo();
+    /* =========================
+       INICIAR
+    ========================== */
+
+    actualizarInterfaz();
   </script>
 
 </body>
