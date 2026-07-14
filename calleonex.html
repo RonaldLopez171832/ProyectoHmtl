@@ -1,0 +1,3187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Calculadora LEONEX Team de inversión, cajas, puntos y ganancias."
+  >
+
+  <title>LEONEX Team — Calculadora de inversión y ganancias</title>
+
+  <style>
+    :root {
+      --principal: #0B275D;
+      --principal-oscuro: #061A42;
+      --secundario: #174A91;
+
+      --ganancia: #006BFF;
+      --ganancia-oscuro: #004AC2;
+      --ganancia-suave: #E8F1FF;
+
+      --celeste: #4AC3FF;
+      --celeste-suave: #EAF7FF;
+
+      --verde: #149B68;
+      --verde-oscuro: #08734C;
+      --verde-suave: #E7F8F0;
+
+      --amarillo: #F4C451;
+      --amarillo-suave: #FFF8E5;
+
+      --rojo: #C0392B;
+      --rojo-suave: #FDEDEC;
+
+      --fondo: #F4F7FB;
+      --blanco: #FFFFFF;
+
+      --texto: #14233B;
+      --gris: #66758A;
+      --borde: #DCE5F0;
+
+      --sombra:
+        0 16px 42px rgba(11, 39, 93, 0.12);
+
+      --sombra-suave:
+        0 8px 24px rgba(11, 39, 93, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--texto);
+      background: var(--fondo);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    input,
+    select,
+    button {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =====================================
+       PORTADA
+    ===================================== */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: var(--blanco);
+
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(74, 195, 255, 0.27),
+          transparent 34%
+        ),
+        linear-gradient(
+          135deg,
+          var(--principal-oscuro),
+          var(--principal),
+          #123E81
+        );
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -190px;
+      right: -160px;
+      width: 470px;
+      height: 470px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -250px;
+      left: -170px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: rgba(74, 195, 255, 0.07);
+    }
+
+    .hero-contenido {
+      position: relative;
+      z-index: 2;
+
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 45px;
+
+      width: min(1180px, 92%);
+      min-height: 530px;
+      margin: auto;
+      padding: 48px 0 95px;
+    }
+
+    .marca {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      margin-bottom: 20px;
+      padding: 9px 15px;
+
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+
+      background: rgba(255, 255, 255, 0.08);
+
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .marca-punto {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--celeste);
+
+      box-shadow:
+        0 0 0 6px rgba(74, 195, 255, 0.16);
+    }
+
+    .hero h1 {
+      max-width: 700px;
+      margin-bottom: 18px;
+
+      font-size: clamp(39px, 6vw, 67px);
+      line-height: 1.03;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 span {
+      color: #65CBFF;
+    }
+
+    .hero-texto {
+      max-width: 650px;
+
+      color: rgba(255, 255, 255, 0.84);
+
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.65;
+    }
+
+    /* =====================================
+       FOTO
+    ===================================== */
+
+    .foto-contenedor {
+      position: relative;
+      width: min(100%, 420px);
+      margin-left: auto;
+    }
+
+    .foto-fondo {
+      position: absolute;
+      inset: 28px -19px -18px 25px;
+
+      border-radius: 29px;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--celeste),
+          var(--ganancia)
+        );
+
+      transform: rotate(4deg);
+    }
+
+    .foto-tarjeta {
+      position: relative;
+      overflow: hidden;
+
+      aspect-ratio: 4 / 5;
+
+      border: 5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 29px;
+
+      background: var(--principal);
+
+      box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.34);
+    }
+
+    .foto-tarjeta img {
+      display: block;
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .foto-mensaje {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      left: 18px;
+
+      padding: 15px 17px;
+
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+
+      background: rgba(6, 26, 66, 0.80);
+      backdrop-filter: blur(10px);
+    }
+
+    .foto-mensaje strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .foto-mensaje span {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 13px;
+    }
+
+    /* =====================================
+       CONTENIDO GENERAL
+    ===================================== */
+
+    .contenedor {
+      position: relative;
+      z-index: 5;
+
+      width: min(1180px, 93%);
+      margin: -58px auto 50px;
+    }
+
+    .panel,
+    .seccion {
+      padding: 27px;
+
+      border: 1px solid var(--borde);
+      border-radius: 22px;
+
+      background: var(--blanco);
+      box-shadow: var(--sombra-suave);
+    }
+
+    .panel {
+      padding: 30px;
+      box-shadow: var(--sombra);
+    }
+
+    .seccion {
+      margin-top: 24px;
+    }
+
+    .panel h2,
+    .seccion h2 {
+      margin-bottom: 7px;
+      color: var(--principal);
+    }
+
+    .panel h2 {
+      font-size: clamp(26px, 4vw, 33px);
+    }
+
+    .descripcion {
+      margin-bottom: 22px;
+      color: var(--gris);
+      line-height: 1.55;
+    }
+
+    /* =====================================
+       CAMPOS
+    ===================================== */
+
+    .entradas {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .campo label {
+      display: block;
+      margin-bottom: 9px;
+
+      color: var(--principal);
+
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    select,
+    input {
+      width: 100%;
+      min-height: 57px;
+      padding: 14px 16px;
+
+      border: 2px solid var(--borde);
+      border-radius: 13px;
+      outline: none;
+
+      color: var(--texto);
+      background: var(--blanco);
+
+      font-weight: bold;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: var(--ganancia);
+
+      box-shadow:
+        0 0 0 4px rgba(0, 107, 255, 0.13);
+    }
+
+    .campo-dinero {
+      position: relative;
+    }
+
+    .campo-dinero span {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+
+      color: var(--principal);
+      font-weight: 900;
+
+      transform: translateY(-50%);
+    }
+
+    .campo-dinero input {
+      padding-left: 53px;
+      font-size: 19px;
+    }
+
+    /* =====================================
+       MONTO RECOMENDADO
+    ===================================== */
+
+    .recomendacion {
+      margin-top: 22px;
+      padding: 21px;
+
+      border-radius: 19px;
+
+      color: var(--blanco);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--principal-oscuro),
+          var(--principal),
+          var(--secundario)
+        );
+    }
+
+    .recomendacion-cabecera {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+
+      margin-bottom: 17px;
+    }
+
+    .recomendacion-cabecera h3 {
+      margin-bottom: 5px;
+      font-size: 22px;
+    }
+
+    .recomendacion-cabecera p {
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.5;
+    }
+
+    .recomendacion-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .recomendacion-card {
+      min-height: 105px;
+      padding: 16px;
+
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 15px;
+
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .recomendacion-card span {
+      display: block;
+      margin-bottom: 8px;
+
+      color: rgba(255, 255, 255, 0.70);
+
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .recomendacion-card strong {
+      display: block;
+      font-size: 22px;
+    }
+
+    .recomendacion-card.libre {
+      background: rgba(244, 196, 81, 0.18);
+    }
+
+    .recomendacion-card.destacada {
+      background:
+        linear-gradient(
+          145deg,
+          var(--ganancia),
+          var(--ganancia-oscuro)
+        );
+    }
+
+    .boton-recomendado {
+      flex-shrink: 0;
+
+      padding: 13px 18px;
+
+      border: none;
+      border-radius: 12px;
+
+      color: var(--principal);
+      background: var(--blanco);
+
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .boton-recomendado:hover {
+      background: var(--ganancia-suave);
+    }
+
+    .boton-recomendado:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .regla {
+      margin-top: 18px;
+      padding: 16px 18px;
+
+      border-left: 5px solid var(--ganancia);
+      border-radius: 12px;
+
+      color: #34455D;
+      background: var(--ganancia-suave);
+
+      line-height: 1.6;
+    }
+
+    .mensaje {
+      display: none;
+
+      margin-top: 14px;
+      padding: 15px 18px;
+
+      border-left: 5px solid var(--amarillo);
+      border-radius: 11px;
+
+      background: var(--amarillo-suave);
+      line-height: 1.55;
+    }
+
+    .mensaje.visible {
+      display: block;
+    }
+
+    /* =====================================
+       RESULTADOS PRINCIPALES
+    ===================================== */
+
+    .resultados {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 18px;
+
+      margin-top: 24px;
+    }
+
+    .resultado {
+      position: relative;
+      overflow: hidden;
+
+      min-height: 175px;
+      padding: 24px;
+
+      border-radius: 21px;
+
+      color: var(--blanco);
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--principal),
+          var(--secundario)
+        );
+
+      box-shadow: var(--sombra-suave);
+    }
+
+    .resultado::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      bottom: -70px;
+
+      width: 180px;
+      height: 180px;
+
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .resultado.ganancia {
+      background:
+        linear-gradient(
+          145deg,
+          var(--ganancia),
+          var(--ganancia-oscuro)
+        );
+
+      box-shadow:
+        0 15px 35px rgba(0, 107, 255, 0.25);
+    }
+
+    .resultado.claro {
+      color: var(--principal);
+
+      border: 1px solid #CFE2F8;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--blanco),
+          var(--celeste-suave)
+        );
+    }
+
+    .resultado span,
+    .resultado strong,
+    .resultado small {
+      position: relative;
+      z-index: 2;
+    }
+
+    .resultado span {
+      display: block;
+      margin-bottom: 13px;
+
+      font-size: 14px;
+      font-weight: bold;
+
+      opacity: 0.9;
+    }
+
+    .resultado strong {
+      display: block;
+
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: 1.1;
+    }
+
+    .resultado small {
+      display: block;
+      margin-top: 11px;
+      line-height: 1.45;
+      opacity: 0.82;
+    }
+
+    /* =====================================
+       RESUMEN BREVE
+    ===================================== */
+
+    .resumen-texto {
+      padding: 18px;
+
+      border-left: 5px solid var(--ganancia);
+      border-radius: 13px;
+
+      color: #123A71;
+      background: var(--ganancia-suave);
+
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .valor-ganancia {
+      color: var(--ganancia);
+      font-weight: 900;
+    }
+
+    /* =====================================
+       REGALOS
+    ===================================== */
+
+    .regalos-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .regalo-card {
+      padding: 19px;
+
+      border: 1px solid #B7D3FF;
+      border-radius: 17px;
+
+      background: var(--ganancia-suave);
+    }
+
+    .regalo-card span {
+      display: block;
+      margin-bottom: 9px;
+
+      color: #47617E;
+      font-size: 13px;
+    }
+
+    .regalo-card strong {
+      display: block;
+
+      color: var(--ganancia);
+      font-size: 24px;
+    }
+
+    .regalo-card small {
+      display: block;
+      margin-top: 8px;
+
+      color: #5D718A;
+      line-height: 1.4;
+    }
+
+    /* =====================================
+       TABLAS
+    ===================================== */
+
+    .tabla-contenedor {
+      overflow-x: auto;
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th {
+      padding: 13px 10px;
+
+      color: var(--blanco);
+      background: var(--principal);
+
+      font-size: 13px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    th.columna-ganancia {
+      background: var(--ganancia);
+    }
+
+    td {
+      padding: 13px 10px;
+
+      border-bottom: 1px solid var(--borde);
+
+      text-align: center;
+      font-size: 14px;
+    }
+
+    tbody tr:hover td {
+      background: #F6FAFF;
+    }
+
+    .fila-premio td {
+      background: var(--verde-suave);
+    }
+
+    .tabla-ganancia {
+      color: var(--ganancia);
+      font-weight: 900;
+    }
+
+    .negativo {
+      color: var(--rojo);
+      font-weight: bold;
+    }
+
+    /* =====================================
+       WHATSAPP
+    ===================================== */
+
+    .compartir-whatsapp {
+      border: 2px solid #CFE0FF;
+
+      background:
+        linear-gradient(
+          145deg,
+          #FFFFFF,
+          var(--ganancia-suave)
+        );
+    }
+
+    .compartir-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 15px;
+    }
+
+    .numero-ayuda {
+      display: block;
+      margin-top: 7px;
+
+      color: var(--gris);
+
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .boton-whatsapp {
+      min-height: 57px;
+      padding: 14px 24px;
+
+      border: none;
+      border-radius: 13px;
+
+      color: var(--blanco);
+
+      background:
+        linear-gradient(
+          145deg,
+          #25D366,
+          #128C4A
+        );
+
+      font-weight: 900;
+
+      box-shadow:
+        0 10px 25px rgba(18, 140, 74, 0.22);
+
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    }
+
+    .boton-whatsapp:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 14px 30px rgba(18, 140, 74, 0.28);
+    }
+
+    .vista-previa {
+      margin-top: 18px;
+      padding: 18px;
+
+      border: 1px solid var(--borde);
+      border-radius: 15px;
+
+      background: var(--blanco);
+    }
+
+    .vista-previa-titulo {
+      display: block;
+      margin-bottom: 10px;
+
+      color: var(--principal);
+
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .vista-previa pre {
+      margin: 0;
+
+      color: var(--texto);
+
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 1.65;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .error-whatsapp {
+      display: none;
+
+      margin-top: 12px;
+      padding: 12px 15px;
+
+      border-left: 5px solid var(--rojo);
+      border-radius: 10px;
+
+      color: #85251C;
+      background: var(--rojo-suave);
+
+      line-height: 1.45;
+    }
+
+    .error-whatsapp.visible {
+      display: block;
+    }
+
+    /* =====================================
+       NOTA
+    ===================================== */
+
+    .nota {
+      margin-top: 24px;
+      padding: 18px;
+
+      border-left: 5px solid var(--amarillo);
+      border-radius: 12px;
+
+      color: #4D493D;
+      background: var(--amarillo-suave);
+
+      line-height: 1.65;
+    }
+
+    .oculto {
+      display: none !important;
+    }
+
+    footer {
+      padding: 32px 20px;
+      color: var(--gris);
+      text-align: center;
+    }
+
+    /* =====================================
+       TABLET
+    ===================================== */
+
+    @media (max-width: 960px) {
+      .hero-contenido {
+        grid-template-columns: 1fr 0.72fr;
+        gap: 30px;
+      }
+
+      .entradas,
+      .resultados {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .campo:last-child,
+      .resultado:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* =====================================
+       MÓVIL
+    ===================================== */
+
+    @media (max-width: 680px) {
+      .hero-contenido {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+        padding: 40px 0 105px;
+
+        text-align: center;
+      }
+
+      .hero h1 {
+        letter-spacing: -1px;
+      }
+
+      .foto-contenedor {
+        width: min(86%, 350px);
+        margin: 15px auto 0;
+      }
+
+      .foto-tarjeta {
+        aspect-ratio: 4 / 4.8;
+      }
+
+      .contenedor {
+        width: 94%;
+        margin-top: -60px;
+      }
+
+      .panel,
+      .seccion {
+        padding: 19px;
+      }
+
+      .entradas,
+      .resultados,
+      .recomendacion-grid,
+      .regalos-grid,
+      .compartir-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .campo:last-child,
+      .resultado:last-child {
+        grid-column: auto;
+      }
+
+      .recomendacion-cabecera {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .boton-recomendado,
+      .boton-whatsapp {
+        width: 100%;
+      }
+
+      .resultado {
+        min-height: 145px;
+      }
+
+      select,
+      input {
+        font-size: 16px;
+      }
+    }
+
+    /* =====================================
+       IDENTIDAD VISUAL LEONEX TEAM
+    ===================================== */
+    :root {
+      --principal: #07111B;
+      --principal-oscuro: #03070B;
+      --secundario: #174A91;
+      --ganancia: #2EA8FF;
+      --ganancia-oscuro: #174A91;
+      --ganancia-suave: #EAF3FF;
+      --celeste: #2EA8FF;
+      --celeste-suave: #EAF3FF;
+      --verde: #2EA8FF;
+      --verde-oscuro: #174A91;
+      --verde-suave: #EAF3FF;
+      --amarillo: #7FCBFF;
+      --amarillo-suave: #EEF8FF;
+      --fondo: #F3F7FB;
+      --texto: #122033;
+      --gris: #6F7E90;
+      --borde: #D8E4EF;
+      --sombra: 0 22px 55px rgba(7,17,27,.16);
+      --sombra-suave: 0 10px 28px rgba(7,17,27,.08);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 10% 0%, rgba(46,168,255,.08), transparent 28%),
+        var(--fondo);
+    }
+
+    .hero {
+      background:
+        radial-gradient(circle at 16% 18%, rgba(46,168,255,.25), transparent 34%),
+        linear-gradient(135deg, #03070B 0%, #07111B 52%, #174A91 100%);
+    }
+
+    .marca {
+      border-color: rgba(46,168,255,.35);
+      background: rgba(46,168,255,.10);
+      color: #EAF3FF;
+      letter-spacing: 1.2px;
+    }
+
+    .marca-punto {
+      background: #2EA8FF;
+      box-shadow: 0 0 0 6px rgba(46,168,255,.16);
+    }
+
+    .hero h1 span {
+      color: #2EA8FF;
+    }
+
+    .leonex-logo-contenedor {
+      width: min(100%, 430px);
+    }
+
+    .leonex-logo-tarjeta {
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 38px 38px 105px;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(46,168,255,.18), transparent 42%),
+        linear-gradient(145deg, #0E1216, #05080B);
+      border-color: rgba(46,168,255,.22);
+    }
+
+    .leonex-logo-principal {
+      width: 88% !important;
+      height: auto !important;
+      max-height: 250px;
+      object-fit: contain !important;
+      filter: drop-shadow(0 18px 30px rgba(46,168,255,.20));
+    }
+
+    .foto-fondo {
+      background: linear-gradient(145deg, #2EA8FF, #174A91);
+    }
+
+    .foto-mensaje {
+      background: rgba(5,8,11,.88);
+      border-color: rgba(46,168,255,.22);
+    }
+
+    .panel,
+    .seccion {
+      border-color: rgba(23,74,145,.16);
+    }
+
+    .panel h2,
+    .seccion h2,
+    .campo label,
+    .vista-previa-titulo {
+      color: #174A91;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: #2EA8FF;
+      box-shadow: 0 0 0 4px rgba(46,168,255,.14);
+    }
+
+    .recomendacion {
+      background:
+        radial-gradient(circle at 90% 10%, rgba(46,168,255,.18), transparent 35%),
+        linear-gradient(135deg, #03070B, #07111B 55%, #174A91);
+    }
+
+    .recomendacion-card.destacada,
+    .resultado.ganancia {
+      background: linear-gradient(145deg, #2EA8FF, #174A91);
+    }
+
+    .resultado {
+      background: linear-gradient(145deg, #07111B, #174A91);
+    }
+
+    th {
+      background: #07111B;
+    }
+
+    th.columna-ganancia {
+      background: #174A91;
+    }
+
+    .boton-recomendado {
+      color: #07111B;
+    }
+
+    .boton-whatsapp {
+      background: linear-gradient(145deg, #2EA8FF, #174A91);
+      box-shadow: 0 10px 25px rgba(46,168,255,.24);
+    }
+
+    .boton-whatsapp:hover {
+      box-shadow: 0 14px 30px rgba(46,168,255,.30);
+    }
+
+    footer {
+      color: #8A97A6;
+      background: #040607;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .footer-logo {
+      display: block;
+      width: min(180px, 60vw);
+      margin: 0 auto 14px;
+      object-fit: contain;
+    }
+
+    @media (max-width: 680px) {
+      .hero-contenido {
+        padding-top: 28px;
+      }
+
+      .marca {
+        justify-content: center;
+        font-size: 11px;
+      }
+
+      .leonex-logo-contenedor {
+        width: min(88%, 330px);
+      }
+
+      .leonex-logo-tarjeta {
+        padding: 28px 28px 96px;
+      }
+
+      .foto-mensaje {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+      }
+
+      .hero h1 {
+        font-size: clamp(34px, 11vw, 48px);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =====================================
+       PORTADA
+  ====================================== -->
+
+  <header class="hero">
+
+    <div class="hero-contenido">
+
+      <div>
+
+        <div class="marca">
+          <span class="marca-punto"></span>
+          LEONEX TEAM · CALCULADORA
+        </div>
+
+        <h1>
+          Convierte tus metas en un
+          <span>plan claro</span>
+        </h1>
+
+        <p class="hero-texto">
+          Ingresa cuánto quieres ganar o cuánto tienes para invertir.
+          La calculadora te mostrará el camino de forma rápida.
+        </p>
+
+      </div>
+
+      <div class="foto-contenedor leonex-logo-contenedor">
+        <div class="foto-fondo"></div>
+        <div class="foto-tarjeta leonex-logo-tarjeta">
+          <img
+            src="https://leonexteamcapacitaciones.my.canva.site/menuprincipal/_assets/media/d30dac49a09f2ad509728ed9c06cdb34.png"
+            alt="Logo oficial de LEONEX Team"
+            class="leonex-logo-principal"
+          >
+          <div class="foto-mensaje">
+            <strong>La unión es la fuerza</strong>
+            <span>Planifica tu inversión, proyecta tus ganancias y crece con estrategia.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </header>
+
+  <main class="contenedor">
+
+    <!-- =====================================
+         CALCULADORA
+    ====================================== -->
+
+    <section class="panel">
+
+      <h2>
+        Calcula tu próxima meta
+      </h2>
+
+      <p class="descripcion">
+        Elige una modalidad y escribe el monto que deseas analizar.
+      </p>
+
+      <div class="entradas">
+
+        <div class="campo">
+
+          <label for="modalidad">
+            Modalidad
+          </label>
+
+          <select
+            id="modalidad"
+            onchange="actualizarInterfaz()"
+          >
+
+            <option
+              value="clientes"
+              selected
+            >
+              Con clientes
+            </option>
+
+            <option value="directa">
+              Afiliación directa
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="campo">
+
+          <label for="tipoCalculo">
+            ¿Qué quieres saber?
+          </label>
+
+          <select
+            id="tipoCalculo"
+            onchange="actualizarInterfaz()"
+          >
+
+            <option value="ganancia">
+              Cuánto debo invertir para ganar
+            </option>
+
+            <option value="inversion">
+              Cuánto puedo ganar con mi inversión
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="campo">
+
+          <label
+            id="etiquetaMonto"
+            for="monto"
+          >
+            ¿Cuánto quieres ganar?
+          </label>
+
+          <div class="campo-dinero">
+
+            <span>Bs</span>
+
+            <input
+              type="number"
+              id="monto"
+              value="3000"
+              min="0"
+              step="1"
+              inputmode="decimal"
+              oninput="calcular()"
+            >
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- MONTO RECOMENDADO -->
+
+      <div class="recomendacion">
+
+        <div class="recomendacion-cabecera">
+
+          <div>
+
+            <h3>
+              Monto recomendado
+            </h3>
+
+            <p id="textoRecomendacion">
+              Aquí verás cómo aprovechar mejor el monto ingresado.
+            </p>
+
+          </div>
+
+          <button
+            type="button"
+            class="boton-recomendado"
+            id="botonRecomendado"
+            onclick="usarMontoRecomendado()"
+          >
+            Usar monto recomendado
+          </button>
+
+        </div>
+
+        <div class="recomendacion-grid">
+
+          <article class="recomendacion-card">
+
+            <span>
+              Dinero que se utilizará
+            </span>
+
+            <strong id="capitalExacto">
+              Bs 0,00
+            </strong>
+
+          </article>
+
+          <article class="recomendacion-card libre">
+
+            <span id="etiquetaCapitalLibre">
+              Dinero que no se utilizará
+            </span>
+
+            <strong id="capitalLibre">
+              Bs 0,00
+            </strong>
+
+          </article>
+
+          <article class="recomendacion-card destacada">
+
+            <span>
+              Monto práctico recomendado
+            </span>
+
+            <strong id="capitalRecomendado">
+              Bs 0
+            </strong>
+
+          </article>
+
+        </div>
+
+      </div>
+
+      <div
+        class="regla"
+        id="reglaModalidad"
+      ></div>
+
+      <div
+        class="mensaje"
+        id="mensajeResultado"
+      ></div>
+
+    </section>
+
+    <!-- =====================================
+         RESULTADOS PRINCIPALES
+    ====================================== -->
+
+    <section class="resultados">
+
+      <article class="resultado">
+
+        <span id="tituloInversionResultado">
+          Inversión necesaria
+        </span>
+
+        <strong id="inversionResultado">
+          Bs 0,00
+        </strong>
+
+        <small id="detalleInversionResultado"></small>
+
+      </article>
+
+      <article class="resultado ganancia">
+
+        <span>
+          Ganancia estimada
+        </span>
+
+        <strong id="gananciaResultado">
+          Bs 0,00
+        </strong>
+
+        <small id="detalleGananciaResultado"></small>
+
+      </article>
+
+      <article class="resultado claro">
+
+        <span>
+          Cajas pagadas
+        </span>
+
+        <strong id="cajasResultado">
+          0
+        </strong>
+
+        <small id="detalleCajasResultado"></small>
+
+      </article>
+
+    </section>
+
+    <!-- =====================================
+         RESUMEN BREVE
+    ====================================== -->
+
+    <section class="seccion">
+
+      <h2>
+        Resumen rápido
+      </h2>
+
+      <div
+        class="resumen-texto"
+        id="resumenTexto"
+      >
+        Introduce un monto para comenzar.
+      </div>
+
+    </section>
+
+    <!-- =====================================
+         CAJAS DE REGALO
+    ====================================== -->
+
+    <section
+      class="seccion"
+      id="seccionRegalos"
+    >
+
+      <h2>
+        Cajas de regalo
+      </h2>
+
+      <p class="descripcion">
+        Cantidad de cajas obtenidas y su valor aproximado.
+      </p>
+
+      <div class="regalos-grid">
+
+        <article class="regalo-card">
+
+          <span>
+            Total de cajas de regalo
+          </span>
+
+          <strong id="regalosTotales">
+            0 cajas
+          </strong>
+
+          <small id="detalleRegalos">
+            Incluye promoción y premios por puntos.
+          </small>
+
+        </article>
+
+        <article class="regalo-card">
+
+          <span>
+            Valor de las cajas de regalo
+          </span>
+
+          <strong id="valorRegalos">
+            Bs 0,00
+          </strong>
+
+          <small>
+            Calculado a Bs 435 por caja.
+          </small>
+
+        </article>
+
+        <article class="regalo-card">
+
+          <span>
+            Bono adicional en efectivo
+          </span>
+
+          <strong id="bonoEfectivo">
+            Bs 0,00
+          </strong>
+
+          <small>
+            Se suma por separado a la ganancia.
+          </small>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================
+         DETALLE
+    ====================================== -->
+
+    <section class="seccion">
+
+      <h2>
+        Detalle de las compras
+      </h2>
+
+      <p class="descripcion">
+        Así se acumulan los puntos, porcentajes y ganancias.
+      </p>
+
+      <div class="tabla-contenedor">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Compra</th>
+              <th>Cajas</th>
+              <th>Monto</th>
+              <th>Puntos</th>
+              <th>Puntos acumulados</th>
+              <th>Porcentaje</th>
+
+              <th class="columna-ganancia">
+                Ganancia de la compra
+              </th>
+
+              <th>Cajas de regalo</th>
+              <th>Bono</th>
+
+              <th class="columna-ganancia">
+                Ganancia acumulada
+              </th>
+            </tr>
+
+          </thead>
+
+          <tbody id="detalleCompras"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================
+         AFILIACIÓN DIRECTA
+    ====================================== -->
+
+    <section
+      class="seccion oculto"
+      id="escalaDirecta"
+    >
+
+      <h2>
+        Porcentajes de afiliación directa
+      </h2>
+
+      <p class="descripcion">
+        Incluye el kit de afiliación de Bs 180.
+        No incluye cajas de regalo ni bonos por puntos.
+      </p>
+
+      <div class="tabla-contenedor">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Puntos</th>
+              <th>Cajas mínimas</th>
+              <th>Descuento</th>
+              <th>Costo por caja</th>
+
+              <th class="columna-ganancia">
+                Margen por caja
+              </th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>Menos de 40</td>
+              <td>1</td>
+              <td>0%</td>
+              <td>Bs 435,00</td>
+              <td class="tabla-ganancia">Bs 0,00</td>
+            </tr>
+
+            <tr>
+              <td>40 puntos</td>
+              <td>2</td>
+              <td>5%</td>
+              <td>Bs 413,25</td>
+              <td class="tabla-ganancia">Bs 21,75</td>
+            </tr>
+
+            <tr>
+              <td>60 puntos</td>
+              <td>3</td>
+              <td>20%</td>
+              <td>Bs 348,00</td>
+              <td class="tabla-ganancia">Bs 87,00</td>
+            </tr>
+
+            <tr>
+              <td>100 puntos</td>
+              <td>5</td>
+              <td>25%</td>
+              <td>Bs 326,25</td>
+              <td class="tabla-ganancia">Bs 108,75</td>
+            </tr>
+
+            <tr>
+              <td>300 puntos o más</td>
+              <td>15</td>
+              <td>30%</td>
+              <td>Bs 304,50</td>
+              <td class="tabla-ganancia">Bs 130,50</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================
+         COMPARTIR POR WHATSAPP
+    ====================================== -->
+
+    <section class="seccion compartir-whatsapp">
+
+      <h2>
+        Compartir resumen por WhatsApp
+      </h2>
+
+      <p class="descripcion">
+        Escribe el número de la persona y abre el mensaje
+        preparado directamente en WhatsApp.
+      </p>
+
+      <div class="compartir-grid">
+
+        <div class="campo">
+
+          <label for="numeroWhatsapp">
+            Número de WhatsApp
+          </label>
+
+          <input
+            type="tel"
+            id="numeroWhatsapp"
+            placeholder="Ejemplo: 70000000"
+            inputmode="tel"
+            autocomplete="tel"
+          >
+
+          <small class="numero-ayuda">
+            Incluye el código del país sin el signo +,
+            espacios ni guiones. Para Bolivia comienza con 591.
+          </small>
+
+        </div>
+
+        <button
+          type="button"
+          class="boton-whatsapp"
+          onclick="compartirPorWhatsapp()"
+        >
+          Compartir por WhatsApp
+        </button>
+
+      </div>
+
+      <div class="vista-previa">
+
+        <span class="vista-previa-titulo">
+          Vista previa del mensaje
+        </span>
+
+        <pre id="vistaPreviaWhatsapp">
+Realiza un cálculo para generar el resumen.
+        </pre>
+
+      </div>
+
+      <div
+        class="error-whatsapp"
+        id="errorWhatsapp"
+        aria-live="polite"
+      ></div>
+
+    </section>
+
+    <!-- =====================================
+         NOTA
+    ====================================== -->
+
+    <div class="nota">
+
+      <strong>Base del cálculo:</strong>
+
+      cada caja cuesta Bs 435 y genera 20 puntos.
+
+      Con clientes, cada compra completa de 4 cajas genera
+      1 caja de regalo. Al alcanzar 500 puntos se agregan
+      2 cajas y Bs 525. Al superar 750 puntos se agregan
+      otras 2 cajas.
+
+      En afiliación directa se suma el kit de Bs 180 y no
+      se incluyen cajas de regalo ni bonos.
+
+    </div>
+
+  </main>
+
+  <footer>
+    <img src="https://leonexteamcapacitaciones.my.canva.site/menuprincipal/_assets/media/d30dac49a09f2ad509728ed9c06cdb34.png" alt="LEONEX Team" class="footer-logo">
+    LEONEX Team · Simulación comercial referencial · Montos expresados en bolivianos
+  </footer>
+
+  <script>
+    /* =====================================
+       CONSTANTES
+    ===================================== */
+
+    const PRECIO_CAJA = 435;
+    const PUNTOS_CAJA = 20;
+
+    const CAJAS_POR_COMPRA = 4;
+
+    const KIT_AFILIACION = 180;
+
+    const PREMIO_500_CAJAS = 2;
+    const PREMIO_500_EFECTIVO = 525;
+
+    const PREMIO_750_CAJAS = 2;
+
+    let montoRecomendadoActual = 0;
+
+    let ultimoResultado = null;
+    let ultimaModalidad = "clientes";
+    let ultimoTipoCalculo = "ganancia";
+    let ultimoMontoIngresado = 0;
+
+    /* =====================================
+       PORCENTAJES
+    ===================================== */
+
+    function porcentajeDirecto(puntos) {
+      if (puntos >= 300) return 30;
+      if (puntos >= 100) return 25;
+      if (puntos >= 60) return 20;
+      if (puntos >= 40) return 5;
+
+      return 0;
+    }
+
+    function porcentajeClientes(puntos) {
+      if (puntos >= 1000) return 50;
+      if (puntos >= 500) return 40;
+      if (puntos >= 300) return 30;
+      if (puntos >= 100) return 25;
+      if (puntos >= 60) return 20;
+
+      return 0;
+    }
+
+    /* =====================================
+       FORMATOS
+    ===================================== */
+
+    function formatoBs(valor) {
+      const numero =
+        Number.isFinite(valor)
+          ? valor
+          : 0;
+
+      return "Bs " + numero.toLocaleString(
+        "es-BO",
+        {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }
+      );
+    }
+
+    function formatoBsEntero(valor) {
+      const numero =
+        Number.isFinite(valor)
+          ? Math.ceil(valor)
+          : 0;
+
+      return "Bs " + numero.toLocaleString(
+        "es-BO",
+        {
+          maximumFractionDigits: 0
+        }
+      );
+    }
+
+    function formatoNumero(valor) {
+      const numero =
+        Number.isFinite(valor)
+          ? valor
+          : 0;
+
+      return numero.toLocaleString("es-BO");
+    }
+
+    function redondearDiez(valor) {
+      if (valor <= 0) {
+        return 0;
+      }
+
+      return Math.ceil(valor / 10) * 10;
+    }
+
+    /* =====================================
+       ESTADO
+    ===================================== */
+
+    function crearEstado() {
+      return {
+        modalidad: "",
+        compras: [],
+
+        cantidadCompras: 0,
+        cajasPagadas: 0,
+
+        puntos: 0,
+        porcentaje: 0,
+
+        costoProductos: 0,
+        kit: 0,
+
+        inversionTotal: 0,
+        ventaTotal: 0,
+
+        regalosPromocion: 0,
+        regalosPremios: 0,
+
+        bono: 0,
+        valorRegalos: 0,
+
+        ganancia: 0,
+        saldo: 0,
+
+        mensaje: ""
+      };
+    }
+
+    function copiarEstado(estado) {
+      return {
+        ...estado,
+
+        compras:
+          estado.compras.map(
+            compra => ({ ...compra })
+          )
+      };
+    }
+
+    /* =====================================
+       MODALIDAD CON CLIENTES
+    ===================================== */
+
+    function agregarCompraCliente(
+      estado,
+      cajasCompra
+    ) {
+      if (cajasCompra <= 0) {
+        return estado;
+      }
+
+      const puntosAntes =
+        estado.puntos;
+
+      const puntosCompra =
+        cajasCompra *
+        PUNTOS_CAJA;
+
+      const puntosAcumulados =
+        puntosAntes +
+        puntosCompra;
+
+      const porcentaje =
+        porcentajeClientes(
+          puntosAcumulados
+        );
+
+      const montoCompra =
+        cajasCompra *
+        PRECIO_CAJA;
+
+      const comision =
+        montoCompra *
+        porcentaje /
+        100;
+
+      const regalosPromocion =
+        Math.floor(
+          cajasCompra /
+          CAJAS_POR_COMPRA
+        );
+
+      let regalosPremios = 0;
+      let bono = 0;
+
+      if (
+        puntosAntes < 500 &&
+        puntosAcumulados >= 500
+      ) {
+        regalosPremios +=
+          PREMIO_500_CAJAS;
+
+        bono +=
+          PREMIO_500_EFECTIVO;
+      }
+
+      if (
+        puntosAntes < 750 &&
+        puntosAcumulados >= 750
+      ) {
+        regalosPremios +=
+          PREMIO_750_CAJAS;
+      }
+
+      const cajasRegalo =
+        regalosPromocion +
+        regalosPremios;
+
+      const valorRegalos =
+        cajasRegalo *
+        PRECIO_CAJA;
+
+      const gananciaCompra =
+        comision +
+        valorRegalos +
+        bono;
+
+      estado.modalidad =
+        "clientes";
+
+      estado.cantidadCompras++;
+
+      estado.cajasPagadas +=
+        cajasCompra;
+
+      estado.puntos =
+        puntosAcumulados;
+
+      estado.porcentaje =
+        porcentaje;
+
+      estado.costoProductos +=
+        montoCompra;
+
+      estado.inversionTotal +=
+        montoCompra;
+
+      estado.ventaTotal +=
+        montoCompra;
+
+      estado.regalosPromocion +=
+        regalosPromocion;
+
+      estado.regalosPremios +=
+        regalosPremios;
+
+      estado.bono +=
+        bono;
+
+      estado.valorRegalos +=
+        valorRegalos;
+
+      estado.ganancia +=
+        gananciaCompra;
+
+      estado.compras.push({
+        numero:
+          estado.cantidadCompras,
+
+        cajas:
+          cajasCompra,
+
+        monto:
+          montoCompra,
+
+        puntosCompra,
+
+        puntosAcumulados,
+
+        porcentaje,
+
+        gananciaCompra,
+
+        regalos:
+          cajasRegalo,
+
+        bono,
+
+        gananciaAcumulada:
+          estado.ganancia,
+
+        tienePremio:
+          regalosPremios > 0 ||
+          bono > 0
+      });
+
+      return estado;
+    }
+
+    function escenarioClientes(
+      cantidadCajas
+    ) {
+      const estado =
+        crearEstado();
+
+      estado.modalidad =
+        "clientes";
+
+      let pendientes =
+        Math.max(
+          0,
+          Math.floor(cantidadCajas)
+        );
+
+      while (pendientes > 0) {
+        const cajasCompra =
+          Math.min(
+            CAJAS_POR_COMPRA,
+            pendientes
+          );
+
+        agregarCompraCliente(
+          estado,
+          cajasCompra
+        );
+
+        pendientes -=
+          cajasCompra;
+      }
+
+      return estado;
+    }
+
+    function clientesPorInversion(
+      inversionDisponible
+    ) {
+      const cajas =
+        Math.floor(
+          inversionDisponible /
+          PRECIO_CAJA
+        );
+
+      const resultado =
+        escenarioClientes(cajas);
+
+      resultado.saldo =
+        inversionDisponible -
+        resultado.inversionTotal;
+
+      if (cajas === 0) {
+        resultado.mensaje =
+          "El monto todavía no alcanza para una caja de Bs 435.";
+      }
+
+      return resultado;
+    }
+
+    function clientesPorGanancia(
+      metaGanancia
+    ) {
+      let estado =
+        crearEstado();
+
+      estado.modalidad =
+        "clientes";
+
+      if (metaGanancia <= 0) {
+        return estado;
+      }
+
+      for (
+        let compra = 1;
+        compra <= 10000;
+        compra++
+      ) {
+        for (
+          let cajas = 1;
+          cajas <= CAJAS_POR_COMPRA;
+          cajas++
+        ) {
+          const prueba =
+            copiarEstado(estado);
+
+          agregarCompraCliente(
+            prueba,
+            cajas
+          );
+
+          if (
+            prueba.ganancia >=
+            metaGanancia
+          ) {
+            return prueba;
+          }
+        }
+
+        agregarCompraCliente(
+          estado,
+          CAJAS_POR_COMPRA
+        );
+      }
+
+      estado.mensaje =
+        "No fue posible calcular la meta ingresada.";
+
+      return estado;
+    }
+
+    /* =====================================
+       AFILIACIÓN DIRECTA
+    ===================================== */
+
+    function escenarioDirecto(
+      cantidadCajas
+    ) {
+      const estado =
+        crearEstado();
+
+      estado.modalidad =
+        "directa";
+
+      if (cantidadCajas <= 0) {
+        return estado;
+      }
+
+      const puntos =
+        cantidadCajas *
+        PUNTOS_CAJA;
+
+      const porcentaje =
+        porcentajeDirecto(
+          puntos
+        );
+
+      const costoCaja =
+        PRECIO_CAJA *
+        (
+          1 -
+          porcentaje / 100
+        );
+
+      const costoProductos =
+        cantidadCajas *
+        costoCaja;
+
+      const inversionTotal =
+        costoProductos +
+        KIT_AFILIACION;
+
+      const ventaTotal =
+        cantidadCajas *
+        PRECIO_CAJA;
+
+      const margenProductos =
+        ventaTotal -
+        costoProductos;
+
+      const gananciaNeta =
+        margenProductos -
+        KIT_AFILIACION;
+
+      estado.modalidad =
+        "directa";
+
+      estado.cantidadCompras = 1;
+
+      estado.cajasPagadas =
+        cantidadCajas;
+
+      estado.puntos =
+        puntos;
+
+      estado.porcentaje =
+        porcentaje;
+
+      estado.costoProductos =
+        costoProductos;
+
+      estado.kit =
+        KIT_AFILIACION;
+
+      estado.inversionTotal =
+        inversionTotal;
+
+      estado.ventaTotal =
+        ventaTotal;
+
+      estado.ganancia =
+        gananciaNeta;
+
+      estado.compras.push({
+        numero: 1,
+
+        cajas:
+          cantidadCajas,
+
+        monto:
+          inversionTotal,
+
+        puntosCompra:
+          puntos,
+
+        puntosAcumulados:
+          puntos,
+
+        porcentaje,
+
+        gananciaCompra:
+          gananciaNeta,
+
+        regalos: 0,
+        bono: 0,
+
+        gananciaAcumulada:
+          gananciaNeta,
+
+        tienePremio:
+          false
+      });
+
+      return estado;
+    }
+
+    function directaPorGanancia(
+      metaGanancia
+    ) {
+      if (metaGanancia <= 0) {
+        return crearEstado();
+      }
+
+      for (
+        let cajas = 1;
+        cajas <= 100000;
+        cajas++
+      ) {
+        const resultado =
+          escenarioDirecto(cajas);
+
+        if (
+          resultado.ganancia >=
+          metaGanancia
+        ) {
+          return resultado;
+        }
+      }
+
+      const estado =
+        crearEstado();
+
+      estado.mensaje =
+        "No fue posible calcular la meta ingresada.";
+
+      return estado;
+    }
+
+    function directaPorInversion(
+      inversionDisponible
+    ) {
+      let mejor =
+        escenarioDirecto(0);
+
+      mejor.saldo =
+        inversionDisponible;
+
+      const maximoCajas =
+        Math.max(
+          30,
+          Math.ceil(
+            Math.max(
+              0,
+              inversionDisponible -
+              KIT_AFILIACION
+            ) /
+            (
+              PRECIO_CAJA *
+              0.70
+            )
+          ) + 20
+        );
+
+      for (
+        let cajas = 1;
+        cajas <= maximoCajas;
+        cajas++
+      ) {
+        const resultado =
+          escenarioDirecto(cajas);
+
+        if (
+          resultado.inversionTotal <=
+          inversionDisponible
+        ) {
+          mejor = resultado;
+        }
+      }
+
+      mejor.saldo =
+        inversionDisponible -
+        mejor.inversionTotal;
+
+      if (
+        mejor.cajasPagadas === 0
+      ) {
+        mejor.mensaje =
+          "Necesitas cubrir el kit de Bs 180 y por lo menos una caja.";
+      }
+
+      return mejor;
+    }
+
+    /* =====================================
+       INTERFAZ
+    ===================================== */
+
+    function actualizarInterfaz() {
+      const modalidad =
+        document.getElementById(
+          "modalidad"
+        ).value;
+
+      const tipo =
+        document.getElementById(
+          "tipoCalculo"
+        ).value;
+
+      const etiquetaMonto =
+        document.getElementById(
+          "etiquetaMonto"
+        );
+
+      const escalaDirecta =
+        document.getElementById(
+          "escalaDirecta"
+        );
+
+      if (tipo === "ganancia") {
+        etiquetaMonto.textContent =
+          "¿Cuánto quieres ganar?";
+      } else {
+        etiquetaMonto.textContent =
+          "¿Cuánto tienes para invertir?";
+      }
+
+      if (modalidad === "directa") {
+        escalaDirecta.classList.remove(
+          "oculto"
+        );
+      } else {
+        escalaDirecta.classList.add(
+          "oculto"
+        );
+      }
+
+      calcular();
+    }
+
+    function calcular() {
+      const modalidad =
+        document.getElementById(
+          "modalidad"
+        ).value;
+
+      const tipo =
+        document.getElementById(
+          "tipoCalculo"
+        ).value;
+
+      const monto =
+        Number(
+          document.getElementById(
+            "monto"
+          ).value
+        );
+
+      if (
+        !Number.isFinite(monto) ||
+        monto < 0
+      ) {
+        return;
+      }
+
+      let resultado;
+
+      if (modalidad === "clientes") {
+        document.getElementById(
+          "reglaModalidad"
+        ).innerHTML = `
+          <strong>Con clientes:</strong>
+          cada compra se organiza en grupos de hasta 4 cajas.
+          Una compra completa de 4 genera 1 caja de regalo.
+        `;
+
+        resultado =
+          tipo === "ganancia"
+            ? clientesPorGanancia(monto)
+            : clientesPorInversion(monto);
+      } else {
+        document.getElementById(
+          "reglaModalidad"
+        ).innerHTML = `
+          <strong>Afiliación directa:</strong>
+          se suma el kit de Bs 180. No se incluyen cajas
+          de regalo ni premios por 500 o 750 puntos.
+        `;
+
+        resultado =
+          tipo === "ganancia"
+            ? directaPorGanancia(monto)
+            : directaPorInversion(monto);
+      }
+
+      mostrarResultado(
+        resultado,
+        modalidad,
+        tipo,
+        monto
+      );
+    }
+
+    /* =====================================
+       MOSTRAR RESULTADOS
+    ===================================== */
+
+    function mostrarResultado(
+      resultado,
+      modalidad,
+      tipo,
+      monto
+    ) {
+      mostrarMensaje(
+        resultado.mensaje
+      );
+
+      document.getElementById(
+        "inversionResultado"
+      ).textContent =
+        formatoBs(
+          resultado.inversionTotal
+        );
+
+      document.getElementById(
+        "gananciaResultado"
+      ).textContent =
+        formatoBs(
+          resultado.ganancia
+        );
+
+      document.getElementById(
+        "cajasResultado"
+      ).textContent =
+        formatoNumero(
+          resultado.cajasPagadas
+        );
+
+      document.getElementById(
+        "tituloInversionResultado"
+      ).textContent =
+        tipo === "ganancia"
+          ? "Inversión necesaria"
+          : "Inversión utilizada";
+
+      document.getElementById(
+        "detalleInversionResultado"
+      ).textContent =
+        modalidad === "directa"
+          ? "Incluye el kit de afiliación."
+          : "Monto total de las compras.";
+
+      document.getElementById(
+        "detalleGananciaResultado"
+      ).textContent =
+        modalidad === "directa"
+          ? "Ganancia neta después del kit."
+          : "Incluye porcentajes, regalos y bono.";
+
+      document.getElementById(
+        "detalleCajasResultado"
+      ).textContent =
+        modalidad === "clientes"
+          ? formatoNumero(
+              resultado.cantidadCompras
+            ) + " compras estimadas."
+          : formatoNumero(
+              resultado.puntos
+            ) + " puntos generados.";
+
+      mostrarRecomendacion(
+        resultado,
+        modalidad,
+        tipo,
+        monto
+      );
+
+      mostrarResumen(
+        resultado,
+        modalidad
+      );
+
+      mostrarRegalos(
+        resultado,
+        modalidad
+      );
+
+      crearTabla(
+        resultado.compras
+      );
+
+      ultimoResultado =
+        resultado;
+
+      ultimaModalidad =
+        modalidad;
+
+      ultimoTipoCalculo =
+        tipo;
+
+      ultimoMontoIngresado =
+        monto;
+
+      actualizarVistaPreviaWhatsapp();
+    }
+
+    function mostrarMensaje(texto) {
+      const mensaje =
+        document.getElementById(
+          "mensajeResultado"
+        );
+
+      mensaje.classList.remove(
+        "visible"
+      );
+
+      mensaje.textContent = "";
+
+      if (texto) {
+        mensaje.textContent =
+          texto;
+
+        mensaje.classList.add(
+          "visible"
+        );
+      }
+    }
+
+    /* =====================================
+       RECOMENDACIÓN
+    ===================================== */
+
+    function mostrarRecomendacion(
+      resultado,
+      modalidad,
+      tipo,
+      monto
+    ) {
+      let libre = 0;
+      let recomendado = 0;
+
+      const siguienteEscenario =
+        modalidad === "clientes"
+          ? escenarioClientes(
+              resultado.cajasPagadas + 1
+            )
+          : escenarioDirecto(
+              resultado.cajasPagadas + 1
+            );
+
+      if (tipo === "inversion") {
+        libre =
+          Math.max(
+            0,
+            monto -
+            resultado.inversionTotal
+          );
+
+        recomendado =
+          redondearDiez(
+            siguienteEscenario.inversionTotal
+          );
+
+        const faltante =
+          Math.max(
+            0,
+            siguienteEscenario.inversionTotal -
+            monto
+          );
+
+        document.getElementById(
+          "etiquetaCapitalLibre"
+        ).textContent =
+          "Dinero que no se utilizará";
+
+        if (resultado.cajasPagadas > 0) {
+          document.getElementById(
+            "textoRecomendacion"
+          ).innerHTML = `
+            Utilizarás
+            <strong>${formatoBs(resultado.inversionTotal)}</strong>
+            y quedarán libres
+            <strong>${formatoBs(libre)}</strong>.
+            Para sumar una caja faltan
+            <strong>${formatoBs(faltante)}</strong>.
+          `;
+        } else {
+          document.getElementById(
+            "textoRecomendacion"
+          ).innerHTML = `
+            El monto todavía no alcanza para iniciar.
+            El monto recomendado es
+            <strong>${formatoBsEntero(recomendado)}</strong>.
+          `;
+        }
+      } else {
+        recomendado =
+          redondearDiez(
+            resultado.inversionTotal
+          );
+
+        libre =
+          Math.max(
+            0,
+            recomendado -
+            resultado.inversionTotal
+          );
+
+        document.getElementById(
+          "etiquetaCapitalLibre"
+        ).textContent =
+          "Diferencia por redondeo";
+
+        document.getElementById(
+          "textoRecomendacion"
+        ).innerHTML = `
+          Para buscar una ganancia de
+          <strong>${formatoBs(monto)}</strong>,
+          prepara aproximadamente
+          <strong>${formatoBsEntero(recomendado)}</strong>.
+        `;
+      }
+
+      montoRecomendadoActual =
+        recomendado;
+
+      document.getElementById(
+        "capitalExacto"
+      ).textContent =
+        formatoBs(
+          resultado.inversionTotal
+        );
+
+      document.getElementById(
+        "capitalLibre"
+      ).textContent =
+        formatoBs(libre);
+
+      document.getElementById(
+        "capitalRecomendado"
+      ).textContent =
+        formatoBsEntero(recomendado);
+
+      const boton =
+        document.getElementById(
+          "botonRecomendado"
+        );
+
+      boton.textContent =
+        recomendado > 0
+          ? "Usar " +
+            formatoBsEntero(recomendado)
+          : "Monto no disponible";
+
+      boton.disabled =
+        recomendado <= 0;
+    }
+
+    function usarMontoRecomendado() {
+      if (
+        montoRecomendadoActual <= 0
+      ) {
+        return;
+      }
+
+      document.getElementById(
+        "tipoCalculo"
+      ).value =
+        "inversion";
+
+      document.getElementById(
+        "monto"
+      ).value =
+        montoRecomendadoActual;
+
+      actualizarInterfaz();
+
+      document.getElementById(
+        "monto"
+      ).focus();
+    }
+
+    /* =====================================
+       RESUMEN
+    ===================================== */
+
+    function mostrarResumen(
+      resultado,
+      modalidad
+    ) {
+      const resumen =
+        document.getElementById(
+          "resumenTexto"
+        );
+
+      if (modalidad === "clientes") {
+        resumen.innerHTML = `
+          Necesitas movilizar
+          <strong>${formatoBs(resultado.inversionTotal)}</strong>
+          en
+          <strong>${formatoNumero(resultado.cajasPagadas)}
+          cajas</strong>.
+
+          Alcanzarías
+          <strong>${formatoNumero(resultado.puntos)}
+          puntos</strong>
+          y una ganancia estimada de
+          <strong class="valor-ganancia">
+          ${formatoBs(resultado.ganancia)}</strong>.
+        `;
+      } else {
+        resumen.innerHTML = `
+          Necesitas invertir
+          <strong>${formatoBs(resultado.inversionTotal)}</strong>
+          para comprar
+          <strong>${formatoNumero(resultado.cajasPagadas)}
+          cajas</strong>.
+
+          El cálculo incluye el kit de
+          <strong>${formatoBs(resultado.kit)}</strong>
+          y genera una ganancia neta estimada de
+          <strong class="valor-ganancia">
+          ${formatoBs(resultado.ganancia)}</strong>.
+        `;
+      }
+    }
+
+    /* =====================================
+       REGALOS
+    ===================================== */
+
+    function mostrarRegalos(
+      resultado,
+      modalidad
+    ) {
+      const seccion =
+        document.getElementById(
+          "seccionRegalos"
+        );
+
+      if (modalidad === "directa") {
+        seccion.classList.add(
+          "oculto"
+        );
+
+        return;
+      }
+
+      seccion.classList.remove(
+        "oculto"
+      );
+
+      const regalosTotales =
+        resultado.regalosPromocion +
+        resultado.regalosPremios;
+
+      const valorRegalos =
+        regalosTotales *
+        PRECIO_CAJA;
+
+      document.getElementById(
+        "regalosTotales"
+      ).textContent =
+        formatoNumero(regalosTotales) +
+        " cajas";
+
+      document.getElementById(
+        "valorRegalos"
+      ).textContent =
+        formatoBs(valorRegalos);
+
+      document.getElementById(
+        "bonoEfectivo"
+      ).textContent =
+        formatoBs(resultado.bono);
+
+      document.getElementById(
+        "detalleRegalos"
+      ).textContent =
+        formatoNumero(
+          resultado.regalosPromocion
+        ) +
+        " por compras de 4 y " +
+        formatoNumero(
+          resultado.regalosPremios
+        ) +
+        " por premios de puntos.";
+    }
+
+    /* =====================================
+       TABLA
+    ===================================== */
+
+    function crearTabla(compras) {
+      const tabla =
+        document.getElementById(
+          "detalleCompras"
+        );
+
+      tabla.innerHTML = "";
+
+      compras.forEach(
+        compra => {
+          const fila =
+            document.createElement("tr");
+
+          if (compra.tienePremio) {
+            fila.classList.add(
+              "fila-premio"
+            );
+          }
+
+          fila.innerHTML = `
+            <td>
+              ${compra.numero}
+            </td>
+
+            <td>
+              ${formatoNumero(compra.cajas)}
+            </td>
+
+            <td>
+              ${formatoBs(compra.monto)}
+            </td>
+
+            <td>
+              ${formatoNumero(
+                compra.puntosCompra
+              )}
+            </td>
+
+            <td>
+              ${formatoNumero(
+                compra.puntosAcumulados
+              )}
+            </td>
+
+            <td>
+              <strong>
+                ${compra.porcentaje}%
+              </strong>
+            </td>
+
+            <td class="${
+              compra.gananciaCompra >= 0
+                ? "tabla-ganancia"
+                : "negativo"
+            }">
+              ${formatoBs(
+                compra.gananciaCompra
+              )}
+            </td>
+
+            <td>
+              ${formatoNumero(
+                compra.regalos
+              )}
+            </td>
+
+            <td>
+              ${formatoBs(
+                compra.bono
+              )}
+            </td>
+
+            <td class="${
+              compra.gananciaAcumulada >= 0
+                ? "tabla-ganancia"
+                : "negativo"
+            }">
+              ${formatoBs(
+                compra.gananciaAcumulada
+              )}
+            </td>
+          `;
+
+          tabla.appendChild(fila);
+        }
+      );
+
+      if (compras.length === 0) {
+        tabla.innerHTML = `
+          <tr>
+            <td colspan="10">
+              Introduce un monto mayor para generar el detalle.
+            </td>
+          </tr>
+        `;
+      }
+    }
+
+    /* =====================================
+       MENSAJE DE WHATSAPP
+    ===================================== */
+
+    function construirMensajeWhatsapp() {
+      if (!ultimoResultado) {
+        return "Realiza un cálculo para generar el resumen.";
+      }
+
+      const resultado =
+        ultimoResultado;
+
+      const modalidadTexto =
+        ultimaModalidad === "clientes"
+          ? "Con clientes"
+          : "Afiliación directa";
+
+      const objetivoTexto =
+        ultimoTipoCalculo === "ganancia"
+          ? "Meta de ganancia: " +
+            formatoBs(ultimoMontoIngresado)
+          : "Dinero disponible: " +
+            formatoBs(ultimoMontoIngresado);
+
+      const inversionTexto =
+        ultimoTipoCalculo === "ganancia"
+          ? "Inversión necesaria"
+          : "Inversión utilizada";
+
+      const lineas = [
+        "📊 *RESUMEN DE LA SIMULACIÓN*",
+        "",
+        "Modalidad: " + modalidadTexto,
+        objetivoTexto,
+        "",
+        "📦 Cajas pagadas: " +
+          formatoNumero(resultado.cajasPagadas),
+
+        "💰 " +
+          inversionTexto +
+          ": " +
+          formatoBs(resultado.inversionTotal),
+
+        "🔵 Ganancia estimada: " +
+          formatoBs(resultado.ganancia),
+
+        "⭐ Puntos alcanzados: " +
+          formatoNumero(resultado.puntos),
+
+        "📈 Porcentaje alcanzado: " +
+          resultado.porcentaje +
+          "%"
+      ];
+
+      if (
+        ultimaModalidad ===
+        "clientes"
+      ) {
+        const cajasRegalo =
+          resultado.regalosPromocion +
+          resultado.regalosPremios;
+
+        const valorRegalos =
+          cajasRegalo *
+          PRECIO_CAJA;
+
+        lineas.push(
+          "",
+          "🎁 Cajas de regalo: " +
+            formatoNumero(cajasRegalo),
+
+          "💵 Valor de las cajas de regalo: " +
+            formatoBs(valorRegalos)
+        );
+
+        if (resultado.bono > 0) {
+          lineas.push(
+            "💳 Bono en efectivo: " +
+              formatoBs(resultado.bono)
+          );
+        }
+      } else {
+        lineas.push(
+          "",
+          "🧾 Kit de afiliación incluido: " +
+            formatoBs(resultado.kit),
+
+          "🎁 Cajas de regalo: No aplica"
+        );
+      }
+
+      if (
+        ultimoTipoCalculo ===
+        "inversion"
+      ) {
+        lineas.push(
+          "",
+          "💡 Dinero no utilizado: " +
+            formatoBs(resultado.saldo)
+        );
+      }
+
+      if (
+        montoRecomendadoActual > 0
+      ) {
+        lineas.push(
+          "✅ Monto práctico recomendado: " +
+            formatoBsEntero(
+              montoRecomendadoActual
+            )
+        );
+      }
+
+      lineas.push(
+        "",
+        "Los valores corresponden a una simulación comercial referencial."
+      );
+
+      return lineas.join("\n");
+    }
+
+    function actualizarVistaPreviaWhatsapp() {
+      const vistaPrevia =
+        document.getElementById(
+          "vistaPreviaWhatsapp"
+        );
+
+      if (!vistaPrevia) {
+        return;
+      }
+
+      vistaPrevia.textContent =
+        construirMensajeWhatsapp();
+    }
+
+    function compartirPorWhatsapp() {
+      const campoNumero =
+        document.getElementById(
+          "numeroWhatsapp"
+        );
+
+      const error =
+        document.getElementById(
+          "errorWhatsapp"
+        );
+
+      error.classList.remove(
+        "visible"
+      );
+
+      error.textContent = "";
+
+      if (!ultimoResultado) {
+        mostrarErrorWhatsapp(
+          "Primero realiza un cálculo para generar el resumen."
+        );
+
+        return;
+      }
+
+      const numero =
+        campoNumero.value.replace(
+          /\D/g,
+          ""
+        );
+
+      if (
+        numero.length < 8 ||
+        numero.length > 15
+      ) {
+        mostrarErrorWhatsapp(
+          "Escribe un número válido con código de país. Ejemplo para Bolivia: 59170000000."
+        );
+
+        campoNumero.focus();
+
+        return;
+      }
+
+      const mensaje =
+        construirMensajeWhatsapp();
+
+      const numeroFinal =
+        numero.startsWith("591")
+          ? numero
+          : "591" + numero;
+
+      const enlace =
+        "https://wa.me/" +
+        numeroFinal +
+        "?text=" +
+        encodeURIComponent(mensaje);
+
+      window.open(
+        enlace,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
+
+    function mostrarErrorWhatsapp(texto) {
+      const error =
+        document.getElementById(
+          "errorWhatsapp"
+        );
+
+      error.textContent =
+        texto;
+
+      error.classList.add(
+        "visible"
+      );
+    }
+
+    /* =====================================
+       INICIAR
+    ===================================== */
+
+    actualizarInterfaz();
+  </script>
+
+</body>
+</html>

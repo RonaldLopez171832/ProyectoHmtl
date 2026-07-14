@@ -20,6 +20,8 @@
     --texto:#EDF1F5;
     --texto-suave:#8A97A6;
     --sombra:0 24px 50px -20px rgba(46,168,255,0.25);
+    --ganancia:#B8FF3D;
+    --ganancia-oscuro:#132000;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -119,6 +121,34 @@
     background:var(--panel);border:1px solid var(--borde);
     padding:10px 22px;border-radius:999px;font-size:12.5px;color:var(--texto-suave);font-style:italic;white-space:nowrap;
   }
+
+
+  /* ---------- CALCULADORA DESTACADA ---------- */
+  .calculator-highlight{
+    position:relative;z-index:2;padding:24px 0 0;
+  }
+  .calculator-card{
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+    padding:24px 28px;border-radius:22px;
+    background:linear-gradient(115deg, var(--ganancia), #E6FF9B);
+    color:var(--ganancia-oscuro);
+    box-shadow:0 22px 55px -18px rgba(184,255,61,.55);
+    border:1px solid rgba(255,255,255,.45);
+  }
+  .calculator-info{display:flex;align-items:center;gap:18px;min-width:0;}
+  .calculator-icon{
+    flex:0 0 58px;width:58px;height:58px;border-radius:18px;
+    display:grid;place-items:center;background:rgba(6,8,9,.12);
+  }
+  .calculator-icon svg{width:30px;height:30px;}
+  .calculator-copy strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,2.4vw,28px);line-height:1.1;margin-bottom:6px;}
+  .calculator-copy span{font-size:14px;font-weight:600;opacity:.78;}
+  .calculator-link{
+    flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    min-height:48px;padding:13px 22px;border-radius:999px;background:#071006;color:#fff;
+    font-weight:800;font-size:14px;transition:transform .2s, box-shadow .2s;
+  }
+  .calculator-link:hover{transform:translateY(-2px);box-shadow:0 12px 24px -12px rgba(0,0,0,.65);}
 
   /* ---------- MODULES INTRO ---------- */
   .curriculum-intro{padding:90px 0 20px;text-align:center;position:relative;z-index:1;}
@@ -231,16 +261,60 @@
     .module-head{position:static;}
   }
   @media (max-width: 680px){
-    .nav-links{position:fixed;top:68px;left:0;right:0;background:#040607;flex-direction:column;
-      padding:24px 32px;gap:20px;transform:translateY(-140%);transition:transform .3s ease;border-bottom:1px solid var(--borde);}
+    nav{padding:12px 16px;}
+    .brand{gap:8px;min-width:0;}
+    .brand-mark{width:38px;height:38px;}
+    .brand-text{font-size:15px;white-space:nowrap;}
+    .brand-text span{font-size:8px;letter-spacing:1.8px;}
+    .nav-links{position:fixed;top:63px;left:0;right:0;background:rgba(4,6,7,.98);flex-direction:column;align-items:stretch;
+      padding:22px 20px 28px;gap:8px;transform:translateY(-145%);transition:transform .3s ease;border-bottom:1px solid var(--borde);}
     .nav-links.open{transform:translateY(0);}
-    .nav-cta{width:fit-content;}
-    .burger{display:block;}
-    .wrap{padding:0 20px;}
-    .hero{padding:60px 0 90px;}
-    .hero-stats{gap:26px;}
-    .cta-inner{flex-direction:column;align-items:flex-start;}
+    .nav-links a{display:block;padding:12px 10px;text-align:center;}
+    .nav-cta{width:100%;}
+    .burger{display:block;font-size:26px;line-height:1;}
+    .wrap{padding:0 16px;}
+    .hero{padding:48px 0 68px;}
+    .hero-grid{gap:34px;}
+    .hero h1{font-size:clamp(34px,11vw,46px);line-height:1.06;}
+    .hero p{font-size:15.5px;line-height:1.55;}
+    .hero-actions{display:grid;grid-template-columns:1fr;margin-bottom:36px;}
+    .btn-primary,.btn-ghost{width:100%;justify-content:center;text-align:center;padding:14px 18px;}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .stat{padding:14px 8px;border-radius:14px;background:rgba(255,255,255,.03);text-align:center;}
+    .stat b{font-size:24px;}
+    .stat span{font-size:9.5px;}
+    .emblem{width:min(250px,74vw);}
+    .emblem-glow{width:260px;height:260px;}
+    .quote-badge{bottom:-18px;font-size:11px;padding:9px 14px;}
+    .calculator-highlight{padding-top:18px;}
+    .calculator-card{flex-direction:column;align-items:stretch;padding:20px;border-radius:18px;}
+    .calculator-info{align-items:flex-start;}
+    .calculator-icon{flex-basis:48px;width:48px;height:48px;border-radius:14px;}
+    .calculator-copy strong{font-size:21px;}
+    .calculator-copy span{font-size:12.5px;line-height:1.45;display:block;}
+    .calculator-link{width:100%;}
+    .curriculum-intro{padding:70px 0 10px;}
+    .modules{padding:36px 0 70px;}
+    .module{padding:38px 0;gap:18px;}
+    .module-num{font-size:44px;}
+    .module-head h3{font-size:21px;}
+    .lesson-btn{padding:14px 12px;gap:10px;align-items:flex-start;}
+    .lesson-index{width:34px;height:34px;border-radius:10px;font-size:12px;}
+    .lesson-text{font-size:14px;padding-top:6px;}
+    .lesson-chevron{width:30px;height:30px;margin-top:2px;}
+    .video-pad{padding:0 10px 10px;}
+    .video-frame{border-radius:10px;}
+    .cta-band{padding:54px 0;}
+    .cta-inner{flex-direction:column;align-items:stretch;}
     .footer-top,.footer-bottom{flex-direction:column;align-items:flex-start;}
+  }
+
+  @media (max-width: 390px){
+    .brand-text span{display:none;}
+    .hero-stats{grid-template-columns:1fr;}
+    .calculator-info{gap:12px;}
+    .calculator-icon{display:none;}
+    .lesson-text{font-size:13.5px;}
   }
 </style>
 </head>
@@ -255,11 +329,14 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#inicio">Inicio</a></li>
       <li><a href="#modulos">Módulos</a></li>
+      <li><a href="calculadora.html">Calculadora</a></li>
       <li><a href="#contacto" class="nav-cta">Unirme al equipo</a></li>
     </ul>
     <button class="burger" id="burger" aria-label="Abrir menú">&#9776;</button>
   </nav>
 </header>
+
+
 
 <section class="hero" id="inicio">
   <div class="wrap hero-grid">
@@ -284,7 +361,25 @@
     </div>
   </div>
 </section>
-
+<section class="calculator-highlight" aria-label="Calculadora de inversión y ganancias">
+  <div class="wrap">
+    <div class="calculator-card">
+      <div class="calculator-info">
+        <div class="calculator-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2.5" width="16" height="19" rx="3"></rect>
+            <path d="M8 6.5h8M8 11h2M14 11h2M8 15h2M14 15h2M8 19h2M14 19h2"></path>
+          </svg>
+        </div>
+        <div class="calculator-copy">
+          <strong>Calculadora de inversión y ganancias</strong>
+          <span>Calcula cuánto invertir, cuántas cajas adquirir y cuál puede ser tu ganancia.</span>
+        </div>
+      </div>
+      <a class="calculator-link" href="calleonex.html">Calcular ahora <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
 <section class="curriculum-intro" id="modulos">
   <div class="wrap">
     <div class="eyebrow">Plan de estudio</div>
@@ -306,7 +401,7 @@
     <div class="lesson-list">
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="f1pysUe2IIc">
           <div class="lesson-index">01</div>
           <div class="lesson-text">Entendiendo los descuentos</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -315,7 +410,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="Ckx7sotiXgc">
           <div class="lesson-index">02</div>
           <div class="lesson-text">Entendiendo los rangos</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -324,7 +419,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="AZWpyRVCFvI">
           <div class="lesson-index">03</div>
           <div class="lesson-text">2 formas de comprar en Fuxion</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -333,7 +428,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="qt8Gr8l0bMg">
           <div class="lesson-index">04</div>
           <div class="lesson-text">10 bonos del plan de pagos Fuxion</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -342,7 +437,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="ONOaYHoQNpg">
           <div class="lesson-index">05</div>
           <div class="lesson-text">Cómo hacer el PROI de 1000 y 500 puntos</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -364,7 +459,7 @@
     <div class="lesson-list">
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="vf1kFb-PhBY">
           <div class="lesson-index">01</div>
           <div class="lesson-text">Cómo crear clientes preferentes y regalos</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -373,7 +468,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="8yousEJZh1I">
           <div class="lesson-index">02</div>
           <div class="lesson-text">Inicio y fin de ciclo de cliente para regalos</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -382,7 +477,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="2ngvbnRX6Gk">
           <div class="lesson-index">03</div>
           <div class="lesson-text">Cómo anular código de cliente preferente para que se haga socio</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -391,7 +486,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="2AqDCyms7Jc">
           <div class="lesson-index">04</div>
           <div class="lesson-text">Catálogo de productos Fuxion Bolivia</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -413,7 +508,7 @@
     <div class="lesson-list">
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="85OWrpK1E60">
           <div class="lesson-index">01</div>
           <div class="lesson-text">Cómo crear correo electrónico Gmail</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -422,7 +517,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="pM1PumVnjcI">
           <div class="lesson-index">02</div>
           <div class="lesson-text">Crear publicidad desde WhatsApp Business</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -431,7 +526,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="JxAfP21WMBI">
           <div class="lesson-index">03</div>
           <div class="lesson-text">Cómo crear casos de consultas</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -440,7 +535,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="Szfm0JrlOfw">
           <div class="lesson-index">04</div>
           <div class="lesson-text">Dropshipping + inteligencia artificial</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -462,7 +557,7 @@
     <div class="lesson-list">
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="Zt5_xF3VT8M">
           <div class="lesson-index">01</div>
           <div class="lesson-text">Cómo hacer publicidad desde una computadora</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -471,7 +566,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="iHDipCnF0mk">
           <div class="lesson-index">02</div>
           <div class="lesson-text">Cómo hacer publicidad desde un celular</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -480,7 +575,7 @@
       </div>
 
       <div class="lesson-item">
-        <button class="lesson-btn" data-video="dQw4w9WgXcQ">
+        <button class="lesson-btn" data-video="S7SFpJYFU08">
           <div class="lesson-index">03</div>
           <div class="lesson-text">Cómo hacer imágenes con IA para publicidades</div>
           <div class="lesson-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
