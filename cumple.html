@@ -220,14 +220,14 @@
         <div class="section-head">
           <span class="mini">Confirmación de asistencia</span>
           <h2>¿Vienes a celebrar?</h2>
-          <p>Confirma tu asistencia y se abrirá WhatsApp con el mensaje listo para enviar.</p>
+          <p>Confirma tu asistencia. La información quedará guardada en línea y podrás enviar una copia por WhatsApp.</p>
         </div>
 
         <form class="card" id="rsvpForm" novalidate>
           <div class="grid-form">
             <div class="field" id="fieldNombre">
               <label for="nombre">Nombre de la familia o invitado</label>
-              <input id="nombre" type="text" placeholder="Ej. Familia Rodríguez" autocomplete="name" />
+              <input id="nombre" type="text" placeholder="Ej. Flia Rodríguez" autocomplete="name" />
               <span class="error">Escribe el nombre, por favor.</span>
             </div>
 
@@ -270,9 +270,9 @@
         </form>
 
         <div class="confirm" id="confirmBox">
-          <h3>¡Confirmación lista!</h3>
-          <p>Ahora toca enviarlo por WhatsApp. Un clic y listo.</p>
-          <button class="wa" id="btnWhatsapp" type="button">Enviar por WhatsApp</button>
+          <h3>¡Asistencia registrada!</h3>
+          <p>Tu información quedó guardada en línea. También puedes enviar una copia por WhatsApp.</p>
+          <button class="wa" id="btnWhatsapp" type="button">Enviar copia por WhatsApp</button>
         </div>
 
         <div class="thanks">
@@ -287,7 +287,7 @@
 
   <script>
   const WHATSAPP_NUMBER = "59177302270";
-  const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzEfvwJp1OAH4dQ8hiWukDC3DllmCjSm-dFyUAijLN64GKW_ae3qrZpBQ-q4vHUm3eeNQ/exec";
+  const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbwxP7xzkEz9xm2vlKhK3ZRvOJAjNGahADKeaYdkmIBq6UGSVh8B-vS3mqJ8CEuf2__32w/exec";
 
   const EVENTO = {
     nombres: "Lucas y Abril",
@@ -299,20 +299,51 @@
   const form = document.getElementById("rsvpForm");
   const confirmBox = document.getElementById("confirmBox");
   const btnWhatsapp = document.getElementById("btnWhatsapp");
+  const submitButton = form.querySelector('.submit');
 
   function markError(id, state) {
     document.getElementById(id).classList.toggle("bad", state);
   }
 
   function validNumber(value) {
-    return value !== "" && !Number.isNaN(Number(value)) && Number(value) >= 0;
+    return value !== "" && Number.isInteger(Number(value)) && Number(value) >= 0;
   }
 
-  async function guardarEnGoogleSheets(data) {
-    await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
-      method: "POST",
-      mode: "no-cors",
-      body: JSON.stringify(data)
+  function setButtonLoading(loading) {
+    submitButton.disabled = loading;
+    submitButton.textContent = loading ? "Guardando..." : "Enviar confirmación";
+    submitButton.style.opacity = loading ? ".65" : "1";
+  }
+
+  // Google Apps Script no permite un fetch CORS normal desde todos los dominios.
+  // JSONP sí permite confirmar que el servidor recibió y guardó el registro.
+  function guardarRegistro(data) {
+    return new Promise((resolve, reject) => {
+      const callbackName = "rsvpCallback_" + Date.now();
+      const script = document.createElement("script");
+      const timeout = setTimeout(() => cleanup(new Error("Tiempo de espera agotado")), 15000);
+
+      function cleanup(error, response) {
+        clearTimeout(timeout);
+        delete window[callbackName];
+        script.remove();
+        error ? reject(error) : resolve(response);
+      }
+
+      window[callbackName] = (response) => {
+        if (response && response.ok) cleanup(null, response);
+        else cleanup(new Error(response?.error || "No se pudo guardar el registro"));
+      };
+
+      script.onerror = () => cleanup(new Error("No se pudo conectar con el registro en línea"));
+
+      const params = new URLSearchParams({
+        action: "register",
+        callback: callbackName,
+        ...data
+      });
+      script.src = `${GOOGLE_APP_URL}?${params.toString()}`;
+      document.body.appendChild(script);
     });
   }
 
@@ -327,38 +358,41 @@
     const mensaje = document.getElementById("mensaje").value.trim();
 
     let ok = true;
+    markError("fieldNombre", nombre === "");
+    markError("fieldAsistencia", asistencia === "");
+    markError("fieldMayores", !validNumber(mayores));
+    markError("fieldNinos", !validNumber(ninos));
 
-    if (nombre === "") { markError("fieldNombre", true); ok = false; } 
-    else { markError("fieldNombre", false); }
-
-    if (asistencia === "") { markError("fieldAsistencia", true); ok = false; } 
-    else { markError("fieldAsistencia", false); }
-
-    if (!validNumber(mayores)) { markError("fieldMayores", true); ok = false; } 
-    else { markError("fieldMayores", false); }
-
-    if (!validNumber(ninos)) { markError("fieldNinos", true); ok = false; } 
-    else { markError("fieldNinos", false); }
-
+    if (nombre === "" || asistencia === "" || !validNumber(mayores) || !validNumber(ninos)) ok = false;
+    if (asistencia.startsWith("Sí") && Number(mayores) + Number(ninos) === 0) {
+      markError("fieldMayores", true);
+      markError("fieldNinos", true);
+      alert("Indica al menos una persona para confirmar la asistencia.");
+      ok = false;
+    }
     if (!ok) return;
 
+    setButtonLoading(true);
+
     const registro = {
-      fechaRegistro: new Date().toISOString(),
-      nombre: nombre,
-      asistencia: asistencia,
+      nombre,
+      asistencia,
       personasMayores: mayores,
-      ninos: ninos,
+      ninos,
       mensaje: mensaje || "—",
       evento: EVENTO.nombres,
       fechaEvento: EVENTO.fecha,
       horaEvento: EVENTO.hora,
       lugar: EVENTO.lugar,
-      dispositivo: navigator.userAgent
+      origen: location.href,
+      idCliente: localStorage.getItem("rsvpId") || crypto.randomUUID()
     };
+    localStorage.setItem("rsvpId", registro.idCliente);
 
-    await guardarEnGoogleSheets(registro);
+    try {
+      const respuesta = await guardarRegistro(registro);
 
-    const texto = `Hola, confirmo asistencia al cumpleaños de ${EVENTO.nombres}.
+      const texto = `Hola, confirmo asistencia al cumpleaños de ${EVENTO.nombres}.
 
 Fecha: ${EVENTO.fecha}
 Hora: ${EVENTO.hora}
@@ -368,20 +402,24 @@ Nombre: ${nombre}
 Asistencia: ${asistencia}
 Personas mayores: ${mayores}
 Niños: ${ninos}
-Mensaje: ${mensaje || "—"}`;
+Mensaje: ${mensaje || "—"}
+Código de registro: ${respuesta.codigo || "Registrado"}`;
+      const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
 
-    const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
-
-    btnWhatsapp.onclick = function () {
-      window.open(link, "_blank");
-    };
-
-    form.style.display = "none";
-    confirmBox.classList.add("show");
-    confirmBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      btnWhatsapp.onclick = () => window.open(link, "_blank", "noopener");
+      confirmBox.querySelector("h3").textContent = "¡Asistencia registrada!";
+      confirmBox.querySelector("p").innerHTML = `Gracias, <strong>${nombre}</strong>. Tu información quedó guardada en línea.<br>Código: <strong>${respuesta.codigo || "OK"}</strong>`;
+      form.style.display = "none";
+      confirmBox.classList.add("show");
+      confirmBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (error) {
+      console.error(error);
+      alert("No se pudo guardar la confirmación. Revisa la conexión o la publicación del Google Apps Script. No se mostrará una confirmación falsa.");
+    } finally {
+      setButtonLoading(false);
+    }
   });
 </script>
-
 
 
 </body>
