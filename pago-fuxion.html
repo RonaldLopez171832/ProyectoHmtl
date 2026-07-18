@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Cuánto te paga FuXion según tu cheque?</title>
+  <style>
+    :root{
+      --bg:#071018;
+      --panel:#101b25;
+      --panel-2:#162431;
+      --text:#f4f7fa;
+      --muted:#9fb0bf;
+      --blue:#2ea8ff;
+      --green:#00d66b;
+      --green-dark:#003d22;
+      --gold:#ffca3a;
+      --border:rgba(255,255,255,.09);
+      --danger:#ff6b6b;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(46,168,255,.14), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(0,214,107,.10), transparent 35%),
+        var(--bg);
+    }
+
+    .container{
+      width:100%;
+      max-width:760px;
+    }
+
+    .card{
+      background:rgba(16,27,37,.96);
+      border:1px solid var(--border);
+      border-radius:28px;
+      padding:34px;
+      box-shadow:0 28px 70px rgba(0,0,0,.38);
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 13px;
+      border-radius:999px;
+      background:rgba(46,168,255,.10);
+      border:1px solid rgba(46,168,255,.25);
+      color:var(--blue);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.7px;
+      text-transform:uppercase;
+      margin-bottom:16px;
+    }
+
+    h1{
+      font-size:clamp(30px,6vw,50px);
+      line-height:1.06;
+      margin-bottom:12px;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      margin-bottom:28px;
+    }
+
+    .input-box{
+      background:var(--panel-2);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:20px;
+      margin-bottom:22px;
+    }
+
+    label{
+      display:block;
+      font-size:14px;
+      font-weight:800;
+      margin-bottom:10px;
+      color:#dfe8ef;
+    }
+
+    .money-input{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      border:2px solid transparent;
+      background:#0b151e;
+      border-radius:16px;
+      padding:0 16px;
+      transition:.2s;
+    }
+
+    .money-input:focus-within{
+      border-color:var(--blue);
+      box-shadow:0 0 0 4px rgba(46,168,255,.10);
+    }
+
+    .currency{
+      font-size:25px;
+      font-weight:900;
+      color:var(--green);
+    }
+
+    input{
+      width:100%;
+      border:0;
+      outline:0;
+      background:transparent;
+      color:#fff;
+      padding:17px 0;
+      font-size:26px;
+      font-weight:800;
+    }
+
+    input::placeholder{color:#647585}
+
+    .results{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .result{
+      border-radius:20px;
+      padding:22px;
+      border:1px solid var(--border);
+      min-height:190px;
+    }
+
+    .result.without{
+      background:linear-gradient(145deg, rgba(255,202,58,.13), rgba(255,202,58,.04));
+    }
+
+    .result.with{
+      background:linear-gradient(145deg, rgba(0,214,107,.17), rgba(0,214,107,.05));
+    }
+
+    .result-icon{
+      width:48px;
+      height:48px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      font-size:25px;
+      margin-bottom:16px;
+      background:rgba(255,255,255,.08);
+    }
+
+    .result h2{
+      font-size:17px;
+      margin-bottom:8px;
+    }
+
+    .amount{
+      font-size:clamp(28px,5vw,40px);
+      font-weight:900;
+      line-height:1;
+      margin-bottom:12px;
+    }
+
+    .without .amount{color:var(--gold)}
+    .with .amount{color:var(--green)}
+
+    .explanation{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .breakdown{
+      margin-top:20px;
+      padding:16px;
+      border-radius:16px;
+      background:#0b151e;
+      border:1px solid var(--border);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    .breakdown strong{color:#fff}
+
+    .note{
+      margin-top:16px;
+      color:#7f91a1;
+      font-size:12px;
+      text-align:center;
+    }
+
+    @media(max-width:640px){
+      body{padding:14px;align-items:flex-start}
+      .card{padding:22px;border-radius:22px}
+      .results{grid-template-columns:1fr}
+      .result{min-height:auto}
+      input{font-size:23px}
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <div class="badge">💵 Calculadora de cheque</div>
+
+      <h1>¿Cuánto te paga FuXion según tu cheque?</h1>
+      <p class="subtitle">
+        Introduce el monto de tu cheque y revisa cuánto recibirías con retención
+        o cuánto deberías facturar.
+      </p>
+
+      <div class="input-box">
+        <label for="monto">Monto del cheque</label>
+        <div class="money-input">
+          <span class="currency">Bs</span>
+          <input
+            id="monto"
+            type="number"
+            inputmode="decimal"
+            step="0.01"
+            min="0"
+            placeholder="Ej.: 1500.50"
+            autocomplete="off"
+          >
+        </div>
+      </div>
+
+      <div class="results">
+        <article class="result without">
+          <div class="result-icon">🧾</div>
+          <h2>Pago con retención</h2>
+          <div class="amount" id="sinFactura">Bs 0.00</div>
+          <p class="explanation">
+            Se descuenta el 16%: 13% correspondiente al IVA y 3% correspondiente al IT.
+          </p>
+        </article>
+
+        <article class="result with">
+          <div class="result-icon">💲</div>
+          <h2>Monto con factura</h2>
+          <div class="amount" id="conFactura">Bs 0.00</div>
+          <p class="explanation">
+            Si emites factura, se calcula el monto ingresado más el 13%.
+          </p>
+        </article>
+      </div>
+
+      <div class="breakdown">
+        <div><strong>Retención:</strong> monto − 16%</div>
+        <div><strong>Con factura:</strong> monto + 13%</div>
+        <div><strong>Resultado:</strong> siempre redondeado a 2 decimales.</div>
+      </div>
+
+      <p class="note">
+        Esta calculadora es informativa y aplica únicamente los porcentajes indicados.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const montoInput = document.getElementById('monto');
+    const sinFacturaEl = document.getElementById('sinFactura');
+    const conFacturaEl = document.getElementById('conFactura');
+
+    const formatoBs = new Intl.NumberFormat('es-BO', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    function actualizarCalculo() {
+      const monto = parseFloat(montoInput.value);
+
+      if (!Number.isFinite(monto) || monto < 0) {
+        sinFacturaEl.textContent = 'Bs 0.00';
+        conFacturaEl.textContent = 'Bs 0.00';
+        return;
+      }
+
+      const conRetencion = monto * 0.84;
+      const conFactura = monto * 1.13;
+
+      sinFacturaEl.textContent = `Bs ${formatoBs.format(conRetencion)}`;
+      conFacturaEl.textContent = `Bs ${formatoBs.format(conFactura)}`;
+    }
+
+    montoInput.addEventListener('input', actualizarCalculo);
+  </script>
+</body>
+</html>

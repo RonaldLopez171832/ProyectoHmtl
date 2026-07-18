@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -150,6 +151,36 @@
   }
   .calculator-link:hover{transform:translateY(-2px);box-shadow:0 12px 24px -12px rgba(0,0,0,.65);}
 
+  .calculator-secondary{
+    margin-top:16px;display:flex;justify-content:center;
+  }
+  .calculator-secondary-link{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;min-height:52px;padding:14px 22px;border-radius:16px;
+    background:var(--panel);border:1px solid var(--borde-hover);color:var(--texto);
+    font-weight:800;font-size:15px;transition:transform .2s, background .2s, box-shadow .2s;
+  }
+  .calculator-secondary-link:hover{
+    transform:translateY(-2px);background:rgba(46,168,255,.08);
+    box-shadow:0 14px 30px -18px rgba(46,168,255,.65);
+  }
+
+  /* ---------- CANAL IA LEONEX ---------- */
+  .ia-channel{padding:76px 0;position:relative;z-index:1;}
+  .ia-channel-card{
+    display:flex;align-items:center;justify-content:space-between;gap:28px;
+    padding:34px;border-radius:24px;background:linear-gradient(120deg,#0B1622,#0E1216);
+    border:1px solid var(--borde-hover);box-shadow:var(--sombra);
+  }
+  .ia-channel-copy h2{font-size:clamp(24px,3vw,34px);margin-bottom:10px;}
+  .ia-channel-copy p{color:var(--texto-suave);line-height:1.6;max-width:650px;}
+  .ia-channel-link{
+    flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:15px 24px;border-radius:999px;background:var(--azul-claro);color:#04151F;
+    font-weight:800;transition:transform .2s,box-shadow .2s;
+  }
+  .ia-channel-link:hover{transform:translateY(-2px);box-shadow:0 16px 34px -10px rgba(46,168,255,.55);}
+
   /* ---------- MODULES INTRO ---------- */
   .curriculum-intro{padding:90px 0 20px;text-align:center;position:relative;z-index:1;}
   .curriculum-intro .eyebrow{color:var(--azul-claro);justify-content:center;}
@@ -293,6 +324,10 @@
     .calculator-copy strong{font-size:21px;}
     .calculator-copy span{font-size:12.5px;line-height:1.45;display:block;}
     .calculator-link{width:100%;}
+    .calculator-secondary-link{font-size:14px;text-align:center;}
+    .ia-channel{padding:54px 0;}
+    .ia-channel-card{flex-direction:column;align-items:stretch;padding:24px;}
+    .ia-channel-link{width:100%;}
     .curriculum-intro{padding:70px 0 10px;}
     .modules{padding:36px 0 70px;}
     .module{padding:38px 0;gap:18px;}
@@ -308,7 +343,58 @@
     .cta-inner{flex-direction:column;align-items:stretch;}
     .footer-top,.footer-bottom{flex-direction:column;align-items:flex-start;}
   }
+.paycheck-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    width:100%;
+    margin-top:18px;
+    padding:20px 28px;
+    border-radius:20px;
+    background:linear-gradient(135deg,#00C853,#00E676);
+    color:#fff;
+    font-size:20px;
+    font-weight:800;
+    text-decoration:none;
+    box-shadow:0 18px 40px rgba(0,200,83,.45);
+    transition:.25s;
+    position:relative;
+    overflow:hidden;
+}
 
+.paycheck-btn::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,
+        transparent 20%,
+        rgba(255,255,255,.35) 50%,
+        transparent 80%);
+    transform:translateX(-120%);
+    transition:.7s;
+}
+
+.paycheck-btn:hover::before{
+    transform:translateX(120%);
+}
+
+.paycheck-btn:hover{
+    transform:translateY(-4px) scale(1.02);
+    box-shadow:0 24px 55px rgba(0,200,83,.6);
+}
+
+.paycheck-icon{
+    width:58px;
+    height:58px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:16px;
+    background:rgba(255,255,255,.18);
+    font-size:34px;
+    flex-shrink:0;
+}
   @media (max-width: 390px){
     .brand-text span{display:none;}
     .hero-stats{grid-template-columns:1fr;}
@@ -329,7 +415,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#inicio">Inicio</a></li>
       <li><a href="#modulos">Módulos</a></li>
-      <li><a href="calculadora.html">Calculadora</a></li>
+      <li><a href='/calculadora'>Calculadora</a></li>
       <li><a href="#contacto" class="nav-cta">Unirme al equipo</a></li>
     </ul>
     <button class="burger" id="burger" aria-label="Abrir menú">&#9776;</button>
@@ -376,8 +462,21 @@
           <span>Calcula cuánto invertir, cuántas cajas adquirir y cuál puede ser tu ganancia.</span>
         </div>
       </div>
-      <a class="calculator-link" href="calleonex.html">Calcular ahora <span aria-hidden="true">→</span></a>
+      <a class='calculator-link' href='/calleonex'>Calcular ahora <span aria-hidden="true">→</span></a>
     </div>
+    <a  href="/pago-fuxion" class="paycheck-btn">
+    <div class="paycheck-icon">💵</div>
+
+    <div style="text-align:left">
+        <div style="font-size:22px;font-weight:900;">
+            ¿CUÁNTO TE PAGA FUXION?
+        </div>
+
+        <div style="font-size:14px;font-weight:600;opacity:.95">
+            Descúbrelo según el monto de tu cheque →
+        </div>
+    </div>
+</a>
   </div>
 </section>
 <section class="curriculum-intro" id="modulos">
@@ -587,6 +686,21 @@
   </div>
 
 </main>
+
+<section class="ia-channel" aria-label="Canal IA Leonex">
+  <div class="wrap">
+    <div class="ia-channel-card reveal">
+      <div class="ia-channel-copy">
+        <div class="eyebrow">Inteligencia artificial para tu negocio</div>
+        <h2>Canal IA Leonex</h2>
+        <p>Accede al canal oficial de inteligencia artificial de LEONEX y encuentra apoyo para crear contenido, resolver dudas y potenciar tu negocio.</p>
+      </div>
+      <a class="ia-channel-link" href="https://chatgpt.com/g/g-691fa6e58ce48191bf96c1b8c5e40556-leonex-international-canal-oficial" target="_blank" rel="noopener noreferrer">
+        Abrir Canal IA Leonex <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <section class="cta-band" id="contacto">
   <div class="wrap cta-inner">
