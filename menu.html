@@ -4,7 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Catálogo FuXion Bolivia</title>
-<meta name="description" content="Catálogo FuXion con compra por WhatsApp, carrito, filtros por necesidad y enlaces personalizados por asesor.">
+<meta id="metaDescription" name="description" content="Catálogo FuXion con productos y compra por WhatsApp.">
+<meta id="ogTitle" property="og:title" content="Catálogo FuXion">
+<meta id="ogDescription" property="og:description" content="Conoce nuestros productos FuXion">
+<meta id="ogImage" property="og:image" content="">
+<meta id="ogUrl" property="og:url" content="">
+<meta property="og:type" content="website">
+<meta id="twitterTitle" name="twitter:title" content="Catálogo FuXion">
+<meta id="twitterDescription" name="twitter:description" content="Conoce nuestros productos FuXion">
+<meta id="twitterImage" name="twitter:image" content="">
+<meta name="twitter:card" content="summary_large_image">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{--navy:#082c4c;--green:#13a66d;--green2:#0d8d5b;--wa:#25d366;--bg:#f5f8fa;--text:#17212b;--muted:#6b7785;--white:#fff;--border:#e4e9ee;--danger:#b42318;--warn:#b54708;--shadow:0 10px 30px rgba(18,45,65,.08)}
@@ -114,6 +123,98 @@ document.getElementById('sellerName').textContent=SELLER.nombre;
 document.getElementById('sellerPhone').textContent='WhatsApp: +'+SELLER.whatsapp;
 document.getElementById('sellerPhoto').src=SELLER.foto||avatarData(SELLER.nombre);
 
+
+function cleanSeoText(value){
+  return String(value||'')
+    .replace(/<[^>]*>/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function truncateSeo(value,max=160){
+  const s=cleanSeoText(value);
+  return s.length<=max?s:s.slice(0,max-1).trim()+'…';
+}
+function setMeta(selector,attr,value){
+  const el=document.querySelector(selector);
+  if(el) el.setAttribute(attr,value||'');
+}
+function actualizarSEO(){
+  const productoId=params.get('producto');
+  let titulo=`Catálogo FuXion | ${SELLER.nombre}`;
+  let descripcion=`Catálogo FuXion de ${SELLER.nombre}. Conoce productos, precios y realiza tu pedido directamente por WhatsApp.`;
+  let imagen=SELLER.foto||'';
+  let canonicalUrl=cleanBaseUrl();
+
+  if(productoId){
+    const producto=PRODUCTOS.find(p=>String(p.id)===String(productoId));
+    if(producto){
+      const beneficio=cleanSeoText(BENEFICIOS[producto.id]||'Conoce sus características y beneficios.');
+      titulo=`${producto.nombre} | FuXion con ${SELLER.nombre}`;
+      descripcion=`${producto.nombre} - ${beneficio} Precio: Bs ${money(producto.precio)}. Consulta y realiza tu pedido con ${SELLER.nombre} por WhatsApp.`;
+      imagen=producto.imagen||imagen;
+      canonicalUrl=productUrl(producto.id);
+    }
+  }
+
+  document.title=titulo;
+  setMeta('meta[name="description"]','content',truncateSeo(descripcion,160));
+  setMeta('meta[property="og:title"]','content',titulo);
+  setMeta('meta[property="og:description"]','content',truncateSeo(descripcion,200));
+  setMeta('meta[property="og:image"]','content',imagen);
+  setMeta('meta[property="og:url"]','content',canonicalUrl);
+  setMeta('meta[name="twitter:title"]','content',titulo);
+  setMeta('meta[name="twitter:description"]','content',truncateSeo(descripcion,200));
+  setMeta('meta[name="twitter:image"]','content',imagen);
+
+  let canonical=document.querySelector('link[rel="canonical"]');
+  if(!canonical){
+    canonical=document.createElement('link');
+    canonical.rel='canonical';
+    document.head.appendChild(canonical);
+  }
+  canonical.href=canonicalUrl;
+
+  let ld=document.getElementById('dynamicJsonLd');
+  if(!ld){
+    ld=document.createElement('script');
+    ld.type='application/ld+json';
+    ld.id='dynamicJsonLd';
+    document.head.appendChild(ld);
+  }
+
+  if(productoId){
+    const producto=PRODUCTOS.find(p=>String(p.id)===String(productoId));
+    if(producto){
+      ld.textContent=JSON.stringify({
+        "@context":"https://schema.org",
+        "@type":"Product",
+        "name":producto.nombre,
+        "image":[producto.imagen],
+        "description":truncateSeo(BENEFICIOS[producto.id]||'',300),
+        "sku":String(producto.id),
+        "brand":{"@type":"Brand","name":"FuXion"},
+        "offers":{
+          "@type":"Offer",
+          "priceCurrency":"BOB",
+          "price":Number(producto.precio),
+          "availability":producto.stock==='Agotado'
+            ?"https://schema.org/OutOfStock"
+            :"https://schema.org/InStock",
+          "url":canonicalUrl
+        }
+      });
+    }
+  }else{
+    ld.textContent=JSON.stringify({
+      "@context":"https://schema.org",
+      "@type":"WebSite",
+      "name":`Catálogo FuXion | ${SELLER.nombre}`,
+      "url":canonicalUrl,
+      "description":truncateSeo(descripcion,300)
+    });
+  }
+}
+
 function avatarData(name){
  const initials=(name||'A').split(/\s+/).map(x=>x[0]).slice(0,2).join('').toUpperCase();
  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100%" height="100%" rx="50" fill="#ffffff"/><text x="50%" y="57%" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#082c4c">${initials}</text></svg>`);
@@ -192,9 +293,9 @@ function openDetail(id){
  const related=PRODUCTOS.filter(x=>x.id!==p.id&&(x.necesidades||[]).some(n=>(p.necesidades||[]).includes(n))).slice(0,3);
  document.getElementById('detailBody').innerHTML=`<div class="detail"><img src="${p.imagen}" alt="${p.nombre}"><div><h3>${p.nombre}</h3><p><b>${p.presentacion}</b></p><p class="benefit">${BENEFICIOS[p.id]||''}</p><div class="prep"><b>Cómo preparar:</b><br>${PREPARACION[p.id]||'Revisar el envase.'}</div><p><b>Ideal para buscar apoyo en:</b> ${(p.necesidades||[]).join(', ')}</p><p class="price"><small>Bs</small> ${money(p.precio)}</p><div class="actions"><button class="add" onclick="add('${p.id}')">+ Agregar</button><button class="buy" onclick="buyNow('${p.id}')">Comprar</button></div><div class="actions2"><button class="share" onclick="shareProduct('${p.id}')">Compartir producto</button><button class="more" onclick="copyLink('${p.id}')">Copiar enlace</button></div></div></div><h3 style="margin-top:22px;color:var(--navy)">Frecuentemente relacionados</h3><div class="related">${related.map(r=>`<button onclick="openDetail('${r.id}')"><img src="${r.imagen}">${r.nombre}</button>`).join('')||'<span class="note">Sin relacionados definidos.</span>'}</div><p class="note">La descripción se presenta con fines informativos y de bienestar. No sustituye evaluación médica. Para la preparación exacta, sigue las indicaciones del envase.</p>`;
  document.getElementById('detailOverlay').classList.add('show');
- history.replaceState(null,'',productUrl(id));
+ history.replaceState(null,'',productUrl(id));actualizarSEO();
 }
-function closeDetail(){document.getElementById('detailOverlay').classList.remove('show');history.replaceState(null,'',cleanBaseUrl())}
+function closeDetail(){document.getElementById('detailOverlay').classList.remove('show');history.replaceState(null,'',cleanBaseUrl());actualizarSEO()}
 async function shareProduct(id){const p=PRODUCTOS.find(x=>String(x.id)===String(id));if(!p)return;track('share',id);const data={title:p.nombre,text:`Mira ${p.nombre} en mi catálogo FuXion`,url:productUrl(id)};if(navigator.share){try{await navigator.share(data);return}catch(e){}}window.open(`https://wa.me/?text=${encodeURIComponent(data.text+' '+data.url)}`,'_blank')}
 async function shareCatalog(){track('share');const u=cleanBaseUrl();if(navigator.share){try{await navigator.share({title:'Catálogo FuXion',text:'Mira mi catálogo FuXion',url:u});return}catch(e){}}window.open(`https://wa.me/?text=${encodeURIComponent('Mira mi catálogo FuXion: '+u)}`,'_blank')}
 function copyLink(id){navigator.clipboard?.writeText(productUrl(id));toast('Enlace copiado')}
@@ -216,7 +317,7 @@ function renderAdminStats(){const rows=Object.entries(STATS.products).map(([id,s
 function exitAdmin(){const u=new URL(location.href);u.searchParams.delete('admin');location.href=u.toString()}
 
 document.getElementById('search').addEventListener('input',render);document.getElementById('sort').addEventListener('change',render);
-renderNeeds();render();updateCount();
+renderNeeds();render();updateCount();actualizarSEO();
 if(params.get('admin')==='1')initAdmin();
 const deep=params.get('producto');if(deep)setTimeout(()=>openDetail(deep),150);
 </script>
