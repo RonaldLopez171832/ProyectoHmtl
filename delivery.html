@@ -282,6 +282,119 @@ body{
   .password-actions{grid-template-columns:1fr}
 }
 
+
+/* =========================
+   LISTADO GENERAL MEJORADO
+========================= */
+
+.listado-general{
+  display:none;
+  width:min(760px,100%);
+  background:#fff;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 18px 45px rgba(15,23,42,.10);
+}
+
+.listado-general.active{
+  display:block;
+}
+
+.general-grid{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.general-dept{
+  border:1px solid #dbe2ea;
+  border-radius:16px;
+  padding:16px 18px;
+  background:#ffffff;
+  box-shadow:0 6px 18px rgba(15,23,42,.05);
+}
+
+.general-dept h3{
+  margin:0 0 12px;
+  font-size:20px;
+  font-weight:800;
+  color:#172033;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.general-dept h3 .dept-count{
+  font-size:12px;
+  font-weight:800;
+  color:#1d4ed8;
+  background:#eff6ff;
+  border:1px solid #dbeafe;
+  padding:5px 9px;
+  border-radius:999px;
+}
+
+.general-contact{
+  padding:11px 0;
+  border-top:1px solid #eef2f7;
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+}
+
+.general-contact:first-of-type{
+  border-top:0;
+}
+
+.general-contact strong{
+  display:block;
+  font-size:15px;
+  color:#172033;
+}
+
+.general-contact .city{
+  margin-top:4px;
+  color:#64748b;
+}
+
+.general-contact a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+  background:#16a34a;
+  padding:9px 12px;
+  border-radius:10px;
+  white-space:nowrap;
+}
+
+.general-empty{
+  color:#94a3b8;
+  font-size:14px;
+  padding:4px 0 2px;
+}
+
+#panelConductores{
+  scroll-margin-top:20px;
+}
+
+@media(max-width:650px){
+  .general-contact{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .general-contact a{
+    width:100%;
+    text-align:center;
+  }
+
+  .general-dept h3{
+    font-size:18px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -358,7 +471,7 @@ body{
   <div class="general-grid" id="generalGrid"></div>
 </div>
 </section>
-<aside class="panel">
+<aside class="panel" id="panelConductores">
 <div class="eyebrow">Directorio nacional</div><h2 id="deptTitle">Bolivia</h2><div class="sub" id="deptSub">Haz clic en un departamento del mapa.</div>
 <input id="search" class="search" placeholder="Buscar conductor...">
 <div id="counter" class="counter">0 conductores mostrados</div><div id="drivers" class="list"><div class="empty">👆 Selecciona un departamento.</div></div>
@@ -370,16 +483,34 @@ const conductores={
 "Beni":[{nombre:"José M. Sanchez Justinian",telefono:"59174371441"}],
 "La Paz":[{nombre:"Liset Flores Camacho",telefono:"59160681790"}],
 "Cochabamba":[{nombre:"Veymar Manchego",telefono:"59177958668"}],
-"Santa Cruz":[{nombre:"Julio",telefono:"59163462529"},{nombre:"Hernán",telefono:"59161502267"}],
+"Santa Cruz":[{nombre:"Julio Roa",telefono:"59163462529"},{nombre:"Hernán Loza",telefono:"59161502267"}],
 "Oruro":[{nombre:"Joe Stip",telefono:"59162829399"}],
-"Potosí":[{nombre:"Jhilma Mendez",telefono:"59173898868"},{nombre:"Zaida",telefono:"59172387184"},{nombre:"Milton Jaldin",telefono:"59176957955"}],
+"Potosí":[{nombre:"Jhilma Mendez",telefono:"59173898868"},{nombre:"Zaida Quinteros",telefono:"59172387184"},{nombre:"Milton Jaldin",telefono:"59176957955"}],
 "Chuquisaca":[{nombre:"Adrian León",telefono:"59175438138"}],
 "Tarija":[{nombre:"Jose Miguel Sapiencia",telefono:"59173082823"}]
 };
 let active=null;const title=document.getElementById('deptTitle'),sub=document.getElementById('deptSub'),box=document.getElementById('drivers'),counter=document.getElementById('counter'),search=document.getElementById('search');
 function initials(n){return n.split(' ').slice(0,2).map(x=>x[0]).join('').toUpperCase()}
 function render(){if(!active) return;const q=search.value.trim().toLowerCase();const list=(conductores[active]||[]).filter(d=>d.nombre.toLowerCase().includes(q));counter.textContent=`${list.length} conductor${list.length===1?'':'es'} mostrado${list.length===1?'':'s'}`;if(!list.length){box.innerHTML=`<div class="empty">No hay conductores registrados en ${active}.</div>`;return}box.innerHTML=list.map(d=>`<article class="driver"><div class="top"><div class="avatar">${initials(d.nombre)}</div><div><div class="name">${d.nombre}</div><div class="city">+${d.telefono}</div></div><div class="status">● Disponible</div></div><div class="actions"><a class="btn" href="tel:+${d.telefono}">Llamar</a><a class="btn primary" target="_blank" href="https://wa.me/${d.telefono}?text=${encodeURIComponent('Hola '+d.nombre+', encontré tu contacto en el directorio de conductores.')}">WhatsApp</a></div></article>`).join('')}
-document.querySelectorAll('.dept').forEach(el=>el.addEventListener('click',function(){document.querySelectorAll('.dept').forEach(x=>x.classList.remove('active'));this.classList.add('active');active=this.dataset.dept;alert('Departamento seleccionado: '+active);title.textContent=active;sub.textContent='Conductores registrados en '+active+'.';search.value='';render()}));search.addEventListener('input',render);
+document.querySelectorAll('.dept').forEach(el => el.addEventListener('click', function(){
+  document.querySelectorAll('.dept').forEach(x => x.classList.remove('active'));
+
+  this.classList.add('active');
+  active = this.dataset.dept;
+
+  title.textContent = active;
+  sub.textContent = 'Conductores registrados en ' + active + '.';
+
+  search.value = '';
+  render();
+
+  setTimeout(() => {
+    document.getElementById('panelConductores').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }, 120);
+}));search.addEventListener('input',render);
 
 const entryChoice=document.getElementById('entryChoice');
 const chooseMap=document.getElementById('chooseMap');
@@ -391,13 +522,36 @@ const generalList=document.getElementById('generalList');
 const generalGrid=document.getElementById('generalGrid');
 
 function renderGeneralList(){
-  const order=['Pando','Beni','La Paz','Cochabamba','Santa Cruz','Oruro','Potosí','Chuquisaca','Tarija'];
-  generalGrid.innerHTML=order.map(dep=>{
-    const lista=conductores[dep]||[];
-    const contenido=lista.length
-      ? lista.map(c=>`<div class="general-contact"><div><strong>${c.nombre}</strong><div class="city">+${c.telefono}</div></div><a target="_blank" href="https://wa.me/${c.telefono}">WhatsApp</a></div>`).join('')
-      : '<div class="city">Sin conductores registrados.</div>';
-    return `<section class="general-dept"><h3>${dep} <span class="city">(${lista.length})</span></h3>${contenido}</section>`;
+  const order = Object.keys(conductores).sort((a,b) =>
+    a.localeCompare(b, 'es', { sensitivity:'base' })
+  );
+
+  generalGrid.innerHTML = order.map(dep => {
+    const lista = conductores[dep] || [];
+
+    const contenido = lista.length
+      ? lista.map(c => `
+          <div class="general-contact">
+            <div>
+              <strong>${c.nombre}</strong>
+              <div class="city">+${c.telefono}</div>
+            </div>
+            <a target="_blank" href="https://wa.me/${c.telefono}">
+              WhatsApp
+            </a>
+          </div>
+        `).join('')
+      : '<div class="general-empty">Sin conductores registrados.</div>';
+
+    return `
+      <section class="general-dept">
+        <h3>
+          <span>${dep}</span>
+          <span class="dept-count">${lista.length} ${lista.length === 1 ? 'contacto' : 'contactos'}</span>
+        </h3>
+        ${contenido}
+      </section>
+    `;
   }).join('');
 }
 
@@ -411,13 +565,27 @@ function setView(view){
 }
 
 chooseMap.addEventListener('click',()=>{entryChoice.style.display='none';setView('map')});
-chooseList.addEventListener('click',()=>{entryChoice.style.display='none';setView('list')});
+chooseList.addEventListener('click',()=>{
+  entryChoice.style.display='none';
+  setView('list');
+  setTimeout(()=>{
+    generalList.scrollIntoView({behavior:'smooth',block:'start'});
+  },120);
+});
 mapViewBtn.addEventListener('click',()=>setView('map'));
-listViewBtn.addEventListener('click',()=>setView('list'));
+listViewBtn.addEventListener('click',()=>{
+  setView('list');
+  setTimeout(()=>{
+    generalList.scrollIntoView({behavior:'smooth',block:'start'});
+  },120);
+});
 
 
+/* =========================
+   ACCESO MEDIANTE HASH SHA-256
+========================= */
 
-
+/* Se almacena únicamente el hash SHA-256 de la contraseña. */
 const PASSWORD_HASH = "4852cfc25d539ce3bad1c7f6812b8b3834c91d3963d11e317ad119df9d9aaed9";
 
 const passwordGate = document.getElementById("passwordGate");
