@@ -460,9 +460,343 @@ footer{
   .counter{align-self:center}
   .card{flex-basis:84%}
 }
+
+/* ===== PORTADAS Y RECURSOS NUEVOS ===== */
+.product-title-wrap{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.product-cover{
+  width:52px;
+  height:52px;
+  object-fit:cover;
+  border-radius:14px;
+  border:1px solid var(--borde);
+  background:#fff;
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+}
+.image-box{
+  width:100%;
+  aspect-ratio:1/1;
+  background:#fff;
+  overflow:hidden;
+  border-bottom:1px solid var(--borde);
+}
+.image-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+@media(max-width:700px){
+  .product-cover{
+    width:44px;
+    height:44px;
+    border-radius:12px;
+  }
+}
+
+
+/* =========================================================
+   ACCESO PRIVADO
+========================================================= */
+
+.password-gate{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(46,168,255,.14), transparent 30%),
+    radial-gradient(circle at 80% 75%, rgba(23,74,145,.18), transparent 36%),
+    rgba(4,6,7,.97);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.password-box{
+  width:min(430px,100%);
+  padding:30px;
+  text-align:center;
+  border-radius:25px;
+  background:linear-gradient(145deg,#10161C,#0A0E12);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:
+    0 35px 90px rgba(0,0,0,.55),
+    0 0 50px rgba(46,168,255,.06);
+}
+
+.password-logo-wrap{
+  display:flex;
+  justify-content:center;
+  margin-bottom:17px;
+}
+
+.password-logo{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  border-radius:18px;
+  box-shadow:0 15px 35px rgba(46,168,255,.16);
+}
+
+.password-eyebrow{
+  color:var(--azul);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2.3px;
+  margin-bottom:9px;
+}
+
+.password-box h2{
+  margin:0 0 9px;
+  font-size:26px;
+  color:var(--texto);
+}
+
+.password-box p{
+  margin:0 auto 21px;
+  max-width:340px;
+  color:var(--texto-suave);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.password-input{
+  width:100%;
+  min-height:50px;
+  padding:0 15px;
+  border-radius:13px;
+  border:1px solid var(--borde);
+  background:#11171D;
+  color:#fff;
+  outline:none;
+  font-size:16px;
+}
+
+.password-input:focus{
+  border-color:var(--azul);
+  box-shadow:0 0 0 4px rgba(46,168,255,.10);
+}
+
+.password-error{
+  min-height:20px;
+  margin-top:9px;
+  color:#ff7171;
+  font-size:12px;
+}
+
+.password-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:10px;
+}
+
+.password-btn{
+  min-height:46px;
+  border-radius:11px;
+  font-weight:800;
+  cursor:pointer;
+  border:1px solid var(--borde);
+}
+
+.password-btn.enter{
+  background:linear-gradient(135deg,var(--azul),var(--azul-fuerte));
+  color:#03131E;
+  border-color:transparent;
+}
+
+.password-btn.back{
+  background:#151C23;
+  color:var(--texto);
+}
+
+.password-note{
+  margin-top:18px;
+  color:#66717D;
+  font-size:10.5px;
+}
+
+/* =========================================================
+   IMÁGENES / RECURSOS VISUALES
+========================================================= */
+
+.image-box{
+  width:100%;
+  aspect-ratio:1/1;
+  background:
+    linear-gradient(145deg,#fff,#edf2f7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-bottom:1px solid var(--borde);
+}
+
+.image-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  padding:8px;
+}
+
+.card.resource-image{
+  flex-basis:285px;
+}
+
+.resource-type-image{
+  color:#B8FF3D !important;
+  border-color:rgba(184,255,61,.2) !important;
+  background:rgba(184,255,61,.08) !important;
+}
+
+/* =========================================================
+   ESTADO CACHE
+========================================================= */
+
+.cache-status{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-left:8px;
+  color:#7B8793;
+  font-size:10px;
+  font-weight:700;
+}
+
+.cache-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#F5A524;
+}
+
+.cache-status.ready .cache-dot{
+  background:#3ED598;
+}
+
+.cache-status.ready{
+  color:#3ED598;
+}
+
+@media(max-width:480px){
+  .password-actions{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* =========================================================
+   IMAGEN PRINCIPAL COMO PRIMERA OPCIÓN
+========================================================= */
+
+.resource-cover-card{
+  border-color:rgba(184,255,61,.28);
+  box-shadow:
+    0 18px 42px -24px rgba(184,255,61,.35);
+}
+
+.resource-cover-card .image-box{
+  background:
+    radial-gradient(circle at 50% 30%,rgba(255,255,255,.95),#eef3f7);
+}
+
+.resource-cover-card .badge{
+  color:#B8FF3D !important;
+  border-color:rgba(184,255,61,.25) !important;
+  background:rgba(184,255,61,.08) !important;
+}
+
+.resource-cover-card .card-title{
+  color:#F4F7FA;
+}
+
+.resource-cover-card .btn-open{
+  background:linear-gradient(135deg,#B8FF3D,#8FDB24);
+  color:#102000;
+}
+
+.resource-cover-card .btn-download{
+  background:rgba(184,255,61,.08);
+  border-color:rgba(184,255,61,.18);
+  color:#C8FF69;
+}
+
+@media(max-width:700px){
+  .resource-cover-card{
+    flex-basis:84%;
+  }
+}
+
 </style>
 </head>
 <body>
+
+<div class="password-gate" id="passwordGate">
+  <div class="password-box">
+    <div class="password-logo-wrap">
+      <img
+        src="https://teamleonex.netlify.app/leonex-logo.jpeg"
+        alt="Leonex International"
+        class="password-logo"
+      >
+    </div>
+
+    <div class="password-eyebrow">ACCESO PRIVADO</div>
+
+    <h2>Biblioteca Team Leonex</h2>
+
+    <p>
+      Ingresa la contraseña para acceder a los videos,
+      imágenes y recursos del equipo.
+    </p>
+
+    <form id="passwordForm">
+      <input
+        type="password"
+        id="passwordInput"
+        class="password-input"
+        placeholder="Contraseña"
+        autocomplete="current-password"
+        required
+      >
+
+      <div
+        class="password-error"
+        id="passwordError"
+        aria-live="polite">
+      </div>
+
+      <div class="password-actions">
+
+        <button
+          type="submit"
+          class="password-btn enter">
+          Ingresar
+        </button>
+
+        <button
+          type="button"
+          class="password-btn back"
+          id="passwordBack">
+          Volver
+        </button>
+
+      </div>
+    </form>
+
+    <div class="password-note">
+      🔒 Contenido exclusivo para el Team Leonex
+    </div>
+  </div>
+</div>
+
 
 
 <header>
@@ -480,6 +814,10 @@ footer{
 
             <div class="subtitle">
                 Recursos de capacitación para el Team Leonex
+                <span class="cache-status" id="cacheStatus">
+                  <span class="cache-dot"></span>
+                  cache inicializando
+                </span>
             </div>
             </div>
         </div>
@@ -587,212 +925,379 @@ RECURSOS
 */
 
 const recursos = [
-
-    /* =========================
-       ALFABALANCE
-    ========================= */
-
     {
         producto: "Alfabalance",
         titulo: "Alfabalance Video 1",
-        archivo: "alfabalance video 1.mp4"
+        archivo: "alfabalance video 1.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Alfabalance",
         titulo: "Alfabalance Video 2",
-        archivo: "alfabalance video 2.mp4"
+        archivo: "alfabalance video 2.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Alfabalance",
         titulo: "Alfabalance Video 3",
-        archivo: "alfabalance video 3.mp4"
+        archivo: "alfabalance video 3.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Alfabalance",
         titulo: "Alfabalance Video 4",
-        archivo: "alfabalance video 4.mp4"
+        archivo: "alfabalance video 4.mp4",
+        tipo: "video"
     },
-
-
-    /* =========================
-       BEAUTY
-    ========================= */
-
+    {
+        producto: "Alfabalance",
+        titulo: "Alfabalance Video 5",
+        archivo: "alfabalance video 5.mp4",
+        tipo: "video"
+    },
     {
         producto: "Beauty",
         titulo: "Beauty Video 1",
-        archivo: "beauty video 1.mp4"
+        archivo: "beauty video 1.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Beauty",
         titulo: "Beauty Video 2",
-        archivo: "beauty video 2.mp4"
+        archivo: "beauty video 2.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Beauty",
         titulo: "Beauty Video 3",
-        archivo: "beauty video 3.mp4"
+        archivo: "beauty video 3.mp4",
+        tipo: "video"
     },
-
-
-    /* =========================
-       FLORA LIV
-    ========================= */
-
+    {
+        producto: "Flora Liv",
+        titulo: "Flora Liv Video 1",
+        archivo: "flora liv video 1.mp4",
+        tipo: "video"
+    },
     {
         producto: "Flora Liv",
         titulo: "Flora Liv Video 2",
-        archivo: "floraliv video 2.mp4"
+        archivo: "flora liv video 2.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Flora Liv",
         titulo: "Flora Liv Video 3",
-        archivo: "flora liv video 3.mp4"
+        archivo: "flora liv video 3.mp4",
+        tipo: "video"
     },
-
-
-    /* =========================
-       FUXION
-    ========================= */
-
     {
-        producto: "FuXion",
-        titulo: "FuXion",
-        archivo: "fuxion.mp4"
+        producto: "Flora Liv",
+        titulo: "Flora Liv Video 4",
+        archivo: "flora liv video 4.mp4",
+        tipo: "video"
     },
-
-
-    /* =========================
-       GASTRITIS
-    ========================= */
-
-    {
-        producto: "Gastritis",
-        titulo: "Gastritis",
-        archivo: "gastritis.mp4"
-    },
-
-
-    /* =========================
-       HGH
-    ========================= */
-
     {
         producto: "HGH",
         titulo: "HGH Video 1",
-        archivo: "hgh video 1.mp4"
+        archivo: "hgh video 1.mp4",
+        tipo: "video"
     },
-
     {
         producto: "HGH",
         titulo: "HGH Video 2",
-        archivo: "hgh video 2.mp4"
+        archivo: "hgh video 2.mp4",
+        tipo: "video"
     },
-
     {
         producto: "HGH",
         titulo: "HGH Video 3",
-        archivo: "hgh video 3.mp4"
+        archivo: "hgh video 3.mp4",
+        tipo: "video"
     },
-
     {
         producto: "HGH",
         titulo: "HGH Video 4",
-        archivo: "hgh video 4.mp4"
+        archivo: "hgh video 4.mp4",
+        tipo: "video"
     },
-
-
-    /* =========================
-       OFF
-    ========================= */
-
     {
         producto: "OFF",
         titulo: "OFF Video",
-        archivo: "off video.mp4"
+        archivo: "off video.mp4",
+        tipo: "video"
     },
-
-
-    /* =========================
-       ON
-    ========================= */
-
     {
         producto: "ON",
         titulo: "ON Video 1",
-        archivo: "on video 1.mp4"
+        archivo: "on video 1.mp4",
+        tipo: "video"
     },
-
     {
         producto: "ON",
         titulo: "ON Video 2",
-        archivo: "on video 2.mp4"
+        archivo: "on video 2.mp4",
+        tipo: "video"
     },
-
-
-    /* =========================
-       PASSION
-    ========================= */
-
     {
         producto: "Passion",
-        titulo: "Passion Video",
-        archivo: "passsion video.mp4"
+        titulo: "Passion Video 1",
+        archivo: "passion video 1.mp4",
+        tipo: "video"
     },
-
-
-    /* =========================
-       PROBAL
-    ========================= */
-
+    {
+        producto: "Passion",
+        titulo: "Passion Video 2",
+        archivo: "passion video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Passion",
+        titulo: "Passion Video 3",
+        archivo: "passion video 3.mp4",
+        tipo: "video"
+    },
     {
         producto: "Probal",
-        titulo: "Probal Golden",
-        archivo: "probal golden.mp4"
+        titulo: "Probal Video 1",
+        archivo: "probal video 1.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Probal",
-        titulo: "Probal Video",
-        archivo: "probal video.mp4"
+        titulo: "Probal Video 2",
+        archivo: "probal video 2.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Probal",
         titulo: "Probal Video 3",
-        archivo: "probal video 3.mp4"
+        archivo: "probal video 3.mp4",
+        tipo: "video"
     },
-
-
-    /* =========================
-       PRUNEX
-    ========================= */
-
     {
         producto: "Prunex",
         titulo: "Prunex Video 1",
-        archivo: "prunex video 1.mp4"
+        archivo: "prunex video 1.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Prunex",
         titulo: "Prunex Video 2",
-        archivo: "prunex video 2.mp4"
+        archivo: "prunex video 2.mp4",
+        tipo: "video"
     },
-
     {
         producto: "Prunex",
         titulo: "Prunex Video 3",
-        archivo: "prunex video 3.mp4"
+        archivo: "prunex video 3.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Prunex",
+        titulo: "Prunex Video 4",
+        archivo: "prunex video 4.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Prunex",
+        titulo: "Prunex Video 5",
+        archivo: "prunex video 5.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Prunex",
+        titulo: "Prunex Video 6",
+        archivo: "prunex video 6.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Rexet",
+        titulo: "Rexet Video 1",
+        archivo: "rexet video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Rexet",
+        titulo: "Rexet Video 2",
+        archivo: "rexet video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Rexet",
+        titulo: "Rexet Video 3",
+        archivo: "rexet video 3.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Rexet",
+        titulo: "Rexet Video 4",
+        archivo: "rexet video 4.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Rexet",
+        titulo: "Rexet Video 5",
+        archivo: "rexet video 5.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Rexet",
+        titulo: "Rexet Video 6",
+        archivo: "rexet video 6.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Termo T3",
+        titulo: "Termo T3 Video 1",
+        archivo: "termo t3 video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Termo T3",
+        titulo: "Termo T3 Video 2",
+        archivo: "termo t3 video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Termo T3",
+        titulo: "Termo T3 Video 3",
+        archivo: "termo t3 video 3.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Termo T3",
+        titulo: "Termo T3 Video 4",
+        archivo: "termo t3 video 4.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Vitaxtrat",
+        titulo: "Vitaxtrat Video 1",
+        archivo: "vitaxtra t video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Vitaxtrat",
+        titulo: "Vitaxtrat Video 2",
+        archivo: "vitaxtrat video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Vitaxtrat",
+        titulo: "Vitaxtrat Video 3",
+        archivo: "vitaxtrat video 3.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Vitaxtrat",
+        titulo: "Vitaxtrat Video 4",
+        archivo: "vitaxtrat video 4.mp4",
+        tipo: "video"
     }
-
 ];
+
+const portadas = {
+    "Alfabalance": "alfabalance.png",
+    "Beauty": "beauty.png",
+    "Flora Liv": "flora liv.png",
+    "HGH": "hgh.png",
+    "OFF": "off.png",
+    "ON": "on.png",
+    "Passion": "passion.png",
+    "Probal": "probal.png",
+    "Prunex": "prunex.png",
+    "Rexet": "rexet.png",
+    "Termo T3": "termot3.png",
+    "Vitaxtrat": "vitaxtrat.png"
+};
+
+const recursosExtra = [
+    {
+        producto: "Recursos",
+        titulo: "Regalo",
+        archivo: "REGALO.png",
+        tipo: "imagen"
+    },
+    {
+        producto: "Berry Balance",
+        titulo: "Berry Balance",
+        archivo: "berrybalance.png",
+        tipo: "imagen"
+    },
+    {
+        producto: "Bioprofit",
+        titulo: "Bioprofit",
+        archivo: "bioprofit.png",
+        tipo: "imagen"
+    },
+    {
+        producto: "Golden",
+        titulo: "Golden",
+        archivo: "golden.png",
+        tipo: "imagen"
+    },
+    {
+        producto: "Liquid Fiber",
+        titulo: "Liquid Fiber",
+        archivo: "liquid fiber.png",
+        tipo: "imagen"
+    },
+    {
+        producto: "Nocarb-T",
+        titulo: "Nocarb-T",
+        archivo: "nocarbt.png",
+        tipo: "imagen"
+    },
+    {
+        producto: "Nutraday",
+        titulo: "Nutraday",
+        archivo: "nutraday.png",
+        tipo: "imagen"
+    },
+    {
+        producto: "Veramas",
+        titulo: "Veramas",
+        archivo: "veramas.png",
+        tipo: "imagen"
+    },
+    {
+        producto: "Vita Energía",
+        titulo: "Vita Energía",
+        archivo: "vitaenergia.png",
+        tipo: "imagen"
+    }
+];
+
+/* =========================================================
+   CATÁLOGO CONSOLIDADO
+   La imagen de cada producto aparece PRIMERO.
+========================================================= */
+
+function crearCatalogoCompleto() {
+
+  const imagenesProducto =
+    Object.entries(
+      portadas
+    ).map(
+      ([producto, archivo]) => ({
+        producto,
+        titulo: producto + " - Imagen",
+        archivo,
+        tipo: "imagen",
+        esPortada: true
+      })
+    );
+
+  return [
+    ...imagenesProducto,
+    ...recursos,
+    ...recursosExtra
+  ];
+
+}
+
+
 
 
 /*
@@ -835,7 +1340,7 @@ function crearFiltros() {
         "Todos",
 
         ...new Set(
-            recursos.map(
+            crearCatalogoCompleto().map(
                 recurso =>
                     recurso.producto
             )
@@ -941,7 +1446,7 @@ function mostrarRecursos() {
     */
 
     const filtrados =
-        recursos.filter(
+        crearCatalogoCompleto().filter(
             recurso => {
 
                 const productoOK =
@@ -994,8 +1499,8 @@ function mostrarRecursos() {
 
         (
             filtrados.length === 1
-            ? " video"
-            : " videos"
+            ? " recurso"
+            : " recursos"
         );
 
 
@@ -1091,8 +1596,21 @@ function mostrarRecursos() {
                 );
 
 
-            titulo.textContent =
-                producto;
+            if (portadas[producto]) {
+                titulo.innerHTML = `
+                    <span class="product-title-wrap">
+                        <img
+                            src="${getURL(portadas[producto])}"
+                            alt="${producto}"
+                            class="product-cover"
+                            loading="lazy"
+                        >
+                        <span>${producto}</span>
+                    </span>
+                `;
+            } else {
+                titulo.textContent = producto;
+            }
 
 
             const cantidad =
@@ -1114,9 +1632,9 @@ function mostrarRecursos() {
                     grupos[producto]
                     .length === 1
 
-                    ? " video"
+                    ? " recurso"
 
-                    : " videos"
+                    : " recursos"
                 );
 
 
@@ -1176,35 +1694,54 @@ function mostrarRecursos() {
                             "article"
                         );
 
+                    const esImagen =
+                        recurso.tipo === "imagen";
 
                     card.className =
-                        "card";
-
+                        esImagen
+                        ? (
+                            recurso.esPortada
+                            ? "card resource-image resource-cover-card"
+                            : "card resource-image"
+                          )
+                        : "card";
 
                     card.innerHTML = `
 
-                        <div class="video-box">
+                        <div class="${esImagen ? 'image-box' : 'video-box'}">
 
-                            <video
-                                controls
-                                preload="metadata"
-                                playsinline
-                            >
+                            ${
+                                esImagen
+                                ? `
+                                    <img
+                                        src="${url}"
+                                        alt="${recurso.titulo}"
+                                        loading="lazy"
+                                    >
+                                  `
+                                : `
+                                    <video
+                                        controls
+                                        preload="metadata"
+                                        playsinline
+                                    >
 
-                                <source
-                                    src="${url}"
-                                    type="video/mp4"
-                                >
+                                        <source
+                                            src="${url}"
+                                            type="video/mp4"
+                                        >
 
-                            </video>
+                                    </video>
+                                  `
+                            }
 
                         </div>
 
 
                         <div class="card-body">
 
-                            <span class="badge">
-                                VIDEO
+                            <span class="badge ${esImagen ? 'resource-type-image' : ''}">
+                                ${esImagen ? (recurso.esPortada ? 'IMAGEN PRINCIPAL' : 'IMAGEN') : 'VIDEO'}
                             </span>
 
 
@@ -1225,7 +1762,7 @@ function mostrarRecursos() {
                                     href="${url}"
                                     target="_blank"
                                 >
-                                    ▶ Ver
+                                    ${esImagen ? '🖼 Ver imagen' : '▶ Ver video'}
                                 </a>
 
 
@@ -1244,7 +1781,7 @@ function mostrarRecursos() {
                                         '${recurso.archivo}'
                                     )"
                                 >
-                                    ⬇ Descargar video
+                                    ${esImagen ? '⬇ Descargar imagen' : '⬇ Descargar video'}
                                 </button>
 
                             </div>
@@ -1401,10 +1938,28 @@ async function descargar(
         abrimos directamente el video.
         */
 
-        window.open(
-            url,
-            "_blank"
-        );
+        const enlace =
+            document.createElement(
+                "a"
+            );
+
+        enlace.href =
+            url;
+
+        enlace.target =
+            "_blank";
+
+        enlace.rel =
+            "noopener";
+
+        document.body
+            .appendChild(
+                enlace
+            );
+
+        enlace.click();
+
+        enlace.remove();
 
     }
 
@@ -1476,6 +2031,381 @@ INICIAR
 crearFiltros();
 
 mostrarRecursos();
+
+
+
+/* =========================================================
+   CACHE LOCAL DE RECURSOS
+========================================================= */
+
+const CACHE_NAME = "leonex-library-v1";
+
+/*
+  Guarda respuestas en Cache Storage cuando el navegador
+  lo permite. Esto hace que las visitas posteriores puedan
+  reutilizar imágenes/videos ya solicitados por el usuario.
+*/
+async function guardarEnCache(url) {
+
+  if (!("caches" in window)) {
+    return;
+  }
+
+  try {
+
+    const cache =
+      await caches.open(
+        CACHE_NAME
+      );
+
+    const existente =
+      await cache.match(
+        url
+      );
+
+    if (existente) {
+      return;
+    }
+
+    const response =
+      await fetch(
+        url,
+        {
+          mode: "cors"
+        }
+      );
+
+    if (
+      response.ok ||
+      response.type === "opaque"
+    ) {
+
+      await cache.put(
+        url,
+        response.clone()
+      );
+
+    }
+
+  } catch (error) {
+
+    /*
+      Si R2 no permite cachear una respuesta concreta,
+      la página sigue funcionando normalmente.
+    */
+
+  }
+
+}
+
+
+/*
+  Devuelve la URL normal.
+  El navegador y Cache Storage reutilizarán recursos
+  ya descargados cuando sea posible.
+*/
+async function cachearCatalogoLigero() {
+
+  const estado =
+    document.getElementById(
+      "cacheStatus"
+    );
+
+  if (
+    !("caches" in window)
+  ) {
+
+    if (estado) {
+
+      estado.innerHTML =
+        '<span class="cache-dot"></span> cache no disponible';
+
+    }
+
+    return;
+  }
+
+  try {
+
+    await caches.open(
+      CACHE_NAME
+    );
+
+    /*
+      Cacheamos primero portadas e imágenes porque son mucho
+      más livianas. Los videos se cachean al reproducirse,
+      evitando descargar cientos de MB sin necesidad.
+    */
+
+    const imagenes = [
+      ...Object.values(
+        portadas
+      ),
+      ...recursosExtra
+        .filter(
+          recurso =>
+            recurso.tipo === "imagen"
+        )
+        .map(
+          recurso =>
+            recurso.archivo
+        )
+    ];
+
+    for (
+      const archivo
+      of imagenes
+    ) {
+
+      guardarEnCache(
+        getURL(
+          archivo
+        )
+      );
+
+    }
+
+    if (estado) {
+
+      estado.classList.add(
+        "ready"
+      );
+
+      estado.innerHTML =
+        '<span class="cache-dot"></span> cache activo';
+
+    }
+
+  } catch (error) {
+
+    if (estado) {
+
+      estado.innerHTML =
+        '<span class="cache-dot"></span> cache básico';
+
+    }
+
+  }
+
+}
+
+
+/*
+  Cuando el usuario reproduce un video,
+  intentamos guardarlo en cache.
+*/
+document.addEventListener(
+  "play",
+  function(evento) {
+
+    const video =
+      evento.target;
+
+    if (
+      video &&
+      video.tagName === "VIDEO"
+    ) {
+
+      const source =
+        video.querySelector(
+          "source"
+        );
+
+      if (
+        source &&
+        source.src
+      ) {
+
+        guardarEnCache(
+          source.src
+        );
+
+      }
+
+    }
+
+  },
+  true
+);
+
+
+/* =========================================================
+   ACCESO MEDIANTE HASH SHA-256
+========================================================= */
+
+/* Se almacena únicamente el hash SHA-256 de la contraseña. */
+const PASSWORD_HASH =
+  "4852cfc25d539ce3bad1c7f6812b8b3834c91d3963d11e317ad119df9d9aaed9";
+
+const passwordGate =
+  document.getElementById(
+    "passwordGate"
+  );
+
+const passwordForm =
+  document.getElementById(
+    "passwordForm"
+  );
+
+const passwordInput =
+  document.getElementById(
+    "passwordInput"
+  );
+
+const passwordError =
+  document.getElementById(
+    "passwordError"
+  );
+
+const passwordBack =
+  document.getElementById(
+    "passwordBack"
+  );
+
+
+async function sha256(texto) {
+
+  const datos =
+    new TextEncoder()
+      .encode(
+        texto
+      );
+
+  const hashBuffer =
+    await crypto.subtle.digest(
+      "SHA-256",
+      datos
+    );
+
+  const hashArray =
+    Array.from(
+      new Uint8Array(
+        hashBuffer
+      )
+    );
+
+  return hashArray
+    .map(
+      byte =>
+        byte
+          .toString(16)
+          .padStart(2, "0")
+    )
+    .join("");
+
+}
+
+
+function volverAtras() {
+
+  if (
+    window.history.length > 1
+  ) {
+
+    window.history.back();
+
+  } else {
+
+    window.location.replace(
+      "about:blank"
+    );
+
+  }
+
+}
+
+
+passwordForm.addEventListener(
+  "submit",
+  async function(e) {
+
+    e.preventDefault();
+
+    passwordError.textContent =
+      "Verificando...";
+
+    passwordInput.disabled =
+      true;
+
+    try {
+
+      const hashIngresado =
+        await sha256(
+          passwordInput.value
+        );
+
+      if (
+        hashIngresado ===
+        PASSWORD_HASH
+      ) {
+
+        passwordGate.style.display =
+          "none";
+
+        passwordError.textContent =
+          "";
+
+        passwordInput.value =
+          "";
+
+        passwordInput.disabled =
+          false;
+
+        /*
+          Empezamos el cache después de validar acceso.
+        */
+        cachearCatalogoLigero();
+
+      } else {
+
+        passwordError.textContent =
+          "Contraseña incorrecta. Volviendo...";
+
+        setTimeout(
+          function() {
+
+            volverAtras();
+
+          },
+          900
+        );
+
+      }
+
+    } catch (error) {
+
+      passwordError.textContent =
+        "No se pudo validar el acceso.";
+
+      passwordInput.disabled =
+        false;
+
+    }
+
+  }
+);
+
+
+passwordBack.addEventListener(
+  "click",
+  volverAtras
+);
+
+
+setTimeout(
+  function() {
+
+    if (
+      passwordInput
+    ) {
+
+      passwordInput.focus();
+
+    }
+
+  },
+  100
+);
 
 </script>
 
