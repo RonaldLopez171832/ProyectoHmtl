@@ -32,7 +32,7 @@ label{font-weight:800;font-size:13px;color:var(--navy)}
 input{width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:11px;background:#fff;outline:none}
 input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(8,44,76,.08)}
 .hint{font-size:11px;color:var(--muted);line-height:1.4}.error{font-size:11px;color:var(--danger);min-height:16px}
-.colorRow{display:grid;grid-template-columns:1fr 72px;gap:8px}.colorBox{height:43px;border:1px solid var(--border);border-radius:10px}
+.colorRow{display:grid;grid-template-columns:1fr auto;gap:8px}.colorSelectBtn{height:43px;min-width:150px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--navy);font-weight:900;display:flex;align-items:center;justify-content:center;gap:8px}.colorDot{width:22px;height:22px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--border)}.modalOverlay{display:none;position:fixed;inset:0;background:rgba(6,18,28,.6);z-index:1000;align-items:center;justify-content:center;padding:16px}.modalOverlay.show{display:flex}.modal{width:min(520px,100%);background:#fff;border-radius:20px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.2)}.modalHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.modalHead h3{margin:0;color:var(--navy)}.closeBtn{width:38px;height:38px;border-radius:50%;background:#eef2f5;color:var(--navy);font-size:22px;padding:0}.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}.swatch{aspect-ratio:1;border-radius:14px;border:3px solid #fff;box-shadow:0 0 0 1px var(--border);cursor:pointer;position:relative}.swatch.selected:after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:900;text-shadow:0 1px 3px rgba(0,0,0,.55)}.customColor{display:grid;grid-template-columns:70px 1fr;gap:10px;align-items:center}.customColor input[type=color]{width:70px;height:46px;padding:3px;cursor:pointer}.modalActions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
 .output{display:grid;grid-template-columns:1fr;gap:10px}.output input{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
 .actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 button,a.button{border:0;border-radius:11px;padding:12px 14px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
@@ -42,7 +42,7 @@ button,a.button{border:0;border-radius:11px;padding:12px 14px;font-weight:900;cu
 .previewBar{padding:10px 12px;background:#f7fafc;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted);word-break:break-all}
 iframe{display:block;width:100%;height:650px;border:0;background:#fff}
 .note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:8px}
-@media(max-width:700px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.actions{grid-template-columns:1fr}.colorRow{grid-template-columns:1fr 58px}iframe{height:560px}}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.actions{grid-template-columns:1fr}.colorRow{grid-template-columns:1fr}.colorSelectBtn{width:100%}.palette{grid-template-columns:repeat(4,1fr)}iframe{height:560px}}
 </style>
 </head>
 <body>
@@ -83,12 +83,12 @@ iframe{display:block;width:100%;height:650px;border:0;background:#fff}
     <h2>Personalización</h2>
     <div class="grid">
       <div class="field">
-        <label for="color">Color principal</label>
+        <label for="colorPicker">Color principal</label>
         <div class="colorRow">
-          <input id="color" placeholder="082c4c" maxlength="7" value="082c4c" />
-          <div class="colorBox" id="colorBox"></div>
+          <input id="colorPicker" type="color" value="#082c4c" aria-label="Seleccionar color principal" style="height:46px;padding:4px;cursor:pointer;" />
+          <input id="color" value="082c4c" maxlength="6" placeholder="082c4c" aria-label="Código hexadecimal" />
         </div>
-        <div class="hint">Hexadecimal, con o sin #.</div>
+        <div class="hint">Haz clic en el cuadro de color para abrir el selector de colores.</div>
         <div class="error" id="eColor"></div>
       </div>
 
@@ -130,11 +130,12 @@ iframe{display:block;width:100%;height:650px;border:0;background:#fff}
     <div class="note">La previsualización se actualiza automáticamente mientras completas los campos. Si el sitio impide cargarse dentro de un iframe, usa “Abrir URL”.</div>
   </section>
 </main>
-
 <script>
 const BASE_URL='https://teamleonex.netlify.app/menu';
 const $=id=>document.getElementById(id);
 let previewTimer=null;
+let pendingColor='082c4c';
+const PALETTE=['082c4c','13a66d','2563eb','7c3aed','db2777','dc2626','ea580c','ca8a04','0f766e','374151','111827','000000','6d28d9','0891b2','16a34a'];
 
 function cleanPhone(v){
   let p=String(v||'').replace(/\D/g,'');
@@ -214,7 +215,21 @@ function refreshUrl(){
 
 function updateColor(){
   const v=$('color').value.trim();
-  $('colorBox').style.background=validHex(v)?'#'+normalizeHex(v):'#ffffff';
+  const hex=validHex(v)?normalizeHex(v):'082c4c';
+  if(document.activeElement !== $('colorPicker')) $('colorPicker').value='#'+hex;
+}
+
+function syncColorPicker(){
+  $('color').value=normalizeHex($('colorPicker').value);
+  refreshUrl();
+}
+
+function syncColorHex(){
+  const v=$('color').value.trim();
+  if(validHex(v)){
+    $('colorPicker').value='#'+normalizeHex(v);
+  }
+  refreshUrl();
 }
 
 async function copyUrl(){
@@ -241,7 +256,9 @@ function openUrl(){
   window.open($('result').value,'_blank','noopener');
 }
 
-['sellerName','whatsapp','photo','color','source','product'].forEach(id=>$(id).addEventListener('input',refreshUrl));
+['sellerName','whatsapp','photo','source','product'].forEach(id=>$(id).addEventListener('input',refreshUrl));
+$('colorPicker').addEventListener('input',syncColorPicker);
+$('color').addEventListener('input',syncColorHex);
 $('copyBtn').addEventListener('click',copyUrl);
 $('shareBtn').addEventListener('click',shareUrl);
 $('openBtn').addEventListener('click',openUrl);
