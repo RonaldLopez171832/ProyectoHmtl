@@ -37,18 +37,10 @@
 <meta property="og:title" content="Leonex International | Directorio FuXion Bolivia">
 <meta property="og:description" content="Encuentra contactos por departamento en Bolivia y accede a capacitación para emprendedores FuXion sobre productos, liderazgo, ventas, comisiones y desarrollo de equipos.">
 <meta property="og:url" content="https://teamleonex.netlify.app/">
-<meta property="og:image" content="https://teamleonex.netlify.app/leonex-logo.jpeg">
-<meta property="og:image:secure_url" content="https://teamleonex.netlify.app/leonex-logo.jpeg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Leonex International - Directorio y Academia FuXion Bolivia">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Leonex International | Directorio FuXion Bolivia">
 <meta name="twitter:description" content="Mapa, contactos y capacitación para emprendedores FuXion en Bolivia.">
-<meta name="twitter:image" content="https://teamleonex.netlify.app/leonex-logo.jpeg">
-<meta name="twitter:image:alt" content="Leonex International">
 
 <link rel="icon" type="image/jpeg" href="https://teamleonex.netlify.app/leonex-logo.jpeg">
 <link rel="shortcut icon" href="https://teamleonex.netlify.app/leonex-logo.jpeg">
@@ -397,6 +389,226 @@ body{
   }
 }
 
+
+/* =========================
+   OFICINAS POR DEPARTAMENTO
+========================= */
+.office-card{
+  margin:0 0 14px;
+  border:1px solid #dbeafe;
+  background:linear-gradient(145deg,#f8fbff,#eef6ff);
+  border-radius:16px;
+  padding:15px;
+  box-shadow:0 8px 20px rgba(37,99,235,.06);
+}
+.office-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:9px;
+}
+.office-title strong{font-size:15px;color:#172033}
+.office-badge{
+  font-size:11px;
+  font-weight:800;
+  color:#1d4ed8;
+  background:#dbeafe;
+  padding:5px 8px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+.office-text{
+  white-space:pre-line;
+  color:#475569;
+  font-size:13px;
+  line-height:1.55;
+}
+.office-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:12px;
+}
+.office-actions a,
+.office-copy{
+  display:block;
+  width:100%;
+  border:0;
+  text-decoration:none;
+  text-align:center;
+  padding:10px;
+  border-radius:10px;
+  font-weight:800;
+  font-size:13px;
+  cursor:pointer;
+}
+.office-actions a{
+  background:#2563eb;
+  color:#fff;
+}
+.office-copy{
+  background:#fff;
+  color:#1f2937;
+  border:1px solid #dbe2ea;
+}
+.general-office{
+  margin:0 0 12px;
+  border:1px solid #dbeafe;
+  background:#f8fbff;
+  border-radius:12px;
+  padding:12px;
+}
+.general-office .office-text{font-size:12px}
+@media(max-width:520px){
+  .office-actions{grid-template-columns:1fr}
+}
+
+
+.office-section-label{
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:#2563eb;
+  text-transform:uppercase;
+  margin-top:10px;
+  margin-bottom:3px;
+}
+.office-value{
+  color:#334155;
+  font-size:13px;
+  line-height:1.55;
+  white-space:pre-line;
+}
+.office-map-icon{
+  pointer-events:none;
+}
+.office-map-icon .office-pin-bg{
+  fill:#ffffff;
+  stroke:#172033;
+  stroke-width:2.5;
+}
+.office-map-icon .office-building{
+  fill:#172033;
+}
+.office-map-icon .office-window{
+  fill:#ffffff;
+}
+.office-map-icon text{
+  font-size:10px;
+  font-weight:900;
+  fill:#172033;
+  text-anchor:middle;
+  paint-order:stroke;
+  stroke:#fff;
+  stroke-width:3px;
+}
+
+
+/* =========================
+   PRODUCTOS POR DEPARTAMENTO
+========================= */
+.product-stock{
+  margin-top:14px;
+  padding:13px;
+  border-radius:13px;
+  background:#fff;
+  border:1px solid #e2e8f0;
+}
+.product-stock-title{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:12px;
+  font-weight:900;
+  color:#172033;
+  margin-bottom:9px;
+}
+.product-stock-sub{
+  font-size:11px;
+  color:#64748b;
+  margin:-4px 0 9px;
+}
+.product-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+.product-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+  color:#166534;
+  font-size:12px;
+  font-weight:850;
+}
+.product-tag::before{
+  content:"✓";
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  display:inline-grid;
+  place-items:center;
+  background:#16a34a;
+  color:#fff;
+  font-size:10px;
+}
+.no-products{
+  color:#94a3b8;
+  font-size:12px;
+}
+
+
+/* =========================
+   PRODUCTOS CON IMAGEN
+========================= */
+.product-stock{
+  margin-top:14px;
+  padding:14px;
+  border-radius:14px;
+  background:#fff;
+  border:1px solid #e2e8f0;
+}
+.product-stock-title{
+  font-size:13px;
+  font-weight:900;
+  color:#172033;
+  margin-bottom:10px;
+}
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+.product-mini{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;
+  text-align:center;
+}
+.product-mini img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:contain;
+  background:#fff;
+  display:block;
+}
+.product-mini-name{
+  padding:7px 5px 8px;
+  font-size:11px;
+  font-weight:900;
+  color:#172033;
+}
+@media(max-width:480px){
+  .product-grid{grid-template-columns:repeat(3,1fr);gap:6px}
+  .product-mini-name{font-size:10px}
+}
+
 </style>
 </head>
 <body>
@@ -466,6 +678,34 @@ body{
 <text class="dept-label" x="255" y="610">POTOSÍ</text>
 <text class="dept-label" x="375" y="580">CHUQUISACA</text>
 <text class="dept-label" x="390" y="655">TARIJA</text>
+
+<!-- Indicadores de oficinas -->
+<g class="office-map-icon" aria-label="Oficina en La Paz">
+  <circle class="office-pin-bg" cx="195" cy="315" r="17"/>
+  <rect class="office-building" x="186" y="307" width="18" height="16" rx="2"/>
+  <rect class="office-window" x="189" y="310" width="4" height="4"/>
+  <rect class="office-window" x="197" y="310" width="4" height="4"/>
+  <rect class="office-window" x="193" y="316" width="4" height="7"/>
+  <text x="195" y="295">OFICINA</text>
+</g>
+
+<g class="office-map-icon" aria-label="Oficina en Cochabamba">
+  <circle class="office-pin-bg" cx="316" cy="420" r="17"/>
+  <rect class="office-building" x="307" y="412" width="18" height="16" rx="2"/>
+  <rect class="office-window" x="310" y="415" width="4" height="4"/>
+  <rect class="office-window" x="318" y="415" width="4" height="4"/>
+  <rect class="office-window" x="314" y="421" width="4" height="7"/>
+  <text x="316" y="400">OFICINA</text>
+</g>
+
+<g class="office-map-icon" aria-label="Oficina en Potosí">
+  <circle class="office-pin-bg" cx="265" cy="585" r="17"/>
+  <rect class="office-building" x="256" y="577" width="18" height="16" rx="2"/>
+  <rect class="office-window" x="259" y="580" width="4" height="4"/>
+  <rect class="office-window" x="267" y="580" width="4" height="4"/>
+  <rect class="office-window" x="263" y="586" width="4" height="7"/>
+  <text x="265" y="565">OFICINA</text>
+</g>
 </svg>
 </div>
 
@@ -481,19 +721,151 @@ body{
 </main>
 <script>
 const conductores={
-"Pando":[],
+"Pando":[{nombre:"Jose Alexander Vargas",telefono:"59175107639"}],
 "Beni":[{nombre:"José M. Sanchez Justinian",telefono:"59174371441"}],
 "La Paz":[{nombre:"Liset Flores Camacho",telefono:"59160681790"}],
-"Cochabamba":[{nombre:"Veymar Manchego",telefono:"59177958668"}],
+"Cochabamba":[
+  {nombre:"Veymar Manchego",telefono:"59177958668"},
+  {nombre:"Raúl Calderón",telefono:"59172725412"}
+],
 "Santa Cruz":[{nombre:"Julio Roa",telefono:"59163462529"},{nombre:"Hernán Loza",telefono:"59161502267"}],
 "Oruro":[{nombre:"Joe Stip",telefono:"59162829399"}],
 "Potosí":[{nombre:"Jhilma Mendez",telefono:"59173898868"},{nombre:"Zaida Quinteros",telefono:"59172387184"},{nombre:"Milton Jaldin",telefono:"59176957955"}],
 "Chuquisaca":[{nombre:"Adrian León",telefono:"59175438138"}],
 "Tarija":[{nombre:"Jose Miguel Sapiencia",telefono:"59173082823"}]
 };
+
+const oficinas={
+  "Cochabamba":{
+    nombre:"Clínica Marident",
+    direccion:"Calle C.E. Laredo, entre Av. Melchor Pérez de Olguín y Mercedes Anaya, a la vuelta de la Casona de Mayorazgo. Condominio “La Casona”, planta baja.",
+    horarios:"Lunes a Viernes: 08:00 – 13:00 / 14:00 – 19:00\nSábados: 08:00 – 13:00",
+    mapa:"https://maps.app.goo.gl/GxNHJrK8R5EWXkKR7?g_st=iw"
+  },
+  "La Paz":{
+    nombre:"Logiexpress Shipping Bolivia",
+    direccion:"La Paz - El Alto Edificio Fortaleza, Piso 4, oficina 401.",
+    horarios:"Lunes a Viernes: 09:00 – 12:30 / 14:00 – 17:30",
+    mapa:"https://maps.app.goo.gl/AJbgBx2Xoh6LCuRVA?g_st=ac"
+  },
+  "Potosí":{
+    nombre:"Tienda Rock & Pop Music",
+    direccion:"Calle Quijarro entre Matos y Ayacucho, a pasos de la Plaza Central, frente a la Casa de la Moneda. Edificio de COTAP, Ambiente #2.",
+    horarios:"Lunes a Domingo: 10:30 – 21:30\nHorario continuo",
+    mapa:"https://maps.app.goo.gl/ZKdPZd4CU4ZRupzR7?g_st=ac"
+  }
+};
+
+/* PRODUCTOS DISPONIBLES EN TODOS LOS DEPARTAMENTOS */
+const PRODUCTOS_DISPONIBLES=[
+  {
+    nombre:"REXET",
+    imagen:"https://fuxionstorage.blob.core.windows.net/vhdfuxionoffix/newOffix/imageProducts/BO/BO_145712_PEQ_03112023_203628_MAIN.jpg"
+  },
+  {
+    nombre:"FLORA LIV",
+    imagen:"https://fuxionstorage.blob.core.windows.net/vhdfuxionoffix/newOffix/imageProducts/BO/BO_147386_PEQ_04012024_221606_MAIN.jpg"
+  },
+  {
+    nombre:"PRUNEX",
+    imagen:"https://fuxionstorage.blob.core.windows.net/vhdfuxionoffix/newOffix/imageProducts/BO/BO_147897_PEQ_13082024_185905_MAIN.jpg"
+  }
+];
+
+function productosHTML(dep){
+  return `
+    <div class="product-stock">
+      <div class="product-stock-title">📦 Productos disponibles en ${dep}</div>
+      <div class="product-grid">
+        ${PRODUCTOS_DISPONIBLES.map(p=>`
+          <div class="product-mini">
+            <img src="${p.imagen}" alt="${p.nombre}" loading="lazy">
+            <div class="product-mini-name">${p.nombre}</div>
+          </div>
+        `).join("")}
+      </div>
+    </div>`;
+}
+
+
+
+
 let active=null;const title=document.getElementById('deptTitle'),sub=document.getElementById('deptSub'),box=document.getElementById('drivers'),counter=document.getElementById('counter'),search=document.getElementById('search');
 function initials(n){return n.split(' ').slice(0,2).map(x=>x[0]).join('').toUpperCase()}
-function render(){if(!active) return;const q=search.value.trim().toLowerCase();const list=(conductores[active]||[]).filter(d=>d.nombre.toLowerCase().includes(q));counter.textContent=`${list.length} conductor${list.length===1?'':'es'} mostrado${list.length===1?'':'s'}`;if(!list.length){box.innerHTML=`<div class="empty">No hay conductores registrados en ${active}.</div>`;return}box.innerHTML=list.map(d=>`<article class="driver"><div class="top"><div class="avatar">${initials(d.nombre)}</div><div><div class="name">${d.nombre}</div><div class="city">+${d.telefono}</div></div><div class="status">● Disponible</div></div><div class="actions"><a class="btn" href="tel:+${d.telefono}">Llamar</a><a class="btn primary" target="_blank" href="https://wa.me/${d.telefono}?text=${encodeURIComponent('Hola '+d.nombre+', encontré tu contacto en el directorio de conductores.')}">WhatsApp</a></div></article>`).join('')}
+function officeHTML(dep, general=false){
+  const o=oficinas[dep];
+  if(!o) return "";
+
+  const contenido=
+`NOMBRE DEL LUGAR:
+${o.nombre}
+
+DIRECCIÓN:
+${o.direccion}
+
+HORARIOS:
+${o.horarios}
+
+Google Maps:
+${o.mapa}`;
+
+  return `
+    <div class="${general?'general-office':'office-card'}">
+      <div class="office-title">
+        <strong>🏢 ${o.nombre}</strong>
+        <span class="office-badge">Oficina</span>
+      </div>
+
+      <div class="office-section-label">Nombre del lugar</div>
+      <div class="office-value">${o.nombre}</div>
+
+      <div class="office-section-label">Dirección</div>
+      <div class="office-value">${o.direccion}</div>
+
+      <div class="office-section-label">Horarios</div>
+      <div class="office-value">${o.horarios}</div>
+
+      <div class="office-actions">
+        <a href="${o.mapa}" target="_blank" rel="noopener noreferrer">📍 Abrir en Maps</a>
+        <button class="office-copy" type="button"
+          onclick='copiarOficina(${JSON.stringify(contenido)})'>📋 Copiar datos</button>
+      </div>
+
+    </div>`;
+}
+
+async function copiarOficina(texto){
+  try{
+    await navigator.clipboard.writeText(texto);
+    alert("Datos de la oficina copiados.");
+  }catch(e){
+    const area=document.createElement("textarea");
+    area.value=texto;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+    alert("Datos de la oficina copiados.");
+  }
+}
+
+
+
+
+function render(){
+  if(!active) return;
+  const q=search.value.trim().toLowerCase();
+  const list=(conductores[active]||[]).filter(d=>d.nombre.toLowerCase().includes(q));
+  counter.textContent=`${list.length} conductor${list.length===1?'':'es'} mostrado${list.length===1?'':'s'}`;
+
+  const oficina = officeHTML(active);
+
+  const contactos = list.length
+    ? list.map(d=>`<article class="driver"><div class="top"><div class="avatar">${initials(d.nombre)}</div><div><div class="name">${d.nombre}</div><div class="city">+${d.telefono}</div></div><div class="status">● Disponible</div></div><div class="actions"><a class="btn" href="tel:+${d.telefono}">Llamar</a><a class="btn primary" target="_blank" href="https://wa.me/${d.telefono}?text=${encodeURIComponent('Hola '+d.nombre+', encontré tu contacto en el directorio de conductores.')}">WhatsApp</a></div></article>`).join('')
+    : `<div class="empty">No hay conductores registrados en ${active}.</div>`;
+
+  box.innerHTML = oficina + productosHTML(active) + contactos;
+}
 document.querySelectorAll('.dept').forEach(el => el.addEventListener('click', function(){
   document.querySelectorAll('.dept').forEach(x => x.classList.remove('active'));
 
@@ -551,6 +923,8 @@ function renderGeneralList(){
           <span>${dep}</span>
           <span class="dept-count">${lista.length} ${lista.length === 1 ? 'contacto' : 'contactos'}</span>
         </h3>
+        ${officeHTML(dep,true)}
+        ${productosHTML(dep)}
         ${contenido}
       </section>
     `;
