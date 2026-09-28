@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Plan PRO-LEV | Ganancia Simple</title>
+<style>
+  :root{
+    --blue:#0A5CB8; --blue-dark:#123B7A; --blue-soft:#EAF4FF;
+    --green:#1B7F3A; --green-soft:#E7F6EA; --yellow:#FFF2CC;
+    --text:#10223E; --muted:#64748b; --border:#d9e2f3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#eef7ff 0%,#fff 50%,#f8fbff 100%);color:var(--text)}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 18px 50px}
+  .hero{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:white;border-radius:22px;padding:28px 30px;box-shadow:0 18px 45px rgba(10,92,184,.22)}
+  .hero h1{margin:0;font-size:clamp(28px,5vw,48px);line-height:1.05;letter-spacing:-.02em}
+  .hero p{margin:10px 0 0;opacity:.9;font-size:16px}
+  .badge{display:inline-block;background:white;color:var(--blue-dark);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900;margin-bottom:10px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}
+  .card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 10px 28px rgba(15,52,96,.08)}
+  .card h2{margin:0 0 16px;font-size:20px;color:var(--blue-dark)}
+  .inputs{display:grid;grid-template-columns:1fr 160px;gap:12px;align-items:center}
+  label{font-weight:700}
+  input,select{width:100%;padding:12px 14px;border:2px solid #f0cf73;background:var(--yellow);border-radius:12px;font-size:16px;font-weight:800;color:#7A4B00;text-align:center;outline:none}
+  input:focus,select:focus{border-color:#e0b832;box-shadow:0 0 0 3px rgba(224,184,50,.15)}
+  .switch-row{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#f8fbff;border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+  .switch-copy strong{display:block;color:var(--blue-dark)}
+  .switch-copy span{font-size:13px;color:var(--muted)}
+  .switch{position:relative;width:56px;height:32px;flex:0 0 auto}
+  .switch input{opacity:0;width:0;height:0;position:absolute}
+  .slider{position:absolute;inset:0;background:#cbd5e1;border-radius:999px;cursor:pointer;transition:.2s}
+  .slider:before{content:"";position:absolute;width:24px;height:24px;left:4px;top:4px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+  .switch input:checked + .slider{background:var(--green)}
+  .switch input:checked + .slider:before{transform:translateX(24px)}
+  .nivel-box{display:none;margin:12px 0 18px;padding:14px;border-radius:14px;background:var(--green-soft);border:1px solid #b7e2c3}
+  .nivel-box.show{display:block}
+  .nivel-box label{display:block;margin-bottom:8px;color:#176B32}
+  .nivel-box select{background:#fff;border-color:#9ed4ad;color:#176B32}
+  .metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .metric{background:var(--blue-soft);border-radius:14px;padding:16px;border:1px solid #dbeafe}
+  .metric .k{font-size:13px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .metric .v{margin-top:6px;font-size:24px;font-weight:900;color:var(--blue-dark)}
+  .metric.green{background:var(--green-soft);border-color:#cfe9d6}
+  .metric.green .v{color:#176B32}
+  .table-card{margin-top:22px}.table-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:separate;border-spacing:0;min-width:780px}
+  th{background:#dceeff;color:var(--blue-dark);padding:14px 12px;text-align:center;font-size:14px;border-bottom:1px solid var(--border)}
+  td{padding:15px 12px;text-align:center;border-bottom:1px solid #edf2f7;font-weight:700}
+  tr.highlight td{background:var(--green-soft);color:#176B32;font-weight:900}
+  tr.done td{background:#f8fafc;color:#94a3b8}
+  td.money{font-size:18px;color:var(--green)}
+  .key{margin-top:22px;background:linear-gradient(135deg,#ecfdf3,#fff);border:2px solid #b7e2c3;border-radius:20px;padding:22px}
+  .key h2{margin:0 0 14px;color:var(--green);font-size:22px}
+  .key-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .key-item{background:white;border:1px solid #d8efdf;border-radius:14px;padding:16px;text-align:center}
+  .key-item .k{font-size:12px;color:#52705b;font-weight:800;text-transform:uppercase}
+  .key-item .v{margin-top:6px;font-size:22px;font-weight:900;color:#176B32}
+  .share-card{margin-top:22px;background:linear-gradient(135deg,#f0fff5,#ffffff);border:2px solid #b7e2c3;border-radius:20px;padding:22px}
+  .share-card h2{margin:0 0 10px;color:#176B32;font-size:22px}
+  .share-preview{white-space:pre-line;background:#fff;border:1px solid #d8efdf;border-radius:14px;padding:16px;color:#234b30;font-size:14px;line-height:1.55;margin-bottom:14px}
+  .wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:52px;border:0;border-radius:14px;background:#25D366;color:#fff;font-size:17px;font-weight:900;cursor:pointer;text-decoration:none;box-shadow:0 8px 20px rgba(37,211,102,.18)}
+  .wa-btn:hover{filter:brightness(.97)}
+  .wa-btn:focus{outline:3px solid rgba(37,211,102,.25);outline-offset:2px}
+  .note{margin-top:16px;background:#fff7e6;color:#7A4B00;border:1px solid #f2d69b;border-radius:14px;padding:14px 16px;font-size:13px}
+  .footer{margin-top:18px;text-align:center;color:#64748b;font-size:12px}
+  @media (max-width:850px){.grid{grid-template-columns:1fr}.key-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:520px){.inputs{grid-template-columns:1fr}.metrics{grid-template-columns:1fr}.key-grid{grid-template-columns:1fr}.hero{padding:22px 18px}.card{padding:16px}.switch-row{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="badge">PLAN SIMPLE PRO-LEV</div>
+    <h1>¿Cuánto puedes ganar desde tu nivel actual?</h1>
+    <p>Indica tu ritmo de ventas y, si ya alcanzaste un porcentaje, actívalo para proyectar las siguientes semanas.</p>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>Tus datos</h2>
+
+      <div class="switch-row">
+        <div class="switch-copy">
+          <strong>¿Ya tienes un % alcanzado?</strong>
+          <span>Actívalo para calcular desde ese nivel.</span>
+        </div>
+        <label class="switch" aria-label="Ya tengo un porcentaje alcanzado">
+          <input id="tieneNivel" type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div id="nivelBox" class="nivel-box">
+        <label for="nivelActual">Tu porcentaje actual</label>
+        <select id="nivelActual">
+          <option value="0.20">20%</option>
+          <option value="0.25">25%</option>
+          <option value="0.30" selected>30%</option>
+          <option value="0.40">40%</option>
+          <option value="0.50">50%</option>
+        </select>
+      </div>
+
+      <div class="inputs">
+        <label for="productosDia">Cajas que venderás por día</label>
+        <input id="productosDia" type="number" min="0" step="1" value="1">
+
+        <label for="puntosProducto">Puntos por caja</label>
+        <input id="puntosProducto" type="number" min="1" step="1" value="20">
+
+        <label for="precioProducto">Precio promedio por caja (Bs)</label>
+        <input id="precioProducto" type="number" min="0" step="0.01" value="435">
+
+        <label for="diasSemana">Días de venta por semana</label>
+        <input id="diasSemana" type="number" min="1" max="7" step="1" value="7">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Con tu ritmo actual</h2>
+      <div class="metrics">
+        <div class="metric"><div class="k">Cajas por semana</div><div class="v" id="mProdSemana">7</div></div>
+        <div class="metric"><div class="k">Cajas en 4 semanas</div><div class="v" id="mCajas4">28</div></div>
+        <div class="metric"><div class="k">Venta por semana</div><div class="v" id="mVentaSemana">Bs 3.045</div></div>
+        <div class="metric green"><div class="k">Tu % aplicado</div><div class="v" id="mNivel">20%</div></div>
+        <div class="metric green"><div class="k">Ganancia por semana</div><div class="v" id="mGanSemana">Bs 609</div></div>
+        <div class="metric green"><div class="k">Ganancia en 4 semanas</div><div class="v" id="mGan4">Bs 2.436</div></div>
+        <div class="metric"><div class="k">Nivel al cierre de 4 semanas</div><div class="v" id="mProximo">25%</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card table-card">
+    <h2>Después de 4 semanas: ¿qué te faltaría para el siguiente nivel?</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Objetivo</th>
+            <th>Estado después de 4 semanas</th>
+            <th>Productos extra</th>
+            <th>Días extra aprox.</th>
+            <th>Ventas adicionales</th>
+            <th>Ganancia adicional estimada*</th>
+          </tr>
+        </thead>
+        <tbody id="tablaObjetivos"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="key">
+    <h2>Tu proyección rápida</h2>
+    <div class="key-grid">
+      <div class="key-item"><div class="k">Nivel al cierre de 4 semanas</div><div class="v" id="kNivel">20%</div></div>
+      <div class="key-item"><div class="k">Ritmo diario</div><div class="v" id="kRitmo">1 caja/día</div></div>
+      <div class="key-item"><div class="k">Cajas vendidas en 4 semanas</div><div class="v" id="kCajas4">28 cajas</div></div>
+      <div class="key-item"><div class="k">Ganancia promedio por caja</div><div class="v" id="kGanCaja">Bs 87</div></div>
+      <div class="key-item"><div class="k">Ganas por semana</div><div class="v" id="kGanSemana">Bs 609</div></div>
+      <div class="key-item"><div class="k">Ganas en 4 semanas</div><div class="v" id="kGan4">Bs 2.436</div></div>
+    </div>
+  </section>
+
+  <section class="share-card">
+    <h2>Compartir proyección por WhatsApp</h2>
+    <div id="sharePreview" class="share-preview" aria-live="polite"></div>
+    <a id="shareWhatsapp" class="wa-btn" href="#" target="_blank" rel="noopener">
+      Compartir por WhatsApp
+    </a>
+  </section>
+
+  <div class="note">
+    *Si activas “¿Ya tienes un % alcanzado?”, conservas ese porcentaje para tus ganancias, pero los puntos del nuevo período empiezan en 0. La proyección de 4 semanas suma únicamente los puntos nuevos. Los niveles superiores se calculan desde esos nuevos puntos y siguen sujetos a Clientes Preferentes/PC4 cuando corresponda.
+  </div>
+
+  <div class="footer">Simulación informativa. No constituye garantía de ingresos.</div>
+</div>
+
+<script>
+  const niveles = [
+    {nombre:'20%', pv4:60, pct:0.20},
+    {nombre:'25%', pv4:100, pct:0.25},
+    {nombre:'30%', pv4:300, pct:0.30},
+    {nombre:'40%', pv4:500, pct:0.40},
+    {nombre:'50%', pv4:1000, pct:0.50}
+  ];
+
+  const $ = id => document.getElementById(id);
+
+  function fmtBs(n){
+    return 'Bs ' + Number(n || 0).toLocaleString('es-BO',{minimumFractionDigits:0,maximumFractionDigits:2});
+  }
+  function fmt1(n){
+    return Number(n || 0).toLocaleString('es-BO',{minimumFractionDigits:1,maximumFractionDigits:1});
+  }
+  function pctText(p){ return Math.round(p*100) + '%'; }
+  function nivelPorPct(p){ return niveles.find(n => Math.abs(n.pct-p) < 0.0001) || niveles[0]; }
+
+  function nivelPorPV4(pv4){
+    let alcanzado = niveles[0];
+    for(const n of niveles){
+      if(pv4 >= n.pv4) alcanzado = n;
+    }
+    return alcanzado;
+  }
+
+  function calcular(){
+    const productosDia = Math.max(0, parseFloat($('productosDia').value) || 0);
+    const puntosProducto = Math.max(1, parseFloat($('puntosProducto').value) || 1);
+    const precio = Math.max(0, parseFloat($('precioProducto').value) || 0);
+    const diasSemana = Math.min(7, Math.max(1, parseFloat($('diasSemana').value) || 1));
+    const tieneNivel = $('tieneNivel').checked;
+    const nivelElegido = Math.max(0.20, Math.min(0.50, parseFloat($('nivelActual').value) || 0.20));
+    const nivelActual = tieneNivel ? nivelPorPct(nivelElegido) : niveles[0];
+    const basePV4 = 0; // El % alcanzado se conserva, pero los puntos del nuevo período empiezan en 0.
+    const pctActual = tieneNivel ? nivelActual.pct : 0.20;
+
+    $('nivelBox').classList.toggle('show', tieneNivel);
+
+    const prodSemana = productosDia * diasSemana;
+    const cajas4 = prodSemana * 4;
+    const ventaSemana = prodSemana * precio;
+    const puntosSemana = prodSemana * puntosProducto;
+    const puntos4Semanas = puntosSemana * 4;
+    const pv4Proyectado = basePV4 + puntos4Semanas;
+    const nivelProyectado = nivelPorPV4(pv4Proyectado);
+    const pctProyectado = Math.max(pctActual, nivelProyectado.pct);
+
+    // La ganancia semanal parte del porcentaje ya alcanzado.
+    const ganSemana = ventaSemana * pctActual;
+
+    // Proyección progresiva de 4 semanas:
+    // cada semana se recalcula el nivel por PV4 acumulado y se aplica a las ventas de esa semana.
+    let gan4 = 0;
+    let pvAcum = basePV4;
+    for(let semana = 1; semana <= 4; semana++){
+      pvAcum += puntosSemana;
+      const nivelSemana = nivelPorPV4(pvAcum);
+      const pctSemana = Math.max(pctActual, nivelSemana.pct);
+      gan4 += ventaSemana * pctSemana;
+    }
+
+    const proximo = niveles.find(n => n.pct > pctActual);
+
+    $('mProdSemana').textContent = prodSemana.toLocaleString('es-BO',{maximumFractionDigits:2});
+    $('mCajas4').textContent = cajas4.toLocaleString('es-BO',{maximumFractionDigits:2});
+    $('mVentaSemana').textContent = fmtBs(ventaSemana);
+    $('mNivel').textContent = pctText(pctActual);
+    $('mGanSemana').textContent = fmtBs(ganSemana);
+    $('mGan4').textContent = fmtBs(gan4);
+    $('mProximo').textContent = pctText(pctProyectado);
+
+    const tbody = $('tablaObjetivos');
+    tbody.innerHTML = '';
+
+    // En esta tabla tomamos como punto de partida EL RESULTADO DE LAS 4 SEMANAS,
+    // no el nivel con el que comenzó la persona.
+    const siguienteDespues4 = niveles.find(n => n.pct > pctProyectado);
+
+    niveles.forEach(n => {
+      const tr = document.createElement('tr');
+
+      // Si el usuario indicó que YA tiene un porcentaje alcanzado,
+      // ese rango se mantiene aunque los puntos del nuevo período comiencen en 0.
+      if(tieneNivel && n.pct <= pctActual){
+        tr.className = 'done';
+        tr.innerHTML = `
+          <td>Llegar al ${n.nombre}</td>
+          <td>Ya alcanzado previamente</td>
+          <td>0</td>
+          <td>0</td>
+          <td>${fmtBs(0)}</td>
+          <td class="money">${fmtBs(0)}</td>
+        `;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      // Los puntos de ESTA proyección de 4 semanas empiezan en 0.
+      // Si con esos nuevos puntos cubre otro nivel, se marca como logrado en el período.
+      if(n.pv4 <= pv4Proyectado){
+        tr.className = 'done';
+        tr.innerHTML = `
+          <td>Llegar al ${n.nombre}</td>
+          <td>Lo alcanzas con los puntos de estas 4 semanas</td>
+          <td>0</td>
+          <td>0</td>
+          <td>${fmtBs(0)}</td>
+          <td class="money">${fmtBs(0)}</td>
+        `;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      // Lo que falta se calcula DESPUÉS de completar las 4 semanas proyectadas.
+      const puntosFaltantes = Math.max(0, n.pv4 - pv4Proyectado);
+      const productosFaltan = puntosProducto > 0 ? Math.ceil(puntosFaltantes / puntosProducto) : 0;
+      const diasExtra = productosDia > 0 ? Math.ceil(productosFaltan / productosDia) : 0;
+      const ventasAdic = productosFaltan * precio;
+
+      // Una vez terminadas las 4 semanas, se proyecta desde el % alcanzado al cierre.
+      const ganAdicional = ventasAdic * pctProyectado;
+
+      if(siguienteDespues4 && n.pct === siguienteDespues4.pct) tr.className='highlight';
+
+      tr.innerHTML = `
+        <td>Llegar al ${n.nombre}</td>
+        <td>${siguienteDespues4 && n.pct === siguienteDespues4.pct ? 'Siguiente objetivo' : 'Objetivo posterior'}</td>
+        <td>${productosFaltan}</td>
+        <td>${productosDia > 0 ? diasExtra : '-'}</td>
+        <td>${fmtBs(ventasAdic)}</td>
+        <td class="money">${fmtBs(ganAdicional)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    const ganPromCaja = cajas4 > 0 ? gan4 / cajas4 : 0;
+    $('kNivel').textContent = pctText(pctProyectado);
+    $('kRitmo').textContent = `${productosDia || 0} caja${productosDia===1?'':'s'}/día`;
+    $('kCajas4').textContent = cajas4.toLocaleString('es-BO',{maximumFractionDigits:2}) + ' cajas';
+    $('kGanCaja').textContent = fmtBs(ganPromCaja);
+    $('kGanSemana').textContent = fmtBs(ganSemana);
+    $('kGan4').textContent = fmtBs(gan4);
+
+    // Resumen corto y entendible para compartir por WhatsApp
+    const ritmoTexto = `${productosDia || 0} caja${productosDia===1?'':'s'} por día`;
+    const mensaje = [
+      '📊 *MI PROYECCIÓN FUXION - 4 SEMANAS*',
+      '',
+      `✅ Ritmo: *${ritmoTexto}*`,
+      `📦 Cajas proyectadas en 4 semanas: *${cajas4}*`,
+      `💰 Precio promedio: *${fmtBs(precio)}* por caja`,
+      `📈 Empiezo desde: *${pctText(pctActual)}*`,
+      `🎯 Nivel proyectado al cierre: *${pctText(pctProyectado)}*`,
+      '',
+      `💵 Venta estimada por semana: *${fmtBs(ventaSemana)}*`,
+      `🔥 Ganancia estimada por semana: *${fmtBs(ganSemana)}*`,
+      `🚀 Ganancia proyectada en 4 semanas: *${fmtBs(gan4)}*`,
+      `📊 Ganancia promedio por caja: *${fmtBs(ganPromCaja)}*`,
+      '',
+      'La proyección ajusta el porcentaje a medida que se alcanzan nuevos niveles por volumen.',
+      'Los niveles que exigen Clientes Preferentes/PC4 deben cumplir también esas condiciones.'
+    ].join('\n');
+
+    $('sharePreview').textContent = mensaje.replace(/\*/g,'');
+    $('shareWhatsapp').href = 'https://wa.me/?text=' + encodeURIComponent(mensaje);
+  }
+
+  ['productosDia','puntosProducto','precioProducto','diasSemana','nivelActual'].forEach(id => {
+    $(id).addEventListener('input', calcular);
+    $(id).addEventListener('change', calcular);
+  });
+  $('tieneNivel').addEventListener('change', calcular);
+
+  calcular();
+</script>
+</body>
+</html>
