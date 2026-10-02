@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=5702a82c-725f-4c08-bdfb-d97e66ee575a
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 
 <title>Leonex International | Biblioteca FuXion, Productos y Capacitación</title>
@@ -339,6 +342,62 @@ h1{
   object-fit:contain;
   background:#000;
 }
+
+/* PREVIEW ULTRALIGERA: el MP4 NO se solicita hasta tocar Reproducir */
+.video-placeholder{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#0b1015,#121a22);
+  overflow:hidden;
+  cursor:pointer;
+}
+.video-placeholder img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:18px;
+  opacity:.82;
+  filter:saturate(.9);
+}
+.video-placeholder::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.48),rgba(0,0,0,.05) 60%);
+  pointer-events:none;
+}
+.video-play{
+  position:absolute;
+  z-index:2;
+  width:62px;
+  height:62px;
+  border:0;
+  border-radius:999px;
+  background:rgba(46,168,255,.95);
+  color:#03131E;
+  font-size:24px;
+  font-weight:900;
+  display:grid;
+  place-items:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  cursor:pointer;
+}
+.video-label{
+  position:absolute;
+  z-index:2;
+  bottom:12px;
+  left:12px;
+  right:12px;
+  text-align:center;
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.3px;
+}
 .card-body{padding:15px}
 .badge{
   display:inline-block;
@@ -436,21 +495,36 @@ footer{
 }
 
 @media(max-width:700px){
-  .header-content{padding:14px 16px 13px}
-  .top{align-items:flex-start}
-  .brand-logo{width:42px;height:42px;border-radius:12px}
-  .counter{font-size:10px;padding:7px 10px}
-  .container{width:94%;padding-top:25px}
-  .library-intro{padding:18px 3px 34px}
-  .library-intro h2{font-size:30px}
-  .product-section{margin-bottom:42px}
-  .scroll-hint{display:block}
-  .grid{gap:12px;padding:2px 16px 14px 2px}
+  .header-content{padding:12px 12px 10px}
+  .top{align-items:center;gap:10px;margin-bottom:12px}
+  .brand-logo{width:40px;height:40px;border-radius:11px}
+  h1{font-size:18px}
+  .subtitle{font-size:10px}
+  .cache-status{display:none}
+  .counter{font-size:9px;padding:6px 8px}
+  .search{padding:12px 13px;font-size:16px;margin-bottom:10px}
+  .filters{gap:6px}
+  .filter{padding:8px 12px;font-size:11px}
+  .container{width:100%;padding:18px 12px 70px}
+  .library-intro{padding:12px 2px 24px}
+  .library-intro h2{font-size:25px;line-height:1.12}
+  .library-intro p{font-size:13px;line-height:1.5}
+  .product-section{margin-bottom:34px}
+  .product-header{margin-bottom:9px;padding-bottom:9px}
+  .product-header h2{font-size:19px}
+  .product-count{font-size:9px;padding:5px 8px}
+  .scroll-hint{display:block;margin-bottom:8px}
+  .grid{gap:10px;padding:2px 11vw 12px 0;scrollbar-width:none}
+  .grid::-webkit-scrollbar{display:none}
   .card{
-    flex:0 0 78%;
-    max-width:310px;
+    flex:0 0 82vw;
+    max-width:300px;
+    border-radius:16px;
   }
-  .video-box{max-height:550px}
+  .video-box{max-height:none;aspect-ratio:9/16}
+  .card-body{padding:13px}
+  .actions{gap:7px}
+  .btn{padding:11px 8px;font-size:12px}
 }
 @media(max-width:420px){
   .brand-block{gap:9px}
@@ -734,6 +808,1095 @@ footer{
   }
 }
 
+
+
+/* =========================================================
+   MOBILE FIRST V3 — 95% DE USO DESDE CELULAR
+   Prioridad: rapidez, botones táctiles, lectura cómoda,
+   carruseles de una tarjeta y mínimo trabajo de render.
+========================================================= */
+
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+body{
+  overscroll-behavior-y:none;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+
+button,a,input{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.product-section{
+  content-visibility:auto;
+  contain-intrinsic-size:560px;
+}
+
+/* Teléfonos y tablets pequeñas */
+@media (max-width:700px){
+  body::before{display:none}
+
+  header{
+    background:rgba(6,8,9,.96);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+  }
+
+  .header-content{
+    width:100%;
+    padding:
+      calc(10px + env(safe-area-inset-top))
+      12px
+      10px;
+  }
+
+  .top{
+    margin-bottom:10px;
+    gap:8px;
+    min-width:0;
+  }
+
+  .brand-block{
+    min-width:0;
+    flex:1;
+    gap:9px;
+  }
+
+  .brand-logo{
+    width:38px;
+    height:38px;
+    flex:0 0 38px;
+    border-radius:10px;
+  }
+
+  h1{
+    font-size:16px !important;
+    line-height:1.12;
+    margin:0 0 2px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .subtitle{
+    font-size:10px !important;
+    line-height:1.2;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .counter{
+    flex:0 0 auto;
+    padding:6px 8px;
+    font-size:9px;
+  }
+
+  .search{
+    height:46px;
+    margin-bottom:9px;
+    padding:0 14px;
+    border-radius:12px;
+    font-size:16px;
+    background:#10151a;
+  }
+
+  .filters{
+    margin:0 -12px;
+    padding:0 12px 4px;
+    gap:7px;
+    scroll-padding-left:12px;
+  }
+
+  .filter{
+    min-height:38px;
+    padding:8px 13px;
+    font-size:11px;
+    border-radius:999px;
+  }
+
+  .container{
+    width:100%;
+    max-width:none;
+    padding:14px 0 calc(58px + env(safe-area-inset-bottom));
+  }
+
+  .library-intro{
+    max-width:none;
+    padding:8px 14px 18px;
+  }
+
+  .eyebrow{
+    margin-bottom:7px;
+    font-size:9px;
+    letter-spacing:1.5px;
+  }
+
+  .library-intro h2{
+    font-size:22px !important;
+    line-height:1.12;
+    letter-spacing:-.35px;
+    margin-bottom:7px;
+  }
+
+  .library-intro p{
+    font-size:12.5px;
+    line-height:1.45;
+  }
+
+  .product-section{
+    margin-bottom:28px;
+    padding:0 0 2px;
+  }
+
+  .product-header{
+    margin:0 14px 7px;
+    padding:0 0 8px;
+    gap:8px;
+    align-items:center;
+  }
+
+  .product-header h2{
+    min-width:0;
+    font-size:18px !important;
+  }
+
+  .product-title-wrap{
+    gap:9px;
+    min-width:0;
+  }
+
+  .product-title-wrap > span:last-child{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .product-cover{
+    width:42px !important;
+    height:42px !important;
+    flex:0 0 42px;
+    border-radius:11px !important;
+  }
+
+  .product-count{
+    flex:0 0 auto;
+    padding:5px 7px;
+    font-size:9px;
+  }
+
+  .scroll-hint{
+    margin:0 14px 8px;
+    font-size:10px;
+  }
+
+  .grid{
+    width:100%;
+    gap:10px;
+    padding:2px 7vw 13px 14px !important;
+    scroll-padding-left:14px;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+
+  .grid::-webkit-scrollbar{display:none}
+
+  .card,
+  .card.resource-image,
+  .resource-cover-card{
+    flex:0 0 86vw !important;
+    width:86vw;
+    max-width:370px !important;
+    border-radius:16px;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    box-shadow:0 12px 26px -20px rgba(0,0,0,.9);
+  }
+
+  .card:hover{
+    transform:none;
+  }
+
+  .video-box{
+    aspect-ratio:9/16;
+    max-height:none;
+  }
+
+  .video-placeholder img{
+    padding:22px;
+  }
+
+  .video-play{
+    width:68px;
+    height:68px;
+    font-size:25px;
+  }
+
+  .video-label{
+    bottom:14px;
+    font-size:11px;
+  }
+
+  .image-box{
+    aspect-ratio:1/1;
+  }
+
+  .image-box img{
+    padding:6px;
+  }
+
+  .card-body{
+    padding:13px;
+  }
+
+  .badge{
+    margin-bottom:8px;
+    font-size:9px;
+  }
+
+  .card-title{
+    font-size:15px;
+    line-height:1.3;
+    margin-bottom:4px;
+  }
+
+  .card-product{
+    font-size:11px;
+    margin-bottom:12px;
+  }
+
+  .actions{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .btn{
+    min-height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 8px;
+    border-radius:11px;
+    font-size:12px;
+    line-height:1.2;
+  }
+
+  .btn-open{
+    grid-column:1/-1;
+    min-height:49px;
+    font-size:13px;
+  }
+
+  .btn-download{
+    grid-column:auto;
+  }
+
+  .empty{
+    margin:16px 14px;
+    padding:38px 18px;
+  }
+
+  .toast{
+    bottom:calc(16px + env(safe-area-inset-bottom));
+    width:max-content;
+    max-width:calc(100vw - 28px);
+    padding:11px 16px;
+    font-size:12px;
+  }
+
+  footer{
+    padding:22px 14px calc(22px + env(safe-area-inset-bottom));
+    font-size:10px;
+  }
+
+  .password-gate{
+    align-items:flex-start;
+    overflow:auto;
+    padding:
+      calc(28px + env(safe-area-inset-top))
+      14px
+      calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .password-box{
+    width:100%;
+    max-width:390px;
+    padding:24px 18px;
+    border-radius:20px;
+    margin:auto;
+  }
+
+  .password-logo{
+    width:62px;
+    height:62px;
+  }
+
+  .password-box h2{
+    font-size:22px;
+  }
+
+  .password-box p{
+    font-size:12px;
+    margin-bottom:16px;
+  }
+
+  .password-input{
+    min-height:50px;
+    font-size:16px;
+  }
+
+  .password-actions{
+    grid-template-columns:1fr;
+  }
+
+  .password-btn{
+    min-height:48px;
+  }
+}
+
+@media (max-width:380px){
+  .counter{display:none}
+  .card,
+  .card.resource-image,
+  .resource-cover-card{
+    flex-basis:88vw !important;
+    width:88vw;
+  }
+  .library-intro h2{font-size:20px !important}
+}
+
+/* Escritorio queda como vista secundaria */
+@media (min-width:701px){
+  .card{min-width:285px}
+}
+
+
+
+/* =========================================================
+   MOBILE V4 — COMPACTO, LEGIBLE Y ELEGANTE
+   Pensado para 360–430 px. Menos altura, mejor densidad visual.
+========================================================= */
+@media (max-width:700px){
+  .header-content{
+    padding:calc(8px + env(safe-area-inset-top)) 12px 8px;
+  }
+
+  .top{
+    margin-bottom:8px;
+  }
+
+  .brand-logo{
+    width:34px;
+    height:34px;
+    flex-basis:34px;
+    border-radius:9px;
+  }
+
+  h1{
+    font-size:14px !important;
+    letter-spacing:-.2px;
+  }
+
+  .subtitle{
+    font-size:9px !important;
+    opacity:.9;
+  }
+
+  .counter{
+    padding:5px 7px;
+    font-size:8.5px;
+  }
+
+  .search{
+    height:42px;
+    padding:0 12px;
+    margin-bottom:7px;
+    border-radius:10px;
+    font-size:15px;
+  }
+
+  .filters{
+    gap:6px;
+    padding-bottom:3px;
+  }
+
+  .filter{
+    min-height:34px;
+    padding:7px 11px;
+    font-size:10.5px;
+  }
+
+  .container{
+    padding-top:8px;
+  }
+
+  .library-intro{
+    padding:7px 14px 14px;
+  }
+
+  .eyebrow{
+    margin-bottom:5px;
+    font-size:8px;
+    letter-spacing:1.2px;
+  }
+
+  .library-intro h2{
+    font-size:18px !important;
+    line-height:1.18;
+    margin-bottom:5px;
+    letter-spacing:-.25px;
+  }
+
+  .library-intro p{
+    font-size:11.5px;
+    line-height:1.42;
+    max-width:95%;
+  }
+
+  .product-section{
+    margin-bottom:22px;
+  }
+
+  .product-header{
+    margin:0 14px 5px;
+    padding-bottom:6px;
+  }
+
+  .product-header h2{
+    font-size:15.5px !important;
+  }
+
+  .product-title-wrap{
+    gap:7px;
+  }
+
+  .product-cover{
+    width:34px !important;
+    height:34px !important;
+    flex-basis:34px;
+    border-radius:9px !important;
+  }
+
+  .product-count{
+    padding:4px 6px;
+    font-size:8px;
+  }
+
+  .scroll-hint{
+    margin:0 14px 6px;
+    font-size:9px;
+  }
+
+  .grid{
+    gap:9px;
+    padding:2px 16vw 10px 14px !important;
+    scroll-padding-left:14px;
+  }
+
+  .card,
+  .card.resource-image,
+  .resource-cover-card{
+    flex:0 0 74vw !important;
+    width:74vw;
+    max-width:300px !important;
+    min-width:250px;
+    border-radius:14px;
+    box-shadow:0 10px 22px -18px rgba(0,0,0,.9);
+  }
+
+  /* Evita tarjetas altísimas por el formato 9:16 */
+  .video-box{
+    aspect-ratio:auto !important;
+    height:286px !important;
+    max-height:286px !important;
+  }
+
+  .video-box video{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+
+  .video-placeholder{
+    min-height:286px;
+  }
+
+  .video-placeholder img{
+    padding:28px;
+    object-fit:contain;
+  }
+
+  .video-play{
+    width:54px;
+    height:54px;
+    font-size:20px;
+    box-shadow:0 10px 24px rgba(0,0,0,.35);
+  }
+
+  .video-label{
+    bottom:10px;
+    font-size:9px;
+    padding:5px 8px;
+  }
+
+  .image-box{
+    aspect-ratio:auto !important;
+    height:246px;
+  }
+
+  .image-box img{
+    padding:8px;
+  }
+
+  .card-body{
+    padding:10px 11px 11px;
+  }
+
+  .badge{
+    padding:4px 6px;
+    margin-bottom:6px;
+    font-size:7.5px;
+    letter-spacing:.8px;
+  }
+
+  .card-title{
+    font-size:13.5px;
+    line-height:1.28;
+    margin-bottom:2px;
+  }
+
+  .card-product{
+    font-size:10px;
+    margin-bottom:9px;
+  }
+
+  .actions{
+    gap:6px;
+  }
+
+  .btn{
+    min-height:42px;
+    padding:8px 7px;
+    border-radius:9px;
+    font-size:10.5px;
+  }
+
+  .btn-open{
+    min-height:43px;
+    font-size:11.5px;
+  }
+
+  footer{
+    padding:18px 14px calc(18px + env(safe-area-inset-bottom));
+    font-size:9px;
+  }
+
+  .password-box{
+    max-width:350px;
+    padding:20px 16px;
+  }
+
+  .password-logo{
+    width:54px;
+    height:54px;
+  }
+
+  .password-box h2{
+    font-size:19px;
+  }
+
+  .password-box p{
+    font-size:11px;
+    line-height:1.45;
+  }
+}
+
+@media (max-width:380px){
+  .card,
+  .card.resource-image,
+  .resource-cover-card{
+    flex-basis:78vw !important;
+    width:78vw;
+    min-width:238px;
+  }
+
+  .video-box,
+  .video-placeholder{
+    height:270px !important;
+    min-height:270px;
+    max-height:270px !important;
+  }
+
+  .image-box{
+    height:230px;
+  }
+
+  .library-intro h2{
+    font-size:17px !important;
+  }
+}
+
+
+
+/* =========================================================
+   MOBILE V5 — COMPACTO REAL / 2 COLUMNAS
+   Diseño principal para 320–430 px.
+   La prioridad es ver más contenido por pantalla sin perder legibilidad.
+========================================================= */
+@media (max-width:700px){
+  body{
+    background:var(--bg);
+  }
+
+  .header-content{
+    padding:calc(7px + env(safe-area-inset-top)) 10px 7px !important;
+  }
+
+  .top{
+    gap:8px !important;
+    margin-bottom:7px !important;
+  }
+
+  .brand-block{gap:7px !important; min-width:0;}
+  .brand-logo{
+    width:30px !important;
+    height:30px !important;
+    flex:0 0 30px !important;
+    border-radius:8px !important;
+  }
+  h1{
+    font-size:13px !important;
+    line-height:1.1 !important;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .subtitle{display:none !important;}
+  .counter{
+    padding:4px 6px !important;
+    font-size:7.5px !important;
+    flex:0 0 auto;
+  }
+
+  .search{
+    height:36px !important;
+    padding:0 10px !important;
+    margin-bottom:6px !important;
+    border-radius:9px !important;
+    font-size:14px !important;
+  }
+
+  .filters{
+    gap:5px !important;
+    padding:0 0 2px !important;
+  }
+  .filter{
+    min-height:29px !important;
+    padding:5px 9px !important;
+    font-size:9.5px !important;
+  }
+
+  .container{
+    width:100% !important;
+    padding:6px 0 46px !important;
+  }
+
+  .library-intro{
+    padding:5px 10px 11px !important;
+  }
+  .eyebrow{
+    font-size:7px !important;
+    margin-bottom:3px !important;
+    letter-spacing:1px !important;
+  }
+  .eyebrow::before{width:12px !important;}
+  .library-intro h2{
+    font-size:15px !important;
+    line-height:1.18 !important;
+    margin-bottom:3px !important;
+    letter-spacing:-.15px !important;
+  }
+  .library-intro p{
+    font-size:10px !important;
+    line-height:1.35 !important;
+    max-width:100% !important;
+  }
+
+  .product-section{
+    margin-bottom:17px !important;
+    padding-top:0 !important;
+  }
+  .product-header{
+    margin:0 10px 6px !important;
+    padding-bottom:5px !important;
+    align-items:center !important;
+  }
+  .product-header h2{font-size:13px !important;}
+  .product-title-wrap{gap:6px !important;}
+  .product-cover{
+    width:26px !important;
+    height:26px !important;
+    flex:0 0 26px !important;
+    border-radius:7px !important;
+  }
+  .product-count{
+    padding:3px 5px !important;
+    font-size:7px !important;
+  }
+  .scroll-hint{display:none !important;}
+
+  /* En móvil dejamos de usar carrusel gigante: usamos catálogo de 2 columnas. */
+  .grid{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:8px !important;
+    overflow:visible !important;
+    padding:0 10px !important;
+    scroll-snap-type:none !important;
+  }
+
+  .card,
+  .card.resource-image,
+  .resource-cover-card{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    flex:none !important;
+    border-radius:11px !important;
+    box-shadow:0 8px 20px -18px rgba(0,0,0,.9) !important;
+    overflow:hidden !important;
+  }
+
+  .video-box,
+  .video-placeholder,
+  .image-box{
+    width:100% !important;
+    height:138px !important;
+    min-height:138px !important;
+    max-height:138px !important;
+    aspect-ratio:auto !important;
+  }
+
+  .video-placeholder img,
+  .image-box img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain !important;
+    padding:8px !important;
+  }
+
+  .video-box video{
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain !important;
+  }
+
+  .video-play{
+    width:42px !important;
+    height:42px !important;
+    font-size:16px !important;
+    border-width:1px !important;
+  }
+  .video-label{display:none !important;}
+
+  .card-body{
+    padding:7px 7px 8px !important;
+  }
+  .badge{
+    padding:3px 5px !important;
+    margin-bottom:4px !important;
+    font-size:6.5px !important;
+    letter-spacing:.5px !important;
+  }
+  .card-title{
+    font-size:11px !important;
+    line-height:1.2 !important;
+    margin-bottom:1px !important;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    min-height:26px;
+  }
+  .card-product{
+    font-size:8.5px !important;
+    margin-bottom:6px !important;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .actions{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:4px !important;
+  }
+  .btn,
+  .btn-open,
+  .btn-copy,
+  .btn-download{
+    min-height:32px !important;
+    height:32px !important;
+    padding:5px 3px !important;
+    border-radius:7px !important;
+    font-size:0 !important;
+    line-height:1 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+  }
+  .btn-open::after{content:'▶';font-size:12px;}
+  .btn-copy::after{content:'🔗';font-size:11px;}
+  .btn-download::after{content:'↓';font-size:15px;font-weight:800;}
+  .btn-download{grid-column:auto !important;}
+
+  footer{
+    padding:14px 10px calc(14px + env(safe-area-inset-bottom)) !important;
+    font-size:8px !important;
+  }
+
+  .password-gate{padding:12px !important;}
+  .password-box{
+    width:min(310px,100%) !important;
+    padding:16px 14px !important;
+    border-radius:17px !important;
+  }
+  .password-logo{width:44px !important;height:44px !important;}
+  .password-eyebrow{font-size:8px !important;margin-bottom:6px !important;}
+  .password-box h2{font-size:17px !important;margin-bottom:6px !important;}
+  .password-box p{font-size:10.5px !important;line-height:1.35 !important;margin-bottom:13px !important;}
+  .password-input{min-height:42px !important;font-size:15px !important;}
+  .password-actions{gap:6px !important;margin-top:6px !important;}
+  .password-btn{min-height:39px !important;font-size:11px !important;}
+  .password-note{margin-top:10px !important;font-size:8.5px !important;}
+}
+
+@media (max-width:350px){
+  .grid{gap:6px !important;padding:0 8px !important;}
+  .video-box,
+  .video-placeholder,
+  .image-box{
+    height:126px !important;
+    min-height:126px !important;
+    max-height:126px !important;
+  }
+  .card-title{font-size:10.5px !important;}
+  .library-intro h2{font-size:14px !important;}
+}
+
+
+/* ===== V7: ORDEN ALFABÉTICO + CONTEO JUNTO AL NOMBRE ===== */
+.product-header{
+  justify-content:flex-start !important;
+  align-items:center !important;
+}
+.product-header h2{
+  width:100%;
+}
+.product-title-wrap{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:6px !important;
+}
+.product-name{
+  min-width:0;
+}
+.product-title-wrap .product-count{
+  display:inline-flex;
+  align-items:center;
+  margin:0 !important;
+  white-space:nowrap;
+  font-size:9px !important;
+  line-height:1;
+  padding:4px 7px !important;
+  border-radius:999px;
+}
+@media(max-width:480px){
+  .product-title-wrap{gap:5px !important;}
+  .product-title-wrap .product-count{
+    font-size:8px !important;
+    padding:3px 6px !important;
+  }
+}
+
+
+/* ===== V8: BARRA RÁPIDA DE PRODUCTOS + LIMPIAR BUSCADOR ===== */
+.search-wrap{
+  position:relative;
+  width:100%;
+}
+.search-wrap .search{
+  padding-right:42px !important;
+}
+.search-clear{
+  position:absolute;
+  right:7px;
+  top:50%;
+  transform:translateY(-50%);
+  width:28px;
+  height:28px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.07);
+  color:#AAB4BF;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:15px;
+  line-height:1;
+  z-index:2;
+}
+.search-clear.show{display:flex;}
+.search-clear:active{transform:translateY(-50%) scale(.94);}
+
+.quick-products-tab{
+  position:fixed;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:850;
+  width:30px;
+  min-height:92px;
+  border:1px solid rgba(46,168,255,.28);
+  border-right:0;
+  border-radius:11px 0 0 11px;
+  background:rgba(12,17,22,.94);
+  color:var(--azul);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  box-shadow:0 10px 28px rgba(0,0,0,.30);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  cursor:pointer;
+}
+.quick-products-tab .quick-icon{font-size:14px;line-height:1;}
+.quick-products-tab .quick-text{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-size:7.5px;
+  font-weight:800;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+
+.quick-products-overlay{
+  position:fixed;
+  inset:0;
+  z-index:899;
+  background:rgba(0,0,0,.42);
+  opacity:0;
+  pointer-events:none;
+  transition:.18s ease;
+}
+.quick-products-overlay.show{opacity:1;pointer-events:auto;}
+
+.quick-products-panel{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  z-index:900;
+  width:min(82vw,310px);
+  background:#0A0E12;
+  border-left:1px solid var(--borde);
+  transform:translateX(102%);
+  transition:transform .22s ease;
+  display:flex;
+  flex-direction:column;
+  box-shadow:-18px 0 45px rgba(0,0,0,.38);
+  padding-top:env(safe-area-inset-top);
+}
+.quick-products-panel.show{transform:translateX(0);}
+.quick-products-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:13px 12px 10px;
+  border-bottom:1px solid var(--borde);
+}
+.quick-products-head strong{
+  font-family:'Sora',sans-serif;
+  font-size:13px;
+}
+.quick-products-close{
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  border:1px solid var(--borde);
+  background:var(--panel-2);
+  color:var(--texto);
+  cursor:pointer;
+}
+.quick-products-list{
+  overflow-y:auto;
+  padding:7px 8px calc(12px + env(safe-area-inset-bottom));
+  -webkit-overflow-scrolling:touch;
+}
+.quick-product-btn{
+  width:100%;
+  min-height:38px;
+  padding:7px 9px;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.055);
+  background:transparent;
+  color:var(--texto);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  text-align:left;
+  cursor:pointer;
+  border-radius:8px;
+  font-size:11px;
+}
+.quick-product-btn:hover{background:rgba(255,255,255,.045);}
+.quick-product-btn.active{
+  background:rgba(46,168,255,.10);
+  color:var(--azul);
+}
+.quick-product-count{
+  flex:0 0 auto;
+  min-width:24px;
+  text-align:center;
+  padding:3px 6px;
+  border-radius:999px;
+  font-size:8px;
+  font-weight:800;
+  color:var(--texto-suave);
+  background:rgba(255,255,255,.055);
+}
+.quick-product-btn.active .quick-product-count{
+  color:var(--azul);
+  background:rgba(46,168,255,.12);
+}
+
+@media(max-width:700px){
+  .search-wrap .search{padding-right:38px !important;}
+  .search-clear{
+    width:25px;
+    height:25px;
+    right:6px;
+    font-size:13px;
+  }
+  .quick-products-tab{
+    width:27px;
+    min-height:82px;
+    border-radius:9px 0 0 9px;
+  }
+  .quick-products-tab .quick-icon{font-size:12px;}
+  .quick-products-tab .quick-text{font-size:6.8px;letter-spacing:.6px;}
+}
+
 </style>
 </head>
 <body>
@@ -830,12 +1993,15 @@ footer{
     </div>
 
 
-    <input
-        id="search"
-        class="search"
-        type="text"
-        placeholder="🔎 Buscar producto o video..."
-    >
+    <div class="search-wrap">
+      <input
+          id="search"
+          class="search"
+          type="text"
+          placeholder="🔎 Buscar producto o video..."
+      >
+      <button id="searchClear" class="search-clear" type="button" aria-label="Borrar búsqueda">✕</button>
+    </div>
 
 
     <div
@@ -847,6 +2013,21 @@ footer{
 
 </header>
 
+
+
+<button id="quickProductsTab" class="quick-products-tab" type="button" aria-label="Elegir producto rápidamente">
+  <span class="quick-icon">☰</span>
+  <span class="quick-text">Productos</span>
+</button>
+
+<div id="quickProductsOverlay" class="quick-products-overlay"></div>
+<aside id="quickProductsPanel" class="quick-products-panel" aria-hidden="true">
+  <div class="quick-products-head">
+    <strong>Elegir producto</strong>
+    <button id="quickProductsClose" class="quick-products-close" type="button" aria-label="Cerrar">✕</button>
+  </div>
+  <div id="quickProductsList" class="quick-products-list"></div>
+</aside>
 
 <main class="container">
 
@@ -956,6 +2137,18 @@ const recursos = [
         tipo: "video"
     },
     {
+        producto: "Alfabalance",
+        titulo: "Alfabalance Video 6",
+        archivo: "alfabalance video 6.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Alfabalance",
+        titulo: "Alfabalance Video 7",
+        archivo: "alfabalance video 7.mp4",
+        tipo: "video"
+    },
+    {
         producto: "Beauty",
         titulo: "Beauty Video 1",
         archivo: "beauty video 1.mp4",
@@ -971,6 +2164,48 @@ const recursos = [
         producto: "Beauty",
         titulo: "Beauty Video 3",
         archivo: "beauty video 3.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Beauty",
+        titulo: "Beauty Video 4",
+        archivo: "beauty video 4.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Beauty",
+        titulo: "Beauty Video 5",
+        archivo: "beauty video 5.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Berry Balance",
+        titulo: "Berry Balance Video 1",
+        archivo: "berrybalance video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Berry Balance",
+        titulo: "Berry Balance Video 2",
+        archivo: "berrybalance video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Biopro Sport",
+        titulo: "Biopro Sport Video 1",
+        archivo: "biopro sport video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Biopro Tech",
+        titulo: "Biopro Tech Video 1",
+        archivo: "biopro tech video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Biopro Tech",
+        titulo: "Biopro Tech Video 2",
+        archivo: "biopro tech video 2.mp4",
         tipo: "video"
     },
     {
@@ -998,6 +2233,48 @@ const recursos = [
         tipo: "video"
     },
     {
+        producto: "Flora Liv",
+        titulo: "Flora Liv Video 5",
+        archivo: "flora liv video 5.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Flora Liv",
+        titulo: "Flora Liv Video 6",
+        archivo: "flora liv video 6.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Flora Liv",
+        titulo: "Flora Liv Video 7",
+        archivo: "floraliv video 7.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Golden Flex",
+        titulo: "Golden Flex Video 1",
+        archivo: "gloden flex video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Golden Flex",
+        titulo: "Golden Flex Video 2",
+        archivo: "gloden flex video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Golden Flex",
+        titulo: "Golden Flex Video 3",
+        archivo: "gloden flex video 3.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Golden Flex",
+        titulo: "Golden Flex Video 4",
+        archivo: "gloden flex video 4.mp4",
+        tipo: "video"
+    },
+    {
         producto: "HGH",
         titulo: "HGH Video 1",
         archivo: "hgh video 1.mp4",
@@ -1022,6 +2299,48 @@ const recursos = [
         tipo: "video"
     },
     {
+        producto: "Liquid Fiber",
+        titulo: "Liquid Fiber Video 1",
+        archivo: "liquid fiber video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Nocarb-T",
+        titulo: "Nocarb-T Video 1",
+        archivo: "nocarbt video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Nocarb-T",
+        titulo: "Nocarb-T Video 2",
+        archivo: "nocarbt video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Nutraday",
+        titulo: "Nutraday Video 1",
+        archivo: "nutraday video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Nutraday",
+        titulo: "Nutraday Video 2",
+        archivo: "nutraday video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Nutraday",
+        titulo: "Nutraday Video 3",
+        archivo: "nutraday video 3.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Nutraday",
+        titulo: "Nutraday Video 4",
+        archivo: "nutraday video 4.mp4",
+        tipo: "video"
+    },
+    {
         producto: "OFF",
         titulo: "OFF Video",
         archivo: "off video.mp4",
@@ -1037,6 +2356,12 @@ const recursos = [
         producto: "ON",
         titulo: "ON Video 2",
         archivo: "on video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "ON",
+        titulo: "ON Video 3",
+        archivo: "on video 3.mp4",
         tipo: "video"
     },
     {
@@ -1058,6 +2383,36 @@ const recursos = [
         tipo: "video"
     },
     {
+        producto: "Passion",
+        titulo: "Passion Video 4",
+        archivo: "passion video 4.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Passion",
+        titulo: "Passion Video 5",
+        archivo: "passion video 5.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Post Entreno",
+        titulo: "Post Entreno Video 1",
+        archivo: "post entreno video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Pre Sport",
+        titulo: "Pre Sport Video 1",
+        archivo: "pre sport video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Pre Sport",
+        titulo: "Pre Sport Video 2",
+        archivo: "pre sport video 2.mp4",
+        tipo: "video"
+    },
+    {
         producto: "Probal",
         titulo: "Probal Video 1",
         archivo: "probal video 1.mp4",
@@ -1073,6 +2428,36 @@ const recursos = [
         producto: "Probal",
         titulo: "Probal Video 3",
         archivo: "probal video 3.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Probal",
+        titulo: "Probal Video 4",
+        archivo: "probal video 4.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Probal",
+        titulo: "Probal Video 5",
+        archivo: "probal video 5.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Probix",
+        titulo: "Probix Video 1",
+        archivo: "probix video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Probix",
+        titulo: "Probix Video 2",
+        archivo: "probix video 2.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Probix",
+        titulo: "Probix Video 3",
+        archivo: "probix video 3.mp4",
         tipo: "video"
     },
     {
@@ -1112,6 +2497,18 @@ const recursos = [
         tipo: "video"
     },
     {
+        producto: "Prunex",
+        titulo: "Prunex Video 7",
+        archivo: "prunex video 7.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Prunex",
+        titulo: "Prunex Video 8",
+        archivo: "prunex video 8.mp4",
+        tipo: "video"
+    },
+    {
         producto: "Rexet",
         titulo: "Rexet Video 1",
         archivo: "rexet video 1.mp4",
@@ -1148,6 +2545,24 @@ const recursos = [
         tipo: "video"
     },
     {
+        producto: "Rexet",
+        titulo: "Rexet Video 7",
+        archivo: "rexet video 7.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Rexet",
+        titulo: "Rexet Video 8",
+        archivo: "rexet video 8.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Rexet",
+        titulo: "Rexet Video 9",
+        archivo: "rexet video 9.mp4",
+        tipo: "video"
+    },
+    {
         producto: "Termo T3",
         titulo: "Termo T3 Video 1",
         archivo: "termo t3 video 1.mp4",
@@ -1169,6 +2584,12 @@ const recursos = [
         producto: "Termo T3",
         titulo: "Termo T3 Video 4",
         archivo: "termo t3 video 4.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Termo T3",
+        titulo: "Termo T3 Video 5",
+        archivo: "termo t3 video 5.mp4",
         tipo: "video"
     },
     {
@@ -1194,80 +2615,95 @@ const recursos = [
         titulo: "Vitaxtrat Video 4",
         archivo: "vitaxtrat video 4.mp4",
         tipo: "video"
+    },
+    {
+        producto: "Veramas",
+        titulo: "Veramas Video 1",
+        archivo: "vermas video 1.mp4",
+        tipo: "video"
+    },
+    {
+        producto: "Veramas",
+        titulo: "Veramas Video 2",
+        archivo: "vermas video 2.mp4",
+        tipo: "video"
     }
 ];
 
 const portadas = {
+    "Catálogo": "acatalogo v1.jpeg",
+    "Combos": "acombos v1.jpeg",
+
+    /* PNG PRINCIPAL: siempre aparece primero cuando existe */
     "Alfabalance": "alfabalance.png",
     "Beauty": "beauty.png",
+    "Berry Balance": "berrybalance.png",
+    "Biopro Sport": "biopro sport.png",
+    "Biopro Tech": "biopro tect.png",
+    "Bioprofit": "bioprofit.png",
     "Flora Liv": "flora liv.png",
+    "Golden Flex": "golden flex.png",
     "HGH": "hgh.png",
+    "Liquid Fiber": "liquid fiber.png",
+    "Nocarb-T": "nocarbt.png",
+    "Nutraday": "nutraday.png",
     "OFF": "off.png",
     "ON": "on.png",
     "Passion": "passion.png",
+    "Post Entreno": "post sport f.png",
+    "Pre Sport": "pre sport f.png",
     "Probal": "probal.png",
+    "Probix": "probix.png",
     "Prunex": "prunex.png",
     "Rexet": "rexet.png",
     "Termo T3": "termot3.png",
+    "Veramas": "veramas.png",
+    "Vita Energía": "vitaenergia.png",
     "Vitaxtrat": "vitaxtrat.png"
 };
 
 const recursosExtra = [
-    {
-        producto: "Recursos",
-        titulo: "Regalo",
-        archivo: "REGALO.png",
-        tipo: "imagen"
-    },
-    {
-        producto: "Berry Balance",
-        titulo: "Berry Balance",
-        archivo: "berrybalance.png",
-        tipo: "imagen"
-    },
-    {
-        producto: "Bioprofit",
-        titulo: "Bioprofit",
-        archivo: "bioprofit.png",
-        tipo: "imagen"
-    },
-    {
-        producto: "Golden",
-        titulo: "Golden",
-        archivo: "golden.png",
-        tipo: "imagen"
-    },
-    {
-        producto: "Liquid Fiber",
-        titulo: "Liquid Fiber",
-        archivo: "liquid fiber.png",
-        tipo: "imagen"
-    },
-    {
-        producto: "Nocarb-T",
-        titulo: "Nocarb-T",
-        archivo: "nocarbt.png",
-        tipo: "imagen"
-    },
-    {
-        producto: "Nutraday",
-        titulo: "Nutraday",
-        archivo: "nutraday.png",
-        tipo: "imagen"
-    },
-    {
-        producto: "Veramas",
-        titulo: "Veramas",
-        archivo: "veramas.png",
-        tipo: "imagen"
-    },
-    {
-        producto: "Vita Energía",
-        titulo: "Vita Energía",
-        archivo: "vitaenergia.png",
-        tipo: "imagen"
-    }
-];
+    { producto: "Recursos", titulo: "Regalo", archivo: "REGALO.png", tipo: "imagen" },
+
+    { producto: "Catálogo", titulo: "Catálogo 2", archivo: "acatalogo v2.jpeg", tipo: "imagen" },
+    { producto: "Catálogo", titulo: "Catálogo 3", archivo: "acatalogo v3.jpeg", tipo: "imagen" },
+
+    { producto: "Combos", titulo: "Combo 2", archivo: "acombos v2.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 3", archivo: "acombos v3.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 4", archivo: "acombos v4.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 5", archivo: "acombos v5.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 6", archivo: "acombos v6.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 7", archivo: "acombos v7.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 8", archivo: "acombos v8.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 9", archivo: "acombos v9.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 10", archivo: "acombos v10.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 11", archivo: "acombos v11.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 12", archivo: "acombos v12.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 13", archivo: "acombos v13.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 14", archivo: "acombos v14.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 15", archivo: "acombos v15.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 16", archivo: "acombos v16.jpeg", tipo: "imagen" },
+    { producto: "Combos", titulo: "Combo 17", archivo: "acombos v17.jpeg", tipo: "imagen" },
+
+    /* IMÁGENES ADICIONALES: aparecen después del PNG principal */
+    { producto: "Alfabalance", titulo: "Alfabalance Imagen 1", archivo: "alfabalance img1.jpeg", tipo: "imagen" },
+    { producto: "Berry Balance", titulo: "Berry Balance Imagen 1", archivo: "berrybalance img1.jpeg", tipo: "imagen" },
+    { producto: "Flora Liv", titulo: "Flora Liv Imagen 1", archivo: "flora liv img1.jpeg", tipo: "imagen" },
+    { producto: "Nocarb-T", titulo: "Nocarb-T Imagen 1", archivo: "nocarbt img1.jpeg", tipo: "imagen" },
+    { producto: "Nutraday", titulo: "Nutraday Imagen 1", archivo: "nutraday img1.jpeg", tipo: "imagen" },
+    { producto: "Prunex", titulo: "Prunex Imagen 1", archivo: "prunex img1.jpeg", tipo: "imagen" },
+    { producto: "Rexet", titulo: "Rexet Imagen 1", archivo: "rexet img1.jpeg", tipo: "imagen" },
+    { producto: "Veramas", titulo: "Veramas Imagen 1", archivo: "veramas img1.jpeg", tipo: "imagen" },
+
+
+    { producto: "Flora Liv", titulo: "Flora Liv Imagen 2", archivo: "floraliv img2.jpeg", tipo: "imagen" },
+    { producto: "Flora Liv", titulo: "Flora Liv Imagen 3", archivo: "flora liv img3.jpeg", tipo: "imagen" },
+    { producto: "Flora Liv", titulo: "Flora Liv Imagen 4", archivo: "flora liv img4.jpeg", tipo: "imagen" },
+
+
+
+
+]
 
 /* =========================================================
    CATÁLOGO CONSOLIDADO
@@ -1335,17 +2771,19 @@ CREAR FILTROS
 
 function crearFiltros() {
 
-    const productos = [
-
-        "Todos",
-
+    const productosOrdenados = [
         ...new Set(
             crearCatalogoCompleto().map(
-                recurso =>
-                    recurso.producto
+                recurso => recurso.producto
             )
         )
+    ].sort((a, b) =>
+        a.localeCompare(b, "es", { sensitivity: "base" })
+    );
 
+    const productos = [
+        "Todos",
+        ...productosOrdenados
     ];
 
 
@@ -1406,6 +2844,70 @@ function crearFiltros() {
         }
     );
 
+    crearBarraRapidaProductos();
+
+}
+
+
+function contarRecursosPorProducto() {
+    return crearCatalogoCompleto().reduce((acc, recurso) => {
+        acc[recurso.producto] = (acc[recurso.producto] || 0) + 1;
+        return acc;
+    }, {});
+}
+
+function crearBarraRapidaProductos() {
+    const lista = document.getElementById("quickProductsList");
+    if (!lista) return;
+
+    const conteos = contarRecursosPorProducto();
+    const productos = Object.keys(conteos).sort((a,b) =>
+        a.localeCompare(b, "es", { sensitivity:"base" })
+    );
+
+    lista.innerHTML = "";
+
+    const todos = document.createElement("button");
+    todos.type = "button";
+    todos.className = "quick-product-btn" + (productoActivo === "Todos" ? " active" : "");
+    todos.innerHTML = `<span>Todos los productos</span><span class="quick-product-count">${crearCatalogoCompleto().length}</span>`;
+    todos.onclick = () => seleccionarProductoRapido("Todos");
+    lista.appendChild(todos);
+
+    productos.forEach(producto => {
+        const boton = document.createElement("button");
+        boton.type = "button";
+        boton.className = "quick-product-btn" + (productoActivo === producto ? " active" : "");
+        boton.innerHTML = `<span>${producto}</span><span class="quick-product-count">${conteos[producto]}</span>`;
+        boton.onclick = () => seleccionarProductoRapido(producto);
+        lista.appendChild(boton);
+    });
+}
+
+function seleccionarProductoRapido(producto) {
+    productoActivo = producto;
+    crearFiltros();
+    mostrarRecursos();
+    cerrarBarraRapida();
+    requestAnimationFrame(() => {
+        const contenido = document.getElementById("content");
+        if (contenido) {
+            const y = contenido.getBoundingClientRect().top + window.scrollY - 118;
+            window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+        }
+    });
+}
+
+function abrirBarraRapida() {
+    document.getElementById("quickProductsPanel")?.classList.add("show");
+    document.getElementById("quickProductsOverlay")?.classList.add("show");
+    document.getElementById("quickProductsPanel")?.setAttribute("aria-hidden", "false");
+}
+
+function cerrarBarraRapida() {
+    document.getElementById("quickProductsPanel")?.classList.remove("show");
+    document.getElementById("quickProductsOverlay")?.classList.remove("show");
+    document.getElementById("quickProductsPanel")?.setAttribute("aria-hidden", "true");
 }
 
 
@@ -1561,9 +3063,11 @@ function mostrarRecursos() {
     MOSTRAR PRODUCTOS
     */
 
-    Object.keys(
-        grupos
-    ).forEach(
+    Object.keys(grupos)
+        .sort((a, b) =>
+            a.localeCompare(b, "es", { sensitivity: "base" })
+        )
+        .forEach(
         producto => {
 
             const section =
@@ -1596,6 +3100,11 @@ function mostrarRecursos() {
                 );
 
 
+            const totalRecursos = grupos[producto].length;
+            const textoCantidad = totalRecursos === 1
+                ? "1 recurso"
+                : totalRecursos + " recursos";
+
             if (portadas[producto]) {
                 titulo.innerHTML = `
                     <span class="product-title-wrap">
@@ -1604,47 +3113,24 @@ function mostrarRecursos() {
                             alt="${producto}"
                             class="product-cover"
                             loading="lazy"
+                            decoding="async"
+                            fetchpriority="low"
                         >
-                        <span>${producto}</span>
+                        <span class="product-name">${producto}</span>
+                        <span class="product-count">${textoCantidad}</span>
                     </span>
                 `;
             } else {
-                titulo.textContent = producto;
+                titulo.innerHTML = `
+                    <span class="product-title-wrap">
+                        <span class="product-name">${producto}</span>
+                        <span class="product-count">${textoCantidad}</span>
+                    </span>
+                `;
             }
-
-
-            const cantidad =
-                document.createElement(
-                    "span"
-                );
-
-
-            cantidad.className =
-                "product-count";
-
-
-            cantidad.textContent =
-
-                grupos[producto]
-                    .length +
-
-                (
-                    grupos[producto]
-                    .length === 1
-
-                    ? " recurso"
-
-                    : " recursos"
-                );
-
 
             header.appendChild(
                 titulo
-            );
-
-
-            header.appendChild(
-                cantidad
             );
 
             const hint =
@@ -1717,21 +3203,31 @@ function mostrarRecursos() {
                                         src="${url}"
                                         alt="${recurso.titulo}"
                                         loading="lazy"
+                                        decoding="async"
+                                        fetchpriority="low"
                                     >
                                   `
                                 : `
-                                    <video
-                                        controls
-                                        preload="metadata"
-                                        playsinline
+                                    <div
+                                        class="video-placeholder"
+                                        role="button"
+                                        tabindex="0"
+                                        aria-label="Reproducir ${recurso.titulo}"
+                                        onclick="cargarVideo(this, '${url}')"
+                                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();cargarVideo(this,'${url}')}"
                                     >
-
-                                        <source
-                                            src="${url}"
-                                            type="video/mp4"
-                                        >
-
-                                    </video>
+                                        ${portadas[recurso.producto] ? `
+                                          <img
+                                            src="${getURL(portadas[recurso.producto])}"
+                                            alt=""
+                                            loading="lazy"
+                                            decoding="async"
+                                            fetchpriority="low"
+                                          >
+                                        ` : ''}
+                                        <button class="video-play" type="button" aria-label="Reproducir">▶</button>
+                                        <div class="video-label">Toca para reproducir · sin precarga</div>
+                                    </div>
                                   `
                             }
 
@@ -1819,6 +3315,35 @@ function mostrarRecursos() {
         }
     );
 
+}
+
+
+/* =========================================================
+   VIDEO BAJO DEMANDA
+   No existe <video src=...> hasta que el usuario toca reproducir.
+   Esto evita solicitudes de metadata/rango para todos los videos.
+========================================================= */
+function cargarVideo(contenedor, url) {
+
+    if (!contenedor || contenedor.dataset.loaded === "1") {
+        return;
+    }
+
+    contenedor.dataset.loaded = "1";
+
+    const video = document.createElement("video");
+    video.controls = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.preload = "none";
+    video.src = url;
+    video.style.width = "100%";
+    video.style.height = "100%";
+    video.style.objectFit = "contain";
+    video.style.background = "#000";
+
+    contenedor.replaceWith(video);
+    video.play().catch(() => {});
 }
 
 
@@ -2012,14 +3537,32 @@ BUSCADOR
 =====================================================
 */
 
-document
-    .getElementById(
-        "search"
-    )
-    .addEventListener(
-        "input",
-        mostrarRecursos
-    );
+const searchInput = document.getElementById("search");
+const searchClear = document.getElementById("searchClear");
+
+function actualizarBotonBorrarBusqueda() {
+    searchClear?.classList.toggle("show", searchInput.value.length > 0);
+}
+
+searchInput.addEventListener("input", () => {
+    actualizarBotonBorrarBusqueda();
+    mostrarRecursos();
+});
+
+searchClear?.addEventListener("click", () => {
+    searchInput.value = "";
+    actualizarBotonBorrarBusqueda();
+    mostrarRecursos();
+    searchInput.focus();
+});
+
+document.getElementById("quickProductsTab")?.addEventListener("click", abrirBarraRapida);
+document.getElementById("quickProductsClose")?.addEventListener("click", cerrarBarraRapida);
+document.getElementById("quickProductsOverlay")?.addEventListener("click", cerrarBarraRapida);
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") cerrarBarraRapida();
+});
 
 
 /*
@@ -2106,127 +3649,24 @@ async function guardarEnCache(url) {
 */
 async function cachearCatalogoLigero() {
 
-  const estado =
-    document.getElementById(
-      "cacheStatus"
-    );
+  /*
+    MODO AHORRO DE DATOS:
+    no descargamos imágenes ni videos de forma anticipada.
+    loading="lazy" se encarga de solicitar imágenes únicamente
+    cuando el usuario se acerca a ellas.
+  */
 
-  if (
-    !("caches" in window)
-  ) {
+  const estado = document.getElementById("cacheStatus");
 
-    if (estado) {
-
-      estado.innerHTML =
-        '<span class="cache-dot"></span> cache no disponible';
-
-    }
-
-    return;
+  if (estado) {
+    estado.classList.add("ready");
+    estado.innerHTML = '<span class="cache-dot"></span> modo ahorro';
   }
-
-  try {
-
-    await caches.open(
-      CACHE_NAME
-    );
-
-    /*
-      Cacheamos primero portadas e imágenes porque son mucho
-      más livianas. Los videos se cachean al reproducirse,
-      evitando descargar cientos de MB sin necesidad.
-    */
-
-    const imagenes = [
-      ...Object.values(
-        portadas
-      ),
-      ...recursosExtra
-        .filter(
-          recurso =>
-            recurso.tipo === "imagen"
-        )
-        .map(
-          recurso =>
-            recurso.archivo
-        )
-    ];
-
-    for (
-      const archivo
-      of imagenes
-    ) {
-
-      guardarEnCache(
-        getURL(
-          archivo
-        )
-      );
-
-    }
-
-    if (estado) {
-
-      estado.classList.add(
-        "ready"
-      );
-
-      estado.innerHTML =
-        '<span class="cache-dot"></span> cache activo';
-
-    }
-
-  } catch (error) {
-
-    if (estado) {
-
-      estado.innerHTML =
-        '<span class="cache-dot"></span> cache básico';
-
-    }
-
-  }
-
 }
 
 
-/*
-  Cuando el usuario reproduce un video,
-  intentamos guardarlo en cache.
-*/
-document.addEventListener(
-  "play",
-  function(evento) {
-
-    const video =
-      evento.target;
-
-    if (
-      video &&
-      video.tagName === "VIDEO"
-    ) {
-
-      const source =
-        video.querySelector(
-          "source"
-        );
-
-      if (
-        source &&
-        source.src
-      ) {
-
-        guardarEnCache(
-          source.src
-        );
-
-      }
-
-    }
-
-  },
-  true
-);
+/* Los videos no se guardan manualmente en Cache Storage.
+   El navegador gestiona su caché HTTP normal, evitando una segunda descarga completa. */
 
 
 /* =========================================================
