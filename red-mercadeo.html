@@ -1,0 +1,1459 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Descubre qué es una red de mercadeo, cómo funciona el modelo de distribución directa Fuxion y cómo puedes participar como cliente o emprendedor.">
+<title>¿Sabes qué es una red de mercadeo? </title>
+
+<style>
+:root{
+  --navy:#092758;
+  --blue:#0c54a5;
+  --cyan:#11b6c6;
+  --gold:#ffc64b;
+  --soft:#e9f5fa;
+  --white:#fff;
+  --muted:#61748c;
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  background:#f3f8fc;
+  color:#132e56;
+  font-family:system-ui,-apple-system,Arial,sans-serif;
+  overflow-x:hidden;
+}
+
+button{cursor:pointer;font-family:inherit}
+
+.container{
+  width:min(900px,94%);
+  margin:auto;
+}
+
+h1,h2,h3{line-height:1.12;letter-spacing:-.7px}
+h2{font-size:clamp(26px,5vw,38px);margin:7px 0 13px}
+p{line-height:1.65}
+
+.muted{color:var(--muted);font-size:15px}
+
+.ey{
+  letter-spacing:2px;
+  font-size:12px;
+  font-weight:900;
+  color:#078ba8;
+}
+
+.btn{
+  border:0;
+  background:var(--gold);
+  color:#132b55;
+  border-radius:50px;
+  padding:14px 23px;
+  font-size:14px;
+  font-weight:900;
+  transition:.2s;
+}
+
+.btn:hover{transform:translateY(-3px)}
+.btn.blue{background:var(--blue);color:white}
+.btn.alt{background:#e7eef6;color:var(--navy)}
+
+.hero{
+  background:
+    radial-gradient(ellipse at 80% 20%,#147fba,transparent 55%),
+    linear-gradient(145deg,#06142e,#0c3780 75%,#08566c);
+  color:white;
+  border-radius:0 0 26px 26px;
+  text-align:center;
+  padding:60px 20px;
+  overflow:hidden;
+}
+
+.hero .ey{color:#ffce63}
+
+.hero h1{
+  font-size:clamp(36px,7vw,66px);
+  max-width:740px;
+  margin:22px auto;
+  font-weight:950;
+}
+
+.hero h1 span{color:#ffcc62}
+
+.hero p{
+  color:#d7ebff;
+  max-width:540px;
+  margin:0 auto 22px;
+}
+
+.hero-illustration{
+  font-size:clamp(55px,11vw,110px);
+  margin:25px 0;
+  animation:float 3.5s ease-in-out infinite;
+}
+
+.section{
+  background:white;
+  border:1px solid #e0eaf3;
+  border-radius:24px;
+  padding:35px 23px;
+  text-align:center;
+  margin:20px 0;
+  box-shadow:0 8px 28px rgba(15,67,130,.045);
+}
+
+.art{
+  background:linear-gradient(135deg,#effaff,#deebfa);
+  border-radius:20px;
+  padding:22px 13px;
+  margin:20px 0;
+}
+
+.chain{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  margin:17px 0;
+}
+
+.node{
+  flex:1;
+  min-width:0;
+  background:white;
+  border:1px solid #c1daed;
+  border-radius:14px;
+  padding:15px 4px;
+  box-shadow:0 4px 12px #0d4b9020;
+}
+
+.node .emoji{font-size:clamp(25px,6vw,47px)}
+.node b{display:block;font-size:11px;margin-top:6px}
+
+.arrow{
+  font-size:26px;
+  color:#dea12d;
+  font-weight:900;
+  animation:pulse 1.6s infinite;
+}
+
+.fact{
+  padding:15px;
+  background:#e1f6f5;
+  color:#07506d;
+  border-radius:13px;
+  font-size:14px;
+  font-weight:750;
+}
+
+.twocol{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin:17px 0;
+}
+
+.threecol{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin:17px 0;
+}
+
+.card{
+  border:1px solid #dce8f2;
+  background:white;
+  border-radius:17px;
+  padding:20px 10px;
+}
+
+.card .emoji{font-size:43px}
+.card b{display:block;font-size:16px;margin:10px 0}
+.card small{font-size:13px;color:var(--muted);line-height:1.5}
+
+.tabs{
+  display:flex;
+  background:#edf4fa;
+  padding:6px;
+  border-radius:14px;
+  gap:6px;
+  margin:20px 0;
+}
+
+.tabs button{
+  flex:1;
+  padding:13px 6px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:var(--muted);
+  font-weight:800;
+}
+
+.tabs button.active{
+  background:white;
+  color:var(--navy);
+  box-shadow:0 2px 9px #0001;
+}
+
+.explain{
+  background:linear-gradient(135deg,#123c80,#076d92);
+  color:white;
+  border-radius:17px;
+  padding:23px;
+  margin:12px 0;
+}
+
+.explain p{color:#e4f5ff;font-size:14px}
+
+.choose{
+  background:white;
+  border:2px solid #dce8f2;
+  border-radius:18px;
+  padding:23px 8px;
+  width:100%;
+  color:var(--navy);
+  transition:.25s;
+}
+
+.choose[aria-pressed="true"]{
+  border-color:var(--cyan);
+  background:#e7fafa;
+  transform:translateY(-3px);
+}
+
+.choose .emoji{font-size:55px}
+.choose b{display:block;margin:12px 0;font-size:17px}
+.choose small{color:var(--muted)}
+
+.network{
+  background:radial-gradient(circle at 50% 25%,#d5f5f6,#e8f2ff);
+  border-radius:20px;
+  padding:24px 12px;
+  min-height:215px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:13px;
+  margin:20px 0;
+}
+
+.person{
+  background:white;
+  border:1px solid #bad7ec;
+  border-radius:14px;
+  padding:12px;
+  flex:1;
+  max-width:160px;
+  animation:appear .35s both;
+}
+
+.person span{display:block;font-size:35px}
+.person b{font-size:12px}
+
+.person.top{
+  background:#124c9d;
+  color:white;
+  min-width:135px;
+}
+
+.line{height:21px;width:3px;background:#2696b2}
+
+.branch{
+  display:flex;
+  justify-content:space-evenly;
+  gap:10px;
+  width:100%;
+  max-width:520px;
+}
+
+.progress{
+  height:8px;
+  background:#e5eff8;
+  border-radius:30px;
+  overflow:hidden;
+  max-width:450px;
+  margin:16px auto;
+}
+
+.progress div{
+  height:100%;
+  width:25%;
+  background:linear-gradient(90deg,#1456a2,#10c4c6);
+  transition:width .3s;
+}
+
+.faq{
+  border:1px solid #dce8f2;
+  border-radius:13px;
+  margin:11px 0;
+  overflow:hidden;
+  text-align:left;
+}
+
+.faq button{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  border:0;
+  padding:18px;
+  width:100%;
+  background:#edf4fa;
+  text-align:left;
+  color:var(--navy);
+  font-size:15px;
+  font-weight:850;
+}
+
+.faq .answer{
+  padding:16px 18px;
+  font-size:14px;
+  line-height:1.7;
+  color:var(--muted);
+}
+
+.faq .answer[hidden]{display:none}
+
+.final{
+  background:linear-gradient(145deg,#061832,#0b4c99);
+  color:white;
+  text-align:center;
+  border-radius:25px;
+  padding:45px 20px;
+  margin:20px 0 35px;
+}
+
+.final .ey{color:var(--gold)}
+.final h2{font-size:clamp(29px,6vw,45px)}
+.final h2 span{color:#ffcc62}
+.final p{color:#d0e7fc}
+
+.note{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+  margin-top:15px;
+}
+
+footer{
+  text-align:center;
+  color:#6c8299;
+  padding:20px 20px 90px;
+  font-size:12px;
+}
+
+/* COMPARACIÓN DE MODELOS */
+.fx-comparacion{
+  font-family:Arial,sans-serif;
+  padding:24px 16px;
+  background:linear-gradient(140deg,#eaf8ff,#e2edfb);
+  border-radius:28px;
+  color:#15315b;
+  margin-top:20px;
+}
+
+.fx-modelo{text-align:center;margin-bottom:30px}
+
+.fx-modelo h2{
+  font-size:clamp(23px,4.5vw,34px);
+  font-weight:900;
+  margin:12px 0 22px;
+  color:#133568;
+}
+
+.fx-cadena{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:6px;
+  margin:20px 0;
+}
+
+.fx-nodo{
+  background:white;
+  border:2px solid #bcdaf1;
+  border-radius:20px;
+  padding:16px 5px;
+  text-align:center;
+  flex:1;
+  min-width:0;
+  box-shadow:0 7px 20px rgba(8,56,107,.08);
+  animation:fxAparecer .7s ease both;
+}
+
+.fx-nodo .fx-emoji{
+  font-size:clamp(28px,5vw,48px);
+  margin-bottom:10px;
+}
+
+.fx-nodo strong{
+  display:block;
+  font-size:clamp(10px,2vw,16px);
+}
+
+.fx-flecha{
+  color:#e3a52e;
+  font-size:clamp(17px,3.5vw,31px);
+  font-weight:900;
+  animation:fxFlecha 1.6s infinite;
+}
+
+.fx-costos{
+  background:white;
+  border-radius:20px;
+  padding:20px 12px;
+  margin:22px 0;
+  box-shadow:0 5px 20px rgba(14,68,117,.06);
+}
+
+.fx-costos h3{
+  font-size:20px;
+  margin:0 0 17px;
+  color:#134272;
+}
+
+.fx-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.fx-costo{
+  background:#eff6fc;
+  border:1px solid #d2e6f3;
+  border-radius:15px;
+  padding:16px 8px;
+  font-size:13px;
+  font-weight:750;
+  line-height:1.4;
+}
+
+.fx-costo span{
+  display:block;
+  font-size:35px;
+  margin-bottom:8px;
+}
+
+.fx-mensaje{
+  padding:20px;
+  background:#e0f6f4;
+  color:#07506a;
+  border-radius:18px;
+  font-size:clamp(14px,2.4vw,19px);
+  line-height:1.55;
+  font-weight:750;
+  margin-top:20px;
+}
+
+.fx-separador{
+  border-top:3px dashed #b0cfe0;
+  margin:40px 0;
+}
+
+.fx-recompensa{
+  margin-top:24px;
+  padding:23px 15px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#0a3377,#078fa8);
+  color:white;
+  text-align:center;
+}
+
+.fx-recompensa .fx-emoji{
+  font-size:55px;
+  animation:fxFlotar 3s ease-in-out infinite;
+}
+
+.fx-recompensa h3{
+  font-size:clamp(20px,4vw,29px);
+  margin:14px 0;
+  color:#ffdc82;
+}
+
+.fx-recompensa p{
+  font-size:15px;
+  line-height:1.7;
+  color:#e4f7ff;
+}
+
+.fx-destacado{
+  background:#fff5db;
+  color:#6d4a0c;
+  border-left:5px solid #efb83c;
+  padding:15px;
+  border-radius:10px;
+  font-size:14px;
+  line-height:1.6;
+  margin-top:18px;
+}
+
+/* VIDEO INTEGRADO */
+.video-negocio-fuxion{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(160deg,#ffffff,#eef8ff);
+  border:1px solid #d9eaf6;
+}
+
+.video-negocio-fuxion::before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background:rgba(17,182,198,.12);
+  right:-75px;
+  top:-75px;
+  pointer-events:none;
+}
+
+.video-etiqueta{
+  color:#078ba8;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.video-marco{
+  position:relative;
+  aspect-ratio:16/9;
+  background:#071b3b;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 12px 32px rgba(8,45,110,.2);
+  margin:25px auto;
+}
+
+.video-marco iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.video-contacto{
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:9px;
+  background:#25D366;
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:900;
+  border-radius:50px;
+  padding:15px 22px;
+  margin-top:13px;
+  box-shadow:0 7px 19px rgba(37,211,102,.22);
+  transition:transform .2s;
+}
+
+.video-contacto:hover{
+  transform:translateY(-3px);
+}
+
+/* WHATSAPP FLOTANTE */
+.whatsapp-flotante{
+  position:fixed;
+  bottom:25px;
+  right:20px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  font-family:Arial,sans-serif;
+}
+
+.whatsapp-texto{
+  background:#fff;
+  color:#16375a;
+  font-size:14px;
+  font-weight:bold;
+  padding:13px 16px;
+  border-radius:25px;
+  box-shadow:0 4px 18px rgba(0,0,0,.15);
+}
+
+.whatsapp-icono{
+  width:65px;
+  height:65px;
+  flex-shrink:0;
+  background:#25D366;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 22px rgba(37,211,102,.4);
+  animation:whatsappPulso 2.5s infinite;
+  transition:transform .3s ease;
+}
+
+.whatsapp-icono svg{
+  width:36px;
+  height:36px;
+  fill:white;
+}
+
+.whatsapp-flotante:hover .whatsapp-icono{
+  transform:scale(1.12);
+}
+
+/* ANIMACIONES */
+@keyframes float{
+  50%{transform:translateY(-12px)}
+}
+
+@keyframes pulse{
+  50%{opacity:.5;transform:translateX(4px)}
+}
+
+@keyframes appear{
+  from{opacity:0;transform:translateY(12px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes fxAparecer{
+  from{opacity:0;transform:translateY(17px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes fxFlecha{
+  50%{transform:translateX(4px);opacity:.55}
+}
+
+@keyframes fxFlotar{
+  50%{transform:translateY(-9px)}
+}
+
+@keyframes whatsappPulso{
+  0%,100%{
+    box-shadow:0 0 0 0 rgba(37,211,102,.45);
+  }
+  50%{
+    box-shadow:0 0 0 13px rgba(37,211,102,0);
+  }
+}
+
+/* CELULARES */
+@media(max-width:560px){
+  .hero{padding:42px 14px}
+  .section{padding:24px 13px}
+  .card{padding:14px 6px}
+  .card .emoji{font-size:33px}
+  .card b{font-size:12px}
+  .card small{font-size:11px}
+  .node b{font-size:9px}
+  .arrow{font-size:18px}
+
+  .fx-comparacion{padding:17px 9px}
+  .fx-nodo{padding:13px 3px;border-radius:13px}
+  .fx-nodo .fx-emoji{font-size:29px}
+  .fx-nodo strong{font-size:10px}
+  .fx-flecha{font-size:19px}
+  .fx-costo{font-size:12px;padding:13px 5px}
+
+  .video-marco{border-radius:12px}
+  .video-contacto{font-size:12px;padding:14px 17px}
+
+  .whatsapp-flotante{
+    bottom:18px;
+    right:15px;
+  }
+
+  .whatsapp-icono{
+    width:58px;
+    height:58px;
+  }
+
+  .whatsapp-texto{
+    font-size:11px;
+    padding:10px 12px;
+  }
+}
+
+@media(max-width:360px){
+  .whatsapp-texto{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PORTADA -->
+<header class="hero" id="inicio">
+  <div class="ey">FUXION</div>
+
+  <h1>
+    ¿Sabes qué es una
+    <span>red de mercadeo?</span>
+  </h1>
+
+  <p>
+    ¡Descubre una manera diferente de distribuir
+    productos y desarrollar un negocio!
+  </p>
+
+  <div class="hero-illustration">
+    🏭 🌐 🤝
+  </div>
+
+  <button class="btn" onclick="goTo('modelo')">
+    QUIERO ENTENDERLO ↓
+  </button>
+</header>
+
+<main class="container">
+
+<!-- 01 DISTRIBUCIÓN TRADICIONAL VS FUXION -->
+<section id="modelo" class="fx-comparacion">
+
+  <div class="fx-modelo">
+    <h2>🏬 DISTRIBUCIÓN TRADICIONAL</h2>
+
+    <div class="fx-cadena">
+      <div class="fx-nodo">
+        <div class="fx-emoji">🏭</div>
+        <strong>Fábrica</strong>
+      </div>
+
+      <span class="fx-flecha">➜</span>
+
+      <div class="fx-nodo">
+        <div class="fx-emoji">🚛</div>
+        <strong>Mayorista</strong>
+      </div>
+
+      <span class="fx-flecha">➜</span>
+
+      <div class="fx-nodo">
+        <div class="fx-emoji">🏬</div>
+        <strong>Tienda</strong>
+      </div>
+
+      <span class="fx-flecha">➜</span>
+
+      <div class="fx-nodo">
+        <div class="fx-emoji">😊</div>
+        <strong>Cliente</strong>
+      </div>
+    </div>
+
+    <div class="fx-costos">
+      <h3>💰 ¿Dónde se invierte el dinero?</h3>
+
+      <div class="fx-grid">
+        <div class="fx-costo">
+          <span>🚚</span>
+          Logística y distribución
+        </div>
+
+        <div class="fx-costo">
+          <span>📣</span>
+          Publicidad y marketing
+        </div>
+
+        <div class="fx-costo">
+          <span>🏬</span>
+          Establecimientos comerciales
+        </div>
+
+        <div class="fx-costo">
+          <span>🤝</span>
+          Márgenes de intermediarios
+        </div>
+      </div>
+    </div>
+
+    <div class="fx-mensaje">
+      En el comercio tradicional se destinan recursos
+      a publicidad, distribución y diferentes intermediarios
+      para llevar los productos hasta el consumidor.
+    </div>
+  </div>
+
+  <div class="fx-separador"></div>
+
+  <div class="fx-modelo">
+    <h2>🚀 MODELO FUXION</h2>
+
+    <div class="fx-cadena">
+      <div class="fx-nodo">
+        <div class="fx-emoji">🏭</div>
+        <strong>Fuxion</strong>
+      </div>
+
+      <span class="fx-flecha">➜</span>
+
+      <div class="fx-nodo">
+        <div class="fx-emoji">💼</div>
+        <strong>Emprendedor</strong>
+      </div>
+
+      <span class="fx-flecha">➜</span>
+
+      <div class="fx-nodo">
+        <div class="fx-emoji">😊</div>
+        <strong>Cliente</strong>
+      </div>
+    </div>
+
+    <div class="fx-recompensa">
+      <div class="fx-emoji">💰🤝🚀</div>
+
+      <h3>
+        ¡Aquí las personas también pueden participar
+        de los ingresos comerciales!
+      </h3>
+
+      <p>
+        Fuxion utiliza una red de emprendedores independientes
+        y destina parte de sus ingresos comerciales a
+        <strong>comisiones y bonificaciones</strong>
+        por ventas, desarrollo de clientes y actividad
+        comercial calificada, según el Plan PRO-LEV X.
+      </p>
+    </div>
+
+    <div class="fx-mensaje">
+      En lugar de depender de toda la cadena comercial
+      tradicional, Fuxion trabaja con personas que recomiendan,
+      venden y desarrollan redes comerciales.
+    </div>
+
+    <div class="fx-destacado">
+      <strong>✨ LA GRAN DIFERENCIA</strong>
+      <p>
+        En el modelo tradicional compras un producto.
+        En Fuxion también puedes convertirte en emprendedor
+        y participar en su distribución, con posibilidad
+        de generar ingresos por tu actividad comercial.
+      </p>
+    </div>
+
+    <p class="note">
+      Fuxion también mantiene costos de operación,
+      logística, comercialización y marketing.
+      Las bonificaciones están sujetas a requisitos
+      y no existen ingresos garantizados.
+    </p>
+  </div>
+</section>
+
+<!-- 02 POR QUÉ NO SUPERMERCADOS -->
+<section class="section">
+  <div class="ey">02 · ¿POR QUÉ NO SUPERMERCADOS?</div>
+  <h2>Porque Fuxion eligió otro canal comercial.</h2>
+
+  <div class="twocol">
+    <div class="card">
+      <div class="emoji">🏬</div>
+      <b>Supermercado</b>
+      <small>El producto se exhibe en una estantería.</small>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🤝</div>
+      <b>Red de mercadeo</b>
+      <small>Un emprendedor puede mostrarlo y explicarlo.</small>
+    </div>
+  </div>
+
+  <div class="art">
+    <div class="chain">
+      <div class="node">
+        <div class="emoji">📦</div><b>Fuxion</b>
+      </div>
+
+      <span class="arrow">→</span>
+
+      <div class="node">
+        <div class="emoji">👩‍💼</div><b>Emprendedor</b>
+      </div>
+
+      <span class="arrow">→</span>
+
+      <div class="node">
+        <div class="emoji">😊</div><b>Cliente</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="fact">
+    No significa que desaparezcan todos los gastos
+    ni que todo el dinero se reparta.
+    Cambia la manera de vender y remunerar
+    la actividad comercial.
+  </div>
+</section>
+
+<!-- 03 COMPENSACIONES -->
+<section class="section">
+  <div class="ey">03 · ¿QUÉ PASA CON EL DINERO?</div>
+  <h2>¿Quién recibe una compensación?</h2>
+  <p class="muted">Selecciona un modelo para descubrir cómo funciona.</p>
+
+  <div class="tabs">
+    <button id="tradTab" class="active"
+      onclick="showModel('traditional')">
+      🏬 Tradicional
+    </button>
+
+    <button id="fuxTab"
+      onclick="showModel('fuxion')">
+      🚀 Fuxion
+    </button>
+  </div>
+
+  <div class="explain" id="modelExplain" aria-live="polite">
+    <strong>
+      El canal tradicional tiene distintos participantes.
+    </strong>
+    <p>
+      Distribuidores y comercios cubren sus costos
+      y pueden obtener márgenes por su actividad comercial.
+    </p>
+  </div>
+
+  <div class="threecol">
+    <div class="card">
+      <div class="emoji">📦</div><b>Producto</b>
+    </div>
+    <div class="card">
+      <div class="emoji">🛒</div><b>Compra real</b>
+    </div>
+    <div class="card">
+      <div class="emoji">💰</div><b>Ingreso comercial</b>
+    </div>
+  </div>
+
+  <p class="note">
+    En Fuxion, las comisiones y bonos dependen
+    de las ventas, del volumen y del cumplimiento
+    del plan. No son ingresos garantizados.
+  </p>
+</section>
+
+<!-- 04 CONSUMIDOR O EMPRENDEDOR -->
+<section class="section">
+  <div class="ey">04 · TÚ DECIDES</div>
+  <h2>Ahora imagina que compraste productos Fuxion…</h2>
+  <p class="muted">Tienes dos caminos posibles.</p>
+
+  <div class="twocol">
+    <button class="choose" id="customerBtn"
+      aria-pressed="true" onclick="selectChoice(false)">
+      <div class="emoji">🛍️</div>
+      <b>OPCIÓN 1</b>
+      <small>Soy consumidor</small>
+    </button>
+
+    <button class="choose" id="businessBtn"
+      aria-pressed="false" onclick="selectChoice(true)">
+      <div class="emoji">🚀</div>
+      <b>OPCIÓN 2</b>
+      <small>Quiero emprender</small>
+    </button>
+  </div>
+
+  <div class="explain" id="choiceExplain" aria-live="polite">
+    <strong>😊 Compras para consumir.</strong>
+    <p>
+      Disfrutas tus productos y puedes volver a
+      comprarlos sin necesidad de vender
+      ni formar un equipo.
+    </p>
+  </div>
+</section>
+
+<!-- 05 CLIENTES Y EMPRENDEDORES -->
+<section class="section">
+  <div class="ey">05 · CLIENTES Y EMPRENDEDORES</div>
+  <h2>No todos cumplen el mismo papel.</h2>
+
+  <div class="threecol">
+    <div class="card">
+      <div class="emoji">😊</div>
+      <b>Cliente final</b>
+      <small>Registrado sin validación de datos.</small>
+    </div>
+
+    <div class="card">
+      <div class="emoji">📲</div>
+      <b>Cliente preferente</b>
+      <small>Registro validado y oficina virtual propia.</small>
+    </div>
+
+    <div class="card">
+      <div class="emoji">💼</div>
+      <b>Emprendedor</b>
+      <small>Puede vender y desarrollar una organización.</small>
+    </div>
+  </div>
+
+  <p class="note">
+    Clasificaciones basadas en el glosario del Plan PRO-LEV X.
+    Un consumidor no necesariamente es un Cliente Final
+    en la clasificación del sistema.
+  </p>
+</section>
+
+<!-- 06 RED INTERACTIVA -->
+<section class="section">
+  <div class="ey">06 · CONSTRUYE UNA RED</div>
+  <h2>¡Ahora descubre cómo crece!</h2>
+
+  <p class="muted">
+    Primero desarrollas clientes.
+    Luego puedes enseñar a otros emprendedores a vender.
+  </p>
+
+  <div class="network" id="network" aria-live="polite"></div>
+
+  <strong id="networkText">
+    Paso 1 · Comienzas como emprendedor.
+  </strong>
+
+  <div class="progress">
+    <div id="progressBar"></div>
+  </div>
+
+  <button class="btn blue" id="nextBtn"
+    onclick="nextStep()">
+    SIGUIENTE PASO →
+  </button>
+
+  <button class="btn alt"
+    onclick="resetNetwork()"
+    aria-label="Reiniciar la animación">
+    ↺
+  </button>
+
+  <p class="note">
+    Ejemplo educativo de organización comercial.
+    No representa una proyección de ingresos
+    ni crecimiento garantizado.
+  </p>
+</section>
+
+<!-- 07 CÓMO SE PUEDE GANAR DINERO -->
+<section class="section">
+  <div class="ey">07 · ¿CÓMO SE PUEDE GANAR DINERO?</div>
+  <h2>Dos actividades importantes.</h2>
+
+  <div class="twocol">
+    <div class="card">
+      <div class="emoji">🛒</div>
+      <b>Vender productos</b>
+      <small>
+        Desarrollas clientes y puedes obtener márgenes
+        o bonos según las condiciones comerciales.
+      </small>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🌐</div>
+      <b>Desarrollar equipo</b>
+      <small>
+        Enseñas a otros a vender y puedes calificar
+        a bonificaciones por actividad comercial.
+      </small>
+    </div>
+  </div>
+
+  <div class="art">
+    <div class="chain">
+      <div class="node">
+        <div class="emoji">😊</div><b>Clientes</b>
+      </div>
+
+      <span class="arrow">→</span>
+
+      <div class="node">
+        <div class="emoji">📊</div><b>Volumen</b>
+      </div>
+
+      <span class="arrow">→</span>
+
+      <div class="node">
+        <div class="emoji">🏅</div><b>Bonos*</b>
+      </div>
+    </div>
+  </div>
+
+  <p class="note">
+    *Sujeto al cumplimiento del Plan PRO-LEV X.
+    Los ingresos deben evaluarse descontando gastos
+    y no están garantizados.
+  </p>
+</section>
+
+<!-- NUEVA SECCIÓN: VIDEO DEL NEGOCIO -->
+<section class="section video-negocio-fuxion"
+  id="video-negocio">
+
+  <div class="video-etiqueta">
+    🎬 CONOCE LA OPORTUNIDAD
+  </div>
+
+  <h2>
+    🚀 ¡Descubre cómo funciona
+    el negocio Fuxion!
+  </h2>
+
+  <p class="muted">
+    Ya conoces el modelo de distribución directa.
+    Ahora mira este video y descubre
+    cómo puedes desarrollar un emprendimiento
+    con Fuxion.
+  </p>
+
+  <div class="video-marco">
+    <iframe
+      src="https://player.vimeo.com/video/1222521849?h=04eac26a86&amp;title=0&amp;byline=0&amp;portrait=0"
+      title="Presentación del negocio Fuxion"
+      loading="lazy"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <h3>¿Te gustaría conocer más?</h3>
+
+  <p class="muted">
+    Conversemos sobre cómo comenzar
+    tu emprendimiento con Fuxion.
+  </p>
+
+  <a
+    class="video-contacto"
+    href="https://wa.me/59177302270?text=Hola%2C%20vi%20el%20video%20del%20negocio%20Fuxion%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n."
+    target="_blank"
+    rel="noopener noreferrer">
+    💬 QUIERO MÁS INFORMACIÓN
+  </a>
+
+</section>
+
+<!-- 08 PREGUNTAS FRECUENTES -->
+<section class="section">
+  <div class="ey">08 · RESPUESTAS CLARAS</div>
+  <h2>Preguntas que todos se hacen.</h2>
+
+  <div class="faq">
+    <button aria-expanded="false" onclick="toggleFAQ(this)">
+      ¿Una red de mercadeo es una pirámide?
+      <span>+</span>
+    </button>
+    <div class="answer" hidden>
+      No necesariamente. Un multinivel legítimo
+      se sustenta en ventas reales a consumidores.
+      Si el dinero depende principalmente de incorporar
+      participantes y de sus pagos de ingreso,
+      existen señales de un esquema piramidal.
+    </div>
+  </div>
+
+  <div class="faq">
+    <button aria-expanded="false" onclick="toggleFAQ(this)">
+      ¿Necesito reclutar para vender?
+      <span>+</span>
+    </button>
+    <div class="answer" hidden>
+      No. Puedes enfocarte en vender productos
+      a clientes. Desarrollar un equipo es otra
+      actividad posible dentro del modelo.
+    </div>
+  </div>
+
+  <div class="faq">
+    <button aria-expanded="false" onclick="toggleFAQ(this)">
+      ¿Gano por afiliar personas?
+      <span>+</span>
+    </button>
+    <div class="answer" hidden>
+      No automáticamente. Las bonificaciones dependen
+      de las reglas del plan, las compras puntuables,
+      la actividad comercial y los requisitos
+      de calificación.
+    </div>
+  </div>
+
+  <div class="faq">
+    <button aria-expanded="false" onclick="toggleFAQ(this)">
+      ¿Por qué comprar mediante un emprendedor?
+      <span>+</span>
+    </button>
+    <div class="answer" hidden>
+      Porque puedes recibir información sobre productos,
+      orientación para comprar y seguimiento
+      de parte del emprendedor que te atiende.
+    </div>
+  </div>
+
+  <div class="faq">
+    <button aria-expanded="false" onclick="toggleFAQ(this)">
+      ¿Dónde está el dinero del negocio?
+      <span>+</span>
+    </button>
+    <div class="answer" hidden>
+      En las ventas y la actividad comercial.
+      Puedes desarrollar clientes y, si calificas,
+      obtener determinadas bonificaciones según
+      el volumen de tu organización.
+    </div>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<section class="final">
+  <div class="ey">AHORA LA PREGUNTA ES PARA TI</div>
+
+  <h2>
+    ¿Quieres ser solamente consumidor…
+    <span>o aprender a emprender?</span>
+  </h2>
+
+  <div style="font-size:60px;margin:25px 0">
+    🛍️ 🤝 🚀
+  </div>
+
+  <p>
+    Conocer el modelo es el primer paso.
+    Elegir cómo participar es tu decisión.
+  </p>
+
+  <div class="twocol">
+    <button class="btn" onclick="finalChoice(false)">
+      SOY CLIENTE
+    </button>
+
+    <button class="btn" onclick="finalChoice(true)">
+      QUIERO EMPRENDER
+    </button>
+  </div>
+
+  <div
+    id="finalMessage"
+    role="status"
+    style="display:none;background:#ffffff18;border:1px solid #ffffff40;border-radius:13px;padding:17px;margin-top:15px;font-size:14px;line-height:1.6">
+  </div>
+</section>
+
+</main>
+
+<footer>
+EDUCACIÓN Y EMPRENDIMIENTO
+</footer>
+
+<!-- WHATSAPP FLOTANTE EN TODA LA PÁGINA -->
+<a
+  href="https://wa.me/59177302270?text=Hola%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20Fuxion%20y%20su%20modelo%20de%20negocio."
+  class="whatsapp-flotante"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Contáctanos por WhatsApp">
+
+  <span class="whatsapp-texto">
+    ¡Contáctanos por WhatsApp!
+  </span>
+
+  <span class="whatsapp-icono">
+    <svg viewBox="0 0 32 32"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true">
+
+      <path d="M16 .8A15.1 15.1 0 0 0 3 23.5L.8 31.2l7.9-2.1A15.2 15.2 0 1 0 16 .8zm0 27.6a12.5 12.5 0 0 1-6.4-1.7l-.5-.3-4.7 1.2 1.3-4.5-.3-.5A12.6 12.6 0 1 1 16 28.4zm6.9-9.4c-.4-.2-2.2-1.1-2.6-1.2-.3-.1-.6-.2-.8.2-.3.4-1 1.2-1.4-.2-.2.2-.4.3-.8.1a10 10 0 0 1-3-1.9 11 11 0 0 1-2.1-2.6c-.2-.4 0-.6.2-.8l.6-.7.4-.6c.1-.2 0-.5 0-.7l-1.2-2.9c-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .5s-1.3 1.3-1.3 3.1 1.3 3.5 1.9 3.8 4.7 5.2a16 16 0 0 0 5.4 2.5 2.5 0 0 0 2.7-.8c.8-.9 1.1-1.8 1.2-2.1.1-.3 0-.5-.3-.7z"/>
+    </svg>
+  </span>
+</a>
+
+<!-- JAVASCRIPT -->
+<script>
+function goTo(id){
+  document.getElementById(id).scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+}
+
+function showModel(type){
+  const traditional=type==="traditional";
+
+  document.getElementById("tradTab")
+    .classList.toggle("active",traditional);
+
+  document.getElementById("fuxTab")
+    .classList.toggle("active",!traditional);
+
+  document.getElementById("modelExplain").innerHTML=traditional
+    ? `<strong>
+         El canal tradicional tiene distintos participantes.
+       </strong>
+       <p>
+         Distribuidores y comercios cubren sus costos
+         y pueden obtener márgenes por su actividad comercial.
+       </p>`
+    : `<strong>
+         Fuxion remunera determinadas actividades comerciales.
+       </strong>
+       <p>
+         Los emprendedores pueden obtener márgenes y bonos
+         bajo el Plan PRO-LEV X.
+         La empresa mantiene gastos logísticos,
+         operativos y comerciales.
+       </p>`;
+}
+
+function selectChoice(business){
+  document.getElementById("customerBtn")
+    .setAttribute("aria-pressed",String(!business));
+
+  document.getElementById("businessBtn")
+    .setAttribute("aria-pressed",String(business));
+
+  document.getElementById("choiceExplain").innerHTML=business
+    ? `<strong>
+         🚀 Compras, puedes vender y desarrollar equipo.
+       </strong>
+       <p>
+         Como emprendedor independiente desarrollas clientes
+         y puedes capacitar a una organización.
+         Las bonificaciones dependen del cumplimiento del plan.
+       </p>`
+    : `<strong>
+         😊 Compras para consumir.
+       </strong>
+       <p>
+         Disfrutas tus productos y puedes volver a comprarlos
+         sin necesidad de vender ni formar un equipo.
+       </p>`;
+}
+
+let step=0;
+
+function renderNetwork(){
+  let html=`
+    <div class="person top">
+      <span>🧑‍💼</span>
+      <b>TÚ</b>
+    </div>`;
+
+  if(step>=1){
+    html+=`
+      <div class="line"></div>
+      <div class="branch">
+        <div class="person">
+          <span>😊</span><b>CLIENTE 1</b>
+        </div>
+        <div class="person">
+          <span>😊</span><b>CLIENTE 2</b>
+        </div>
+        <div class="person">
+          <span>😊</span><b>CLIENTE 3</b>
+        </div>
+      </div>`;
+  }
+
+  if(step>=2){
+    html+=`
+      <div class="line"></div>
+      <div class="branch">
+        <div class="person" style="background:#fff2ce">
+          <span>💼</span><b>SOCIO A</b>
+        </div>
+        <div class="person" style="background:#fff2ce">
+          <span>💼</span><b>SOCIO B</b>
+        </div>
+      </div>`;
+  }
+
+  if(step>=3){
+    html+=`
+      <div class="line"></div>
+      <div class="branch">
+        <div class="person">
+          <span>🛒</span><b>CLIENTES A</b>
+        </div>
+        <div class="person">
+          <span>🛒</span><b>CLIENTES B</b>
+        </div>
+      </div>`;
+  }
+
+  document.getElementById("network").innerHTML=html;
+
+  const texts=[
+    "Paso 1 · Comienzas como emprendedor.",
+    "Paso 2 · Desarrollas clientes y ventas.",
+    "Paso 3 · Capacitas a otros emprendedores.",
+    "Paso 4 · Tu equipo desarrolla nuevas ventas."
+  ];
+
+  document.getElementById("networkText")
+    .textContent=texts[step];
+
+  document.getElementById("progressBar")
+    .style.width=((step+1)*25)+"%";
+
+  const next=document.getElementById("nextBtn");
+
+  next.disabled=step===3;
+
+  next.textContent=step===3
+    ? "RED COMPLETA ✓"
+    : "SIGUIENTE PASO →";
+
+  next.style.opacity=step===3?".5":"1";
+}
+
+function nextStep(){
+  step=Math.min(3,step+1);
+  renderNetwork();
+}
+
+function resetNetwork(){
+  step=0;
+  renderNetwork();
+}
+
+function toggleFAQ(button){
+  const answer=button.nextElementSibling;
+  const open=button.getAttribute("aria-expanded")==="true";
+
+  button.setAttribute("aria-expanded",String(!open));
+  answer.hidden=open;
+  button.querySelector("span").textContent=open?"+":"−";
+}
+
+function finalChoice(business){
+  const box=document.getElementById("finalMessage");
+  box.style.display="block";
+
+  box.textContent=business
+    ? "🚀 Puedes aprender sobre productos, ventas, clientes preferentes y las reglas del plan de negocio antes de decidir participar."
+    : "🛍️ Puedes conocer los productos del catálogo Fuxion y los canales de compra para consumo personal.";
+}
+
+renderNetwork();
+</script>
+
+</body>
+</html>
